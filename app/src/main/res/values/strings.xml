@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kotlin MVP</string>
+    <string name="loading">Loading…</string>
+
+    <string name="done">Done after five seconds!</string>
+    <string name="error">Error!</string>
+</resources>
