@@ -1,4 +1,4 @@
-package com.rocketinsights.kotlinmvp;
+package com.rocketinsights.android;
 
 import org.junit.Test;
 

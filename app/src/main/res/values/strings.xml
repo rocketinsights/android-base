@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin MVP</string>
+    <string name="app_name">Kotlin Base Project</string>
     <string name="loading">Loading…</string>
 
     <string name="done">Done after five seconds!</string>

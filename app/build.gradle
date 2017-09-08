@@ -1,12 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
+apply plugin: 'kotlin-kapt'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.google.com' }
+    maven { url "https://jitpack.io" }
+}
 
 android {
     compileSdkVersion 26
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.rocketinsights.kotlinmvp"
+        applicationId "com.rocketinsights.android"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -14,11 +22,29 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+}
+
+configurations {
+    ktlint
+}
+
+jacoco {
+    toolVersion = "0.7.5.201505241946"
 }
 
 dependencies {
@@ -26,11 +52,68 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support:design:26.0.2'
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    ktlint 'com.github.shyiko:ktlint:0.9.0'
+
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha9"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha9"
+    kapt "android.arch.lifecycle:compiler:1.0.0-alpha9"
+
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha9"
+    kapt "android.arch.persistence.room:compiler:1.0.0-alpha9"
+
+    //there's a conflict in the test libraries here, so we have to explicitly set these
+    testCompile 'org.jetbrains.kotlin:kotlin-reflect:1.1.1'
+    testCompile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.4-3'
+    testCompile("android.arch.core:core-testing:1.0.0-alpha9", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
 }
-repositories {
-    mavenCentral()
+
+task ktlint(type: JavaExec) {
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "src/**/*.kt"
+}
+
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec) {
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt"
+}
+
+task testReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    def fileFilter = ['**/R.class', '**/R$*.class',
+                      '**/BuildConfig.*', '**/Manifest*.*',
+                      'android/**/*.*', '**/Lambda$*.class', //Retrolambda
+                      '**/Lambda.class', '**/*Lambda.class',
+                      '**/*Lambda*.class', '**/*Lambda*.*',
+                      '**/*Builder.*', '**/*_MembersInjector.class', //Dagger2 generated code
+                      '**/*_MembersInjector*.*', //Dagger2 generated code
+                      '**/*_*Factory*.*', //Dagger2 generated code
+                      '**/*Component*.*', //Dagger2 generated code
+                      '**/*Module*.*', //Dagger2 generated code
+    ]
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug/com/patientslikeme/android", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.projectDir, includes:
+            ['**/*.exec', '**/*.ec'])
 }
