@@ -1,8 +1,7 @@
 # Rocket's Kotlin MVP Example
-
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
-The current version is trivial and needs to be expanded on.
+[![Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
 
 ## Application Installation
 Below are the instructions on how to install the Android app.
