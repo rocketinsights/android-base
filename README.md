@@ -1,4 +1,4 @@
-# Rocket's Kotlin MVP Example
+# Rocket's Kotlin Android Architecture Components Example
 
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
