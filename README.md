@@ -17,7 +17,7 @@ First, for any given device, it'll need to have installation from unknown source
 Next, there are a few ways to get the latest application.
 
 ### Via qa@yourdomainname.com
-Whenever the newest build is available, buddybuild emails qa@patientslikeme.com with a link to the latest apk. Tap on that link from the device. Once it has downloaded, tapping on the app should show a prompt to confirm the installation of the application. Occasionally, depending on device or manufacturer, you need to go to the Downloads application and install from there. If there's an issue installing from the mail application, try that.
+Whenever the newest build is available, buddybuild emails qa@yourdomainname.com with a link to the latest apk. Tap on that link from the device. Once it has downloaded, tapping on the app should show a prompt to confirm the installation of the application. Occasionally, depending on device or manufacturer, you need to go to the Downloads application and install from there. If there's an issue installing from the mail application, try that.
 
 ### Via Slack Channel
 Whenever a new build is available, the ﻿#androidslackchannel﻿ slack channel has an automated message sent to it. Open the link in that message from the device and follow the above instructions.
