@@ -27,3 +27,21 @@ If you want a specific build, let me (Android developer) know and I can have bud
 
 ### Via Android Studio
 If you get set up with Android Studio﻿ and the GitHub repo﻿ on your local machine, you'll be able to install it directly from there. If you need help with this, feel free to let me (again, Android developer) know and I'd be happy to walk you through it.
+
+# Continuous Integration
+There are a few options for different CI solutions. In addition to a custom Jenkins setup, a few are listed below with pros and cons.
+
+### Bitrise
+[Bitrise](https://www.bitrise.io) has a variety of [open source build steps](https://github.com/bitrise-io). One of the big features is having secure keystore download and signing built into the platform. In addition, UI tests are included and easy to set up.
+
+### CircleCI (WIP)
+Lateral View uses [CircleCI](https://circleci.com) for their projects and it came strongly recommended. One thing that was a bit of a hangup is that UI tests took some configuration to get working and using a secure keystore wasn't available out of the box. One advantage of Circle is that they support many different platforms so could be a central location for all CI.
+
+### Travis CI (WIP)
+I had a lot of trouble getting UI tests running on [Travis](https://travis-ci.com). When trying to use the default recommendations from the standard documentation, I wasn't able to get it running, unfortunately.
+
+### App Center (WIP)
+When researching, I had read somewhere that [App Center](https://appcenter.ms) doesn't support building pull requests at this time. Maybe I shouldn't have believed it because that was very surprising. It appears that that is no longer the case, so I'll need to revisit it.
+
+### Nevercode (WIP)
+The biggest issue I found with [Nevercode](https://nevercode.io/) is that it didn't seem customizable and it didn't run UI tests. It was slow while initially setting up, but then ran without issue. I didn't dive into code signing because I couldn't find much documentation about it.
