@@ -1,4 +1,5 @@
-# Rocket's Kotlin MVP Example
+# Rocket's Kotlin Android Architecture Components Example
+
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
 [![Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
