@@ -4,6 +4,8 @@ This is the first version of a mock application that hopefully will evolve into 
 
 [![Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms)
+
 ## Application Installation
 Below are the instructions on how to install the Android app.
 
