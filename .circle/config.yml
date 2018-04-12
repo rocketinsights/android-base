@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
         post:
-          - cp -r licenses/. $ANDROID_HOME/licenses
+          - yes | sdkmanager --licenses
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 #      - run:
