@@ -4,6 +4,8 @@ This is the first version of a mock application that hopefully will evolve into 
 
 [![Bitrise Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
 
+[![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg)](https://circleci.com/gh/rocketinsights/android-base)
+
 ## Application Installation
 Below are the instructions on how to install the Android app.
 
