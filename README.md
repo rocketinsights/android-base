@@ -6,6 +6,8 @@ This is the first version of a mock application that hopefully will evolve into 
 
 [![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg)](https://circleci.com/gh/rocketinsights/android-base)
 
+[![App Center Build Status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms)
+
 ## Application Installation
 Below are the instructions on how to install the Android app.
 
