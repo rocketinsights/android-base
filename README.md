@@ -8,6 +8,8 @@ This is the first version of a mock application that hopefully will evolve into 
 
 [![App Center Build Status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms)
 
+[![Travis Build Status](https://travis-ci.com/rocketinsights/android-base.svg?token=HUkRE8RunPYqyTqAocsA&branch=master)](https://travis-ci.com/rocketinsights/android-base)
+
 ## Application Installation
 Below are the instructions on how to install the Android app.
 
