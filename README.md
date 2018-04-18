@@ -2,7 +2,13 @@
 
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
-The current version is trivial and needs to be expanded on.
+[![Bitrise Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
+
+[![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg)](https://circleci.com/gh/rocketinsights/android-base)
+
+[![App Center Build Status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms)
+
+[![Travis Build Status](https://travis-ci.com/rocketinsights/android-base.svg?token=HUkRE8RunPYqyTqAocsA&branch=master)](https://travis-ci.com/rocketinsights/android-base)
 
 ## Application Installation
 Below are the instructions on how to install the Android app.
