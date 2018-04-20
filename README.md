@@ -4,9 +4,9 @@ This is the first version of a mock application that hopefully will evolve into 
 
 [![Bitrise Build Status](https://www.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://www.bitrise.io/app/edf2965e90d6ca81)
 
-[![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg)](https://circleci.com/gh/rocketinsights/android-base)
+[![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg&circle-token=bd395430a4c3e2741c39f8b305be451bf1655e15)](https://circleci.com/gh/rocketinsights/android-base)
 
-[![App Center Build Status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms)
+[![App Center Build Status](https://build.appcenter.ms/v0.1/apps/72d0a1ef-6191-4f2e-b136-35f445fa383f/branches/master/badge)](https://appcenter.ms/orgs/Rocket-Insights/apps/Base-Android-App/build)
 
 [![Travis Build Status](https://travis-ci.com/rocketinsights/android-base.svg?token=HUkRE8RunPYqyTqAocsA&branch=master)](https://travis-ci.com/rocketinsights/android-base)
 
