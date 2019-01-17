@@ -1,9 +1,9 @@
 package com.rocketinsights.android.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.rocketinsights.android.R
 import com.rocketinsights.android.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
