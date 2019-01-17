@@ -60,18 +60,18 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     testImplementation 'junit:junit:4.12'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    ktlint 'com.github.shyiko:ktlint:0.9.0'
+    ktlint 'com.github.shyiko:ktlint:0.29.0'
 
-    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     implementation "android.arch.lifecycle:runtime:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     kapt "android.arch.lifecycle:compiler:1.1.1"
 
-    implementation "android.arch.persistence.room:runtime:1.1.0-beta1"
-    kapt "android.arch.persistence.room:compiler:1.1.0-beta1"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //there's a conflict in the test libraries here, so we have to explicitly set these
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
