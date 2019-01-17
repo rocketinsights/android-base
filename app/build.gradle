@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'jacoco'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.ben-manes.versions'
 
 repositories {
     mavenCentral()

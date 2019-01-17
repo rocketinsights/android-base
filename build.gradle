@@ -18,6 +18,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'org.owasp:dependency-check-gradle:4.0.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
     }
 }
 
