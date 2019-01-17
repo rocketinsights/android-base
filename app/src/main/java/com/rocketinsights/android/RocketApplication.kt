@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import timber.log.Timber
 
-class RocketApplication: Application() {
+class RocketApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
