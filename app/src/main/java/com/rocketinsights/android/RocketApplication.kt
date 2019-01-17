@@ -2,6 +2,7 @@ package com.rocketinsights.android
 
 import android.app.Application
 import com.rocketinsights.android.viewmodels.MainViewModel
+import com.squareup.leakcanary.LeakCanary
 import org.koin.android.ext.android.startKoin
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -10,6 +11,10 @@ import timber.log.Timber
 class RocketApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
 
         startKoin(this, listOf(module {
             viewModel { MainViewModel(this@RocketApplication) }
