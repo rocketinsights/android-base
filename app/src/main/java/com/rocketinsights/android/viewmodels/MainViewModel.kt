@@ -7,9 +7,6 @@ import android.os.Handler
 import com.rocketinsights.android.R
 import com.rocketinsights.android.models.Message
 
-/**
- * Created by brian on 8/21/17.
- */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val message = MutableLiveData<Message>()
 
