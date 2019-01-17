@@ -14,5 +14,9 @@ class RocketApplication: Application() {
         startKoin(this, listOf(module {
             viewModel { MainViewModel(this@RocketApplication) }
         }))
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }
