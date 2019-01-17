@@ -14,9 +14,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val message = MutableLiveData<Message>()
 
     init {
-        message.value = Message(application.getString(R.string.loading))
+        message.postValue(Message(application.getString(R.string.loading)))
         Handler().postDelayed({
-            message.value = Message(application.getString(R.string.done))
+            message.postValue(Message(application.getString(R.string.done)))
         }, 5000)
     }
 }
