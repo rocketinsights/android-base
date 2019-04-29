@@ -17,13 +17,28 @@ workflows:
     - git-clone@4.0.7: {}
     - cache-pull@2.0.1: {}
     - script@1.1.5:
-        title: Do anything with Script step
+        title: Run Linters
+        inputs:
+          - content: |-
+              #!/usr/bin/env bash
+              # fail if any commands fails
+              set -e
+              # debug log
+              set -x
+
+              # write your script here
+              ./gradlew clean
+              ./gradlew ktlint
+              ./gradlew lintRelease
     - install-missing-android-tools@2.1.1: {}
     - gradle-runner@1.8.2:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
         - gradle_task: clean assembleRelease
         - gradlew_path: "$GRADLEW_PATH"
+    - gradle-unit-test@1.0.5:
+        inputs:
+          - unit_test_task: testDebugUnitTest
     - deploy-to-bitrise-io@1.3.10: {}
     - cache-push@2.0.5: {}
   primary:
