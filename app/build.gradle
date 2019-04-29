@@ -56,7 +56,6 @@ dependencies {
     })
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
     implementation 'com.google.android.material:material:1.1.0-alpha05'
-    testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
 
@@ -88,6 +87,10 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    testImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
 }
 
 task ktlint(type: JavaExec) {
@@ -104,7 +107,7 @@ task ktlintFormat(type: JavaExec) {
     args "-F", "src/**/*.kt"
 }
 
-task testReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+task testReport(type: JacocoReport, dependsOn: ["testDebugUnitTest", "createDebugCoverageReport"]) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
     reports {
