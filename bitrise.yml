@@ -49,7 +49,7 @@ workflows:
       - gradle-runner@1.8.5:
           inputs:
             - gradle_file: "$GRADLE_BUILD_FILE_PATH"
-            - gradle_task: clean assembleDebug
+            - gradle_task: clean assembleDebug assembleDebugAndroidTest
             - gradlew_path: "$GRADLEW_PATH"
       - android-unit-test@0.9.6: {}
       - virtual-device-testing-for-android@1.0.5:
