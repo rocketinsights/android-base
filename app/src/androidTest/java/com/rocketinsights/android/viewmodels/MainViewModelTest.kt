@@ -19,7 +19,7 @@ class MainViewModelTest {
     fun getMessage() {
         val viewModel = MainViewModel(activity.activity.application)
         Assert.assertNotNull(viewModel.message)
-        Assert.assertEquals(Message( "Loading…"), viewModel.message.value)
+        Assert.assertEquals(Message("Loading…"), viewModel.message.value)
     }
 
     @Test
@@ -27,6 +27,6 @@ class MainViewModelTest {
         val viewModel = MainViewModel(activity.activity.application)
 
         Thread.sleep(5500)
-        Assert.assertEquals(Message( "Done after five seconds!"), viewModel.message.value)
+        Assert.assertEquals(Message("Done after five seconds!"), viewModel.message.value)
     }
 }
