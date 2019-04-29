@@ -18,6 +18,7 @@ class MainViewModelTest {
     @Test
     fun getMessage() {
         val viewModel = MainViewModel(activity.activity.application)
+        Thread.sleep(50)
         Assert.assertNotNull(viewModel.message)
         Assert.assertEquals(Message("Loading…"), viewModel.message.value)
     }
