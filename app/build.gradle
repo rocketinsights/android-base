@@ -108,7 +108,7 @@ task ktlintFormat(type: JavaExec) {
     args "-F", "src/**/*.kt"
 }
 
-task testReport(type: JacocoReport, dependsOn: ["testDebugUnitTest", "createDebugCoverageReport"]) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ["testDebugUnitTest", "createDebugCoverageReport"]) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
     reports {
