@@ -1,21 +1,31 @@
 package com.rocketinsights.android.ui
 
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.rocketinsights.android.R
-import com.rocketinsights.android.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModel()
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel.message.observe(this, Observer { data ->
-            message.text = data?.text
-        })
+        val layout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar_layout)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        navController = findNavController(R.id.navHostFragment)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        layout.setupWithNavController(toolbar, navController, appBarConfiguration)
     }
+
+    override fun onSupportNavigateUp() =
+            navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 }
