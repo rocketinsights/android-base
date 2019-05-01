@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.rocketinsights.android.MainFragment"
+        android:name="com.rocketinsights.android.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.rocketinsights.android.SecondFragment"
+        android:name="com.rocketinsights.android.ui.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second"/>
 </navigation>

@@ -1,4 +1,4 @@
-package com.rocketinsights.android
+package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.rocketinsights.android.R
 import com.rocketinsights.android.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
