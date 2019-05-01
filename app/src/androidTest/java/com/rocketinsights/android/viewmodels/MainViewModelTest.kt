@@ -28,6 +28,6 @@ class MainViewModelTest {
         val viewModel = MainViewModel(activity.activity.application)
 
         Thread.sleep(5500)
-        Assert.assertEquals(Message("Done after five seconds!"), viewModel.message.value)
+        Assert.assertEquals(Message("Done after a delay! Tap to go to second view…"), viewModel.message.value)
     }
 }
