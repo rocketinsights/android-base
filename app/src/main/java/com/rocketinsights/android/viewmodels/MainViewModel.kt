@@ -15,7 +15,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         message.postValue(Message(application.getString(R.string.loading)))
         viewModelScope.launch {
-            delay(5000)
+            delay(2000)
             message.postValue(Message(application.getString(R.string.done)))
         }
     }
