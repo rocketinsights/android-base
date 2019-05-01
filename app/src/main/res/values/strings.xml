@@ -6,4 +6,5 @@
     <string name="error">Error!</string>
 
     <string name="second_fragment">Now you\'re in the second fragment!</string>
+    <string name="stock_image">stock image</string>
 </resources>
