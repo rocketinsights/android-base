@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.rocketinsights.android.viewmodels.MainViewModel
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "First Fragment"
         mainViewModel.message.observe(this, Observer { data ->
             message.text = data?.text
 
