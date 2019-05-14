@@ -9,17 +9,19 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.doReturn
 import com.rocketinsights.android.R
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Rule
+import java.util.concurrent.Executors
 
+@ExperimentalCoroutinesApi
 class MainViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     private val app = mock<Application> {
         on { getString(R.string.loading) } doReturn "Loading…"
@@ -27,7 +29,7 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(Executors.newSingleThreadExecutor().asCoroutineDispatcher())
     }
 
     @Test
@@ -43,7 +45,7 @@ class MainViewModelTest {
             on { getMessageAsync() } doReturn GlobalScope.async { Message("Done!") }
         })
 
-        Thread.sleep(2010)
+        Thread.sleep(2100)
         Assert.assertEquals(Message("Done!"), viewModel.message.value)
     }
 }
