@@ -9,11 +9,10 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.rocketinsights.android.R
+import com.rocketinsights.android.ext.toDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.async
 import kotlinx.coroutines.test.setMain
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -50,7 +49,7 @@ class MainViewModelTest {
     @Test
     fun getDelayedMessage() {
         val viewModel = MainViewModel(app, mock {
-            on { getMessageAsync() } doReturn GlobalScope.async { Message("Done!") }
+            on { getMessageAsync() } doReturn Message("Done!").toDeferred()
         })
 
         // don't do this normally, we just have an artificial delay in our view model
