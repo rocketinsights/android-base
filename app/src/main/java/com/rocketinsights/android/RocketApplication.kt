@@ -1,6 +1,8 @@
 package com.rocketinsights.android
 
 import android.app.Application
+import com.rocketinsights.android.network.ApiService
+import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.squareup.leakcanary.LeakCanary
 import org.koin.android.ext.android.startKoin
@@ -17,7 +19,9 @@ class RocketApplication : Application() {
         LeakCanary.install(this)
 
         startKoin(this, listOf(module {
-            viewModel { MainViewModel(this@RocketApplication) }
+            single { ApiService.getApiService() }
+            single { MessageRepository(get()) }
+            viewModel { MainViewModel(this@RocketApplication, get()) }
         }))
 
         if (BuildConfig.DEBUG) {

@@ -3,7 +3,8 @@
     <string name="loading">Loading…</string>
 
     <string name="done">Done after a delay! Tap to go to second view…</string>
-    <string name="error">Error!</string>
+    <string name="http_error">Whoops, looks like something went wrong.</string>
+    <string name="unknown_error">Something else went wrong!</string>
 
     <string name="second_fragment">Now you\'re in the second fragment!</string>
     <string name="stock_image">stock image</string>
