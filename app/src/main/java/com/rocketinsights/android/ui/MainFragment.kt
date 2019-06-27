@@ -13,10 +13,11 @@ import com.bumptech.glide.Glide
 import com.rocketinsights.android.R
 import com.rocketinsights.android.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by currentScope.viewModel(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
