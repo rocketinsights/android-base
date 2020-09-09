@@ -23,6 +23,8 @@ class SecondFragment : Fragment() {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
                 TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+        (activity as? MainActivity)?.memoryLeakFragment = this
     }
 
     override fun onResume() {
