@@ -1,34 +1,31 @@
 package com.rocketinsights.android.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.rocketinsights.android.R
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.rocketinsights.android.databinding.FragmentSecondBinding
+import com.rocketinsights.android.extensions.viewBinding
 
-class SecondFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? =
-            inflater.inflate(R.layout.fragment_second, container, false)
+class SecondFragment : Fragment(R.layout.fragment_second) {
+    private val binding by viewBinding(FragmentSecondBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
-                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Second Fragment"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        updateUI()
+    }
 
-        Glide.with(this).load(R.drawable.stock_image).centerCrop().into(stockImage)
+    private fun updateUI() {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Second Fragment"
+        Glide.with(this).load(R.drawable.stock_image).centerCrop().into(binding.stockImage)
     }
 }
