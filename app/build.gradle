@@ -30,11 +30,35 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
+
+            minifyEnabled false
+            shrinkResources false
         }
         release {
-            minifyEnabled false
+            // Use default Signing Config - CI System set the production signing configs.
+            signingConfig signingConfigs.debug
+
+            minifyEnabled true
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             proguardFiles fileTree('proguard-libs').asList().toArray()
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension "default"
+
+            manifestPlaceholders = [appName: "@string/app_name_dev"]
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+
+        prod {
+            dimension "default"
+
+            manifestPlaceholders = [appName: "@string/app_name"]
         }
     }
     // Enables view binding.
