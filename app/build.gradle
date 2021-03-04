@@ -1,11 +1,13 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'jacoco'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'androidx.navigation.safeargs'
-apply from: 'jacoco.gradle'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'jacoco'
+    id 'androidx.navigation.safeargs'
+    id 'com.github.ben-manes.versions'
+}
 
+apply from: 'jacoco.gradle'
 // If code style check fails do not try to make a build
 apply from: 'lint.gradle'
 
@@ -63,7 +65,7 @@ ext {
     koin_version = "2.2.2"
     appCompat_version = "1.2.0"
     material_design_version = "1.3.0"
-    coroutines_version = "1.4.2"
+    coroutines_version = "1.4.3"
     timber_version = "4.7.1"
     moshi_version = "1.11.0"
     retrofit_version = "2.9.0"
