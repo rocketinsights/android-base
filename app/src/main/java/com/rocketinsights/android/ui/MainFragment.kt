@@ -2,7 +2,6 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -29,7 +28,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             val extras = FragmentNavigatorExtras(
                 binding.stockImage to "stockImage"
             )
-            findNavController().navigate(R.id.actionGrowTransition, null, null, extras)
+            findNavController().navigate(MainFragmentDirections.actionGrowTransition(), extras)
         }
     }
 
@@ -39,13 +38,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.stockImage.visibility = View.VISIBLE
 
             binding.message.setOnClickListener {
-                findNavController().navigate(R.id.actionSlideTransition)
+                findNavController().navigate(MainFragmentDirections.actionSlideTransition())
             }
         })
     }
 
     private fun updateUI() {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "First Fragment"
         Glide.with(this).load(R.drawable.stock_image).centerCrop().into(binding.stockImage)
     }
 }

@@ -8,4 +8,6 @@
 
     <string name="second_fragment">Now you\'re in the second fragment!</string>
     <string name="stock_image">stock image</string>
+    <string name="title_second_fragment">Second Fragment</string>
+    <string name="title_first_fragment">First Fragment</string>
 </resources>

@@ -2,7 +2,6 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
@@ -25,7 +24,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     }
 
     private fun updateUI() {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Second Fragment"
         Glide.with(this).load(R.drawable.stock_image).centerCrop().into(binding.stockImage)
     }
 }
