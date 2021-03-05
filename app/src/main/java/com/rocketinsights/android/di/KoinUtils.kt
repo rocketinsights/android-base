@@ -5,8 +5,6 @@ import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.repos.MessageRepository
-import com.rocketinsights.android.ui.common.StringResProvider
-import com.rocketinsights.android.ui.common.StringResProviderImpl
 import com.rocketinsights.android.viewmodels.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,6 +12,8 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+
+private const val API_BASE_URL = "http://www.mocky.io/v2/"
 
 fun Application.initKoin() {
     startKoin {
@@ -23,11 +23,15 @@ fun Application.initKoin() {
 }
 
 private fun networkModule() = module {
-    single<ApiService> {
+    single<Retrofit> {
         Retrofit.Builder()
-            .baseUrl(ApiService.BASE_URL)
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
-            .build().create(ApiService::class.java)
+            .build()
+    }
+
+    single<ApiService> {
+        get<Retrofit>().create(ApiService::class.java)
     }
 }
 
@@ -37,6 +41,5 @@ private fun repositoryModule() = module {
 }
 
 private fun scopeModules() = module {
-    single<StringResProvider> { StringResProviderImpl(get()) }
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get()) }
 }

@@ -1,13 +1,10 @@
 package com.rocketinsights.android.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.rocketinsights.android.R
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
-import com.rocketinsights.android.ui.common.StringResProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -34,11 +31,6 @@ class MainViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
-    private val stringRes = mock<StringResProvider> {
-        on { getString(R.string.loading) } doReturn "Loading…"
-        on { getString(R.string.http_error) } doReturn "Http Error"
-        on { getString(R.string.unknown_error) } doReturn "Unknown Error"
-    }
     private val repo = mock<MessageRepository>()
 
     @Before
@@ -49,11 +41,11 @@ class MainViewModelTest {
     @Test
     fun getMessage() = testCoroutineScope.runBlockingTest {
         // act
-        val viewModel = MainViewModel(repo, stringRes)
+        val viewModel = MainViewModel(repo)
 
         // assert
         assertNotNull(viewModel.message)
-        assertEquals(Message("Loading…"), viewModel.message.value)
+        assertEquals(MainFragmentMessage.Loading, viewModel.message.value)
     }
 
     @Test
@@ -62,11 +54,11 @@ class MainViewModelTest {
         whenever(repo.getMessage()).thenReturn(Message("Done!"))
 
         // act
-        val viewModel = MainViewModel(repo, stringRes)
+        val viewModel = MainViewModel(repo)
 
         // assert
         delay(2100)
-        assertEquals(Message("Done!"), viewModel.message.value)
+        assertEquals(MainFragmentMessage.Success(Message("Done!")), viewModel.message.value)
     }
 
     @Test
@@ -74,26 +66,28 @@ class MainViewModelTest {
         // arrange
         val errorResponse: Response<Message> =
             Response.error(500, ResponseBody.create(MediaType.parse("application/json"), ""))
-        whenever(repo.getMessage()).thenThrow(HttpException(errorResponse))
+        val error = HttpException(errorResponse)
+        whenever(repo.getMessage()).thenThrow(error)
 
         // act
-        val viewModel = MainViewModel(repo, stringRes)
+        val viewModel = MainViewModel(repo)
 
         // assert
         delay(2100)
-        assertEquals(Message("Http Error"), viewModel.message.value)
+        assertEquals(MainFragmentMessage.Error(error), viewModel.message.value)
     }
 
     @Test
     fun getDelayedMessageUnknownError() = testCoroutineScope.runBlockingTest {
         // arrange
-        whenever(repo.getMessage()).thenThrow(IOError(Throwable()))
+        val error = IOError(Throwable())
+        whenever(repo.getMessage()).thenThrow(error)
 
         // act
-        val viewModel = MainViewModel(repo, stringRes)
+        val viewModel = MainViewModel(repo)
 
         // assert
         delay(2100)
-        assertEquals(Message("Unknown Error"), viewModel.message.value)
+        assertEquals(MainFragmentMessage.Error(error), viewModel.message.value)
     }
 }

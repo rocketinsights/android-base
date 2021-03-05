@@ -9,9 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentMainBinding
+import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.HttpException
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
@@ -35,8 +38,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun setupObservers() {
         mainViewModel.message.observe(viewLifecycleOwner, { data ->
-            binding.message.text = data?.text
-            binding.stockImage.visibility = View.VISIBLE
+            when (data) {
+                is MainFragmentMessage.Loading -> binding.message.text = getString(R.string.loading)
+                is MainFragmentMessage.Success -> binding.message.text = data.message.text
+                is MainFragmentMessage.Error -> binding.message.text =
+                    if (data.exception is HttpException) getString(R.string.http_error)
+                    else getString(R.string.unknown_error)
+            }
+
+            binding.stockImage.show()
 
             binding.message.setOnClickListener {
                 findNavController().navigate(R.id.actionSlideTransition)
