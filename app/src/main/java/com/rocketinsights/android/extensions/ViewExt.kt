@@ -1,7 +1,9 @@
 package com.rocketinsights.android.extensions
 
 import android.view.View
-import android.view.View.*
+import android.view.View.VISIBLE
+import android.view.View.INVISIBLE
+import android.view.View.GONE
 
 fun View.show() {
     if (visibility == VISIBLE) return
