@@ -1,34 +1,40 @@
 package com.rocketinsights.android.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rocketinsights.android.R
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import timber.log.Timber
+
+private const val ERROR_GET_MESSAGE = "Error getting messages from the remote API."
 
 class MainViewModel(
-    application: Application,
     private val repo: MessageRepository
-) : AndroidViewModel(application) {
-    val message = MutableLiveData<Message>()
+) : ViewModel() {
+
+    private val _message = MutableLiveData<MainFragmentMessage>(MainFragmentMessage.Loading)
+    val message: LiveData<MainFragmentMessage> = _message
 
     init {
-        message.postValue(Message(application.getString(R.string.loading)))
         viewModelScope.launch {
-            delay(2000)
+            delay(2000) // just to simulate 2 sec delay - remove from production code
             try {
-                val m = repo.getMessageAsync().await()
-                message.postValue(m)
-            } catch (e: HttpException) {
-                message.postValue(Message(application.getString(R.string.http_error)))
+                val m = repo.getMessage()
+                _message.value = MainFragmentMessage.Success(m)
             } catch (e: Throwable) {
-                message.postValue(Message(application.getString(R.string.unknown_error)))
+                _message.value = MainFragmentMessage.Error(e)
+                Timber.e(e, ERROR_GET_MESSAGE)
             }
         }
     }
+}
+
+sealed class MainFragmentMessage {
+    object Loading : MainFragmentMessage()
+    data class Success(val message: Message) : MainFragmentMessage()
+    data class Error(val exception: Throwable) : MainFragmentMessage()
 }
