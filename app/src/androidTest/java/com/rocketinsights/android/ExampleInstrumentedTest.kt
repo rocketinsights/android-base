@@ -20,6 +20,10 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = ApplicationProvider.getApplicationContext<RocketApplication>()
 
-        assertEquals("com.rocketinsights.android", appContext.packageName)
+        if (BuildConfig.FLAVOR == "dev") {
+            assertEquals("com.rocketinsights.android.dev", appContext.packageName)
+        } else {
+            assertEquals("com.rocketinsights.android", appContext.packageName)
+        }
     }
 }
