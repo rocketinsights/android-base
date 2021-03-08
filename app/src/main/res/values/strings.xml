@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Kotlin Base Project</string>
+    <string name="app_name">Rocket Base Project</string>
+    <string name="app_name_dev">[DEV] Rocket Base Project</string>
+
     <string name="loading">Loading…</string>
 
     <string name="done">Done after a delay! Tap to go to second view…</string>
