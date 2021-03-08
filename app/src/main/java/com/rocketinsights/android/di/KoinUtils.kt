@@ -1,8 +1,10 @@
 package com.rocketinsights.android.di
 
 import android.app.Application
+import androidx.room.Room
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
+import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.viewmodels.MainViewModel
@@ -13,12 +15,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val API_BASE_URL = "http://www.mocky.io/v2/"
+private const val API_BASE_URL = "https://run.mocky.io/v3/"
 
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
-        modules(listOf(networkModule(), repositoryModule(), scopeModules()))
+        modules(listOf(networkModule(), databaseModule(), repositoryModule(), scopeModules()))
     }
 }
 
@@ -35,9 +37,21 @@ private fun networkModule() = module {
     }
 }
 
+private fun databaseModule() = module {
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            Database::class.java,
+            Database.NAME
+        ).build()
+    }
+
+    single { get<Database>().messageDao() }
+}
+
 private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
-    single { MessageRepository(get(), get()) }
+    single { MessageRepository(get(), get(), get()) }
 }
 
 private fun scopeModules() = module {

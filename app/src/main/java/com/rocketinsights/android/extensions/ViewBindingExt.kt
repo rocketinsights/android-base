@@ -2,6 +2,7 @@ package com.rocketinsights.android.extensions
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -39,3 +40,6 @@ fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<
             binding = null
         }
     }
+
+inline fun <T : ViewBinding> ViewGroup.viewBinding(inflate: (LayoutInflater, ViewGroup, Boolean) -> T) =
+    inflate(LayoutInflater.from(context), this, false)
