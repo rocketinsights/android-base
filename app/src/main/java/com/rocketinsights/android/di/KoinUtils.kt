@@ -8,6 +8,7 @@ import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.viewmodels.MainViewModel
+import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -56,4 +57,5 @@ private fun repositoryModule() = module {
 
 private fun scopeModules() = module {
     viewModel { MainViewModel(get()) }
+    viewModel { MessagesViewModel(get()) }
 }

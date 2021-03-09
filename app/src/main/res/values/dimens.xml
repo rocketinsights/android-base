@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="tall_toolbar_height">300dp</dimen>
+    <dimen name="progress_bar_size">40dp</dimen>
 </resources>

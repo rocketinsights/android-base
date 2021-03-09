@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rocketinsights.android.R
 import com.rocketinsights.android.adapters.MessagesAdapter
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
+import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.viewmodels.MessagesFragmentState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,8 +49,26 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
     }
 
     private fun setupObservers() {
+        // observe messages
         viewModel.messages.observe(viewLifecycleOwner) { messages ->
             messagesAdapter.submitList(messages)
+        }
+
+        // observe UI state
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MessagesFragmentState.Loading -> {
+                    binding.loadingProgressBar.show()
+                }
+                is MessagesFragmentState.Success -> {
+                    binding.loadingProgressBar.hide()
+                }
+                is MessagesFragmentState.Error -> {
+                    binding.loadingProgressBar.hide()
+                    val message = state.exception.getIOErrorMessage(requireContext())
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

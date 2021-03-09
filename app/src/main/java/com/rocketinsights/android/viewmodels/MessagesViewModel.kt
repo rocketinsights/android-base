@@ -3,11 +3,11 @@ package com.rocketinsights.android.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,13 +20,16 @@ class MessagesViewModel(
     private val _viewState = MutableLiveData<MessagesFragmentState>(MessagesFragmentState.Loading)
     val viewState: LiveData<MessagesFragmentState> = _viewState
 
-    private val _messages = MutableLiveData<List<Message>>(emptyList())
-    val messages: LiveData<List<Message>> = _messages
+    val messages: LiveData<List<Message>> = repo.getMessages().asLiveData()
 
     init {
+        refreshMessages()
+    }
+
+    private fun refreshMessages() {
+        _viewState.value = MessagesFragmentState.Loading
         viewModelScope.launch {
             try {
-                repo.getMessages().collect { messageList -> _messages.value = messageList }
                 delay(2000) // just to simulate 2 sec delay - remove from production code
                 repo.refreshMessages()
                 _viewState.value = MessagesFragmentState.Success
