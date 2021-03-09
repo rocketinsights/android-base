@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="500dp"
-    android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.MainFragment">
 
@@ -16,7 +14,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="@dimen/main_message_margin_top"
         android:text="@string/loading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +23,8 @@
     <ImageView
         android:id="@+id/stockImage"
         android:layout_marginTop="50dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/main_image_size"
+        android:layout_height="@dimen/main_image_size"
         android:visibility="gone"
         tools:visibility="visible"
         android:transitionName="stockImage"
