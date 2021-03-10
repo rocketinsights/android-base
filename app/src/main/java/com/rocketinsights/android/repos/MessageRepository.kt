@@ -30,5 +30,3 @@ class MessageRepository(private val api: ApiService, private val messageDao: Mes
             .map { it.toMessages() }
             .flowOn(dispatcher.io())
 }
-
-
