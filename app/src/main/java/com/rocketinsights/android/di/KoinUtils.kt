@@ -8,11 +8,13 @@ import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.managers.InternetManager
+import com.rocketinsights.android.managers.PermissionsManager
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
+import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -66,6 +68,7 @@ private fun managersModule() = module {
             androidContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         )
     }
+    factory { PermissionsManager(get()) }
 }
 
 private fun repositoryModule() = module {
@@ -77,4 +80,5 @@ private fun scopeModules() = module {
     viewModel { MainViewModel(get()) }
     viewModel { MessagesViewModel(get()) }
     viewModel { ConnectivityViewModel(get()) }
+    viewModel { PermissionsViewModel(get()) }
 }
