@@ -26,7 +26,7 @@ class MessagesViewModel(
         refreshMessages()
     }
 
-    private fun refreshMessages() {
+    fun refreshMessages() {
         _viewState.value = MessagesFragmentState.Loading
         viewModelScope.launch {
             try {
