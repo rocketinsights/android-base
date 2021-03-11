@@ -15,7 +15,7 @@ android:
     - build-tools-26.0.2
 
     # The SDK version used to compile your project
-    - android-22
+    - android-23
     - android-26
 
     # Additional components
@@ -26,7 +26,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-24
 
 env:
   global:
