@@ -32,6 +32,9 @@ class MainViewModelTest {
     private val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
     private val repo = mock<MessageRepository>()
+    private val id = 1L
+    private val text = "Done!"
+    private val timestamp = 1234567L
 
     @Before
     fun setUp() {
@@ -51,14 +54,15 @@ class MainViewModelTest {
     @Test
     fun getDelayedMessage() = testCoroutineScope.runBlockingTest {
         // arrange
-        whenever(repo.getMessage()).thenReturn(Message("Done!"))
+        val message = Message(id = id, text = text, timestamp = timestamp)
+        whenever(repo.getMessage()).thenReturn(message)
 
         // act
         val viewModel = MainViewModel(repo)
 
         // assert
         delay(2100)
-        assertEquals(MainFragmentMessage.Success(Message("Done!")), viewModel.message.value)
+        assertEquals(MainFragmentMessage.Success(message), viewModel.message.value)
     }
 
     @Test

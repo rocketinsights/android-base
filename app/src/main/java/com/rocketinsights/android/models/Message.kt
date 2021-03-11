@@ -1,6 +1,7 @@
 package com.rocketinsights.android.models
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
-data class Message(var text: String? = null)
+data class Message(
+    val id: Long = 0L,
+    val text: String = "",
+    val timestamp: Long = System.currentTimeMillis()
+)
