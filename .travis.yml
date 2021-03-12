@@ -30,11 +30,11 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
 
-before_script:
-  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi google_apis/armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - travis_wait 20 adb shell input keyevent 82 &
+# before_script:
+#  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi google_apis/armeabi-v7a
+#  - emulator -avd test -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - travis_wait 20 adb shell input keyevent 82 &
 
 script:
   - ./gradlew build check
