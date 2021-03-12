@@ -1,12 +1,22 @@
 package com.rocketinsights.android.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.rocketinsights.android.auth.AuthManager
+import com.rocketinsights.android.auth.FirebaseAuthManager
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.network.ApiService
+import com.rocketinsights.android.prefs.SharedPrefs
+import com.rocketinsights.android.prefs.SharedPrefsImpl
+import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
+import com.rocketinsights.android.ui.MainFragment
+import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.android.ext.koin.androidContext
@@ -21,7 +31,7 @@ private const val API_BASE_URL = "https://run.mocky.io/v3/"
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
-        modules(listOf(networkModule(), databaseModule(), repositoryModule(), scopeModules()))
+        modules(listOf(networkModule(), databaseModule(), repositoryModule(), authModule(), scopeModules()))
     }
 }
 
@@ -53,9 +63,22 @@ private fun databaseModule() = module {
 private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
     single { MessageRepository(get(), get(), get()) }
+    single<SharedPrefs> { SharedPrefsImpl(get()) }
+    single { AuthRepository(get(), get(), get()) }
 }
 
 private fun scopeModules() = module {
     viewModel { MainViewModel(get()) }
     viewModel { MessagesViewModel(get()) }
+    scope<MainFragment> {
+        scoped { FirebaseAuth.getInstance() }
+        scoped { AuthUI.getInstance() }
+        scoped<AuthManager> { (context: Context) ->
+            FirebaseAuthManager(context, get(), get())
+        }
+    }
+}
+
+private fun authModule() = module {
+    viewModel { AuthViewModel(get()) }
 }
