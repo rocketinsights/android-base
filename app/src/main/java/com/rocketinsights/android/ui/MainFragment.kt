@@ -1,8 +1,11 @@
 package com.rocketinsights.android.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -27,6 +30,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val locationViewModel: LocationViewModel by viewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
+
+    private val requestGpsSwitchOn =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            // We don't need to do anything
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,11 +115,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     )
                 }
                 is LocationResult.GpsOff -> {
-                    // TODO Request GPS to turn on
-                    // startIntentForResult(locationManager.askLocationAccessIntent(), REQUEST_LOCATION_ACCESS)
+                    requestGpsSwitchOn.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 }
                 is LocationResult.Error -> {
-                    requireContext().showToast("Error checking user location")
+                    requireContext().showToast(getString(R.string.location_error))
                 }
             }
         })
