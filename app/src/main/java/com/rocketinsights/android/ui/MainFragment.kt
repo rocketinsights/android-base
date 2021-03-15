@@ -80,10 +80,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             it.getContentIfNotHandled()?.let {
                 when (it) {
                     is PermissionsResult.PermissionsGranted -> {
-                        requireContext().showToast("Permission granted :)")
+                        requireContext().showToast(getString(R.string.permissions_granted))
                     }
                     is PermissionsResult.PermissionsError -> {
-                        requireContext().showToast("Permission denied :(")
+                        requireContext().showToast(getString(R.string.permissions_denied))
                     }
                 }
             }

@@ -7,6 +7,6 @@
             android:title="@string/messages" />
         <item
             android:id="@+id/request_permissions"
-            android:title="@string/request_permissions" />
+            android:title="@string/permissions_request" />
     </group>
 </menu>
