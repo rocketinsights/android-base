@@ -8,6 +8,9 @@
     <!--Internet Manager-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!--Location-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:name=".RocketApplication"
         android:allowBackup="true"

@@ -15,6 +15,11 @@
     <string name="title_first_fragment">First Fragment</string>
     <string name="messages">Messages</string>
 
+    <!--Permissions-->
+    <string name="permissions_request">Request Permissions</string>
+    <string name="permissions_granted">Permissions granted :)</string>
+    <string name="permissions_denied">Permissions denied :(</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="parallax_image">Parallax image</string>
