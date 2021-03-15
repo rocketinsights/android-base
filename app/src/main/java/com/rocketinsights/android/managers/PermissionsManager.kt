@@ -12,15 +12,24 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class PermissionsManager(
-    private val context: Context
-) {
-    open class Exception : RuntimeException() {
-        class PermissionsDenied(deniedPermissions: List<String>) : Exception()
-        class PermissionPermanentlyDeniedException(deniedPermissions: List<String>) : Exception()
-    }
+open class Exception : RuntimeException() {
+    class PermissionsDenied(deniedPermissions: List<String>) : Exception()
+    class PermissionPermanentlyDeniedException(deniedPermissions: List<String>) : Exception()
+}
 
-    fun hasPermissions(vararg permissions: String): Boolean {
+interface PermissionsManager {
+    fun hasPermissions(vararg permissions: String): Boolean
+
+    suspend fun requestPermissions(activity: AppCompatActivity, vararg permissions: String)
+
+    suspend fun requestPermissions(fragment: Fragment, vararg permissions: String)
+}
+
+class PermissionsManagerImpl(
+    private val context: Context
+): PermissionsManager {
+
+    override fun hasPermissions(vararg permissions: String): Boolean {
         permissions.forEach {
             if (ContextCompat.checkSelfPermission(context, it) != PERMISSION_GRANTED) {
                 return false
@@ -30,7 +39,7 @@ class PermissionsManager(
         return true
     }
 
-    suspend fun requestPermissions(activity: AppCompatActivity, vararg permissions: String): Unit =
+    override suspend fun requestPermissions(activity: AppCompatActivity, vararg permissions: String): Unit =
         suspendCoroutine { cont ->
             activity.runWithPermissions(*permissions,
                 options = permissionsRequestOptions(cont)) {
@@ -38,7 +47,7 @@ class PermissionsManager(
             }
         }
 
-    suspend fun requestPermissions(fragment: Fragment, vararg permissions: String): Unit =
+    override suspend fun requestPermissions(fragment: Fragment, vararg permissions: String): Unit =
         suspendCoroutine { cont ->
             fragment.runWithPermissions(*permissions,
                 options = permissionsRequestOptions(cont)) {

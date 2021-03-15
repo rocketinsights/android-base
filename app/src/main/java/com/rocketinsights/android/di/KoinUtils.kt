@@ -9,6 +9,7 @@ import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.managers.InternetManager
 import com.rocketinsights.android.managers.PermissionsManager
+import com.rocketinsights.android.managers.PermissionsManagerImpl
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
@@ -68,7 +69,7 @@ private fun managersModule() = module {
             androidContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         )
     }
-    factory { PermissionsManager(get()) }
+    factory<PermissionsManager> { PermissionsManagerImpl(get()) }
 }
 
 private fun repositoryModule() = module {
