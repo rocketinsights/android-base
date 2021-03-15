@@ -20,6 +20,10 @@
     <string name="permissions_granted">Permissions granted :)</string>
     <string name="permissions_denied">Permissions denied :(</string>
 
+    <!--Location-->
+    <string name="location_request_current">Request Location</string>
+    <string name="location_current">Your current location is %s</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="parallax_image">Parallax image</string>

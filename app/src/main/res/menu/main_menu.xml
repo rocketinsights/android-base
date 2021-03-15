@@ -8,5 +8,8 @@
         <item
             android:id="@+id/request_permissions"
             android:title="@string/permissions_request" />
+        <item
+            android:id="@+id/request_location"
+            android:title="@string/location_request_current" />
     </group>
 </menu>

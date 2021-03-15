@@ -172,6 +172,10 @@ dependencies {
     // Permissions
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.1'
 
+    // Location
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
+    implementation "com.google.android.gms:play-services-location:18.0.0"
+
     // Test
     // Unit testing framework
     androidTestImplementation "com.android.support.test:rules:$test_rule_version"

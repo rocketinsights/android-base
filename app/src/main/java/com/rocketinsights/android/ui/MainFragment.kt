@@ -1,6 +1,5 @@
 package com.rocketinsights.android.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +14,8 @@ import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.viewmodels.LocationResult
+import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
@@ -24,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val permissionsViewModel: PermissionsViewModel by viewModel()
+    private val locationViewModel: LocationViewModel by viewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +44,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         return when (item.itemId) {
             R.id.messages_fragment -> item.onNavDestinationSelected(findNavController())
             R.id.request_permissions -> {
-                permissionsViewModel.requestPermission(
+                permissionsViewModel.requestPermissions(
                     this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
+                    *LocationViewModel.LOCATION_PERMISSIONS
                 )
+                true
+            }
+            R.id.request_location -> {
+                locationViewModel.retrieveCurrentLocation()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -85,6 +91,27 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     is PermissionsResult.PermissionsError -> {
                         requireContext().showToast(getString(R.string.permissions_denied))
                     }
+                }
+            }
+        })
+
+        locationViewModel.locationState.observe(viewLifecycleOwner, {
+            when (it) {
+                is LocationResult.Location -> {
+                    requireContext().showToast(getString(R.string.location_current, it.latLng))
+                }
+                is LocationResult.PermissionsNeeded -> {
+                    permissionsViewModel.requestPermissions(
+                        this,
+                        *LocationViewModel.LOCATION_PERMISSIONS
+                    )
+                }
+                is LocationResult.GpsOff -> {
+                    // TODO Request GPS to turn on
+                    // startIntentForResult(locationManager.askLocationAccessIntent(), REQUEST_LOCATION_ACCESS)
+                }
+                is LocationResult.Error -> {
+                    requireContext().showToast("Error checking user location")
                 }
             }
         })
