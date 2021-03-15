@@ -27,7 +27,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val authViewModel: AuthViewModel by sharedViewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
-    private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext())})
+    private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
     private lateinit var loginMenuItem: MenuItem
     private lateinit var logoutMenuItem: MenuItem
 
@@ -76,7 +76,6 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
 
     private fun setupObservers() {
         observeMessage()
-        observeAuthToken()
     }
 
     private fun observeMessage() {
@@ -84,7 +83,8 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
             when (data) {
                 is MainFragmentMessage.Loading -> binding.message.text = getString(R.string.loading)
                 is MainFragmentMessage.Success -> binding.message.text = data.message.text
-                is MainFragmentMessage.Error -> binding.message.text = data.exception.getIOErrorMessage(requireContext())
+                is MainFragmentMessage.Error -> binding.message.text =
+                    data.exception.getIOErrorMessage(requireContext())
             }
 
             binding.stockImage.show()
@@ -92,12 +92,6 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
             binding.message.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionSlideTransition())
             }
-        }
-    }
-
-    private fun observeAuthToken() {
-        authViewModel.authToken.observe(viewLifecycleOwner) { token ->
-            token?.let { authViewModel.refreshAuthToken(it) }
         }
     }
 

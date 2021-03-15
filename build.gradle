@@ -2,11 +2,11 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.4.30'
+        kotlin_version = '1.4.31'
         gradle_version = '4.1.2'
         dependency_check_version = '6.1.1'
         gradle_versions_version = '0.36.0'
-        navigation_version = "2.3.3"
+        navigation_version = "2.3.4"
         google_services_version = "4.3.5"
     }
     repositories {

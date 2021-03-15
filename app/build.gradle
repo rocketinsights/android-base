@@ -107,6 +107,7 @@ ext {
     mockito_inline_version = "2.28.2"
     firebase_version = "26.6.0"
     firebase_ui_version = "7.1.1"
+    kotlinx_coroutines_play_services_version = "1.4.3"
 }
 
 jacoco {
@@ -166,6 +167,8 @@ dependencies {
     // Firebase
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_version"
+    // Source: https://github.com/Kotlin/kotlinx.coroutines/tree/master/integration/kotlinx-coroutines-play-services
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$kotlinx_coroutines_play_services_version"
 
     //Leak detection
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"

@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.rocketinsights.android.auth.AuthManager
+import com.rocketinsights.android.auth.AuthUserLiveData
 import com.rocketinsights.android.auth.FirebaseAuthManager
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
@@ -31,7 +32,15 @@ private const val API_BASE_URL = "https://run.mocky.io/v3/"
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
-        modules(listOf(networkModule(), databaseModule(), repositoryModule(), authModule(), scopeModules()))
+        modules(
+            listOf(
+                networkModule(),
+                databaseModule(),
+                repositoryModule(),
+                authModule(),
+                scopeModules()
+            )
+        )
     }
 }
 
@@ -64,14 +73,14 @@ private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
     single { MessageRepository(get(), get(), get()) }
     single<SharedPrefs> { SharedPrefsImpl(get()) }
-    single { AuthRepository(get(), get(), get()) }
+    single { FirebaseAuth.getInstance() }
+    single { AuthRepository(get(), get(), get(), get()) }
 }
 
 private fun scopeModules() = module {
     viewModel { MainViewModel(get()) }
     viewModel { MessagesViewModel(get()) }
     scope<MainFragment> {
-        scoped { FirebaseAuth.getInstance() }
         scoped { AuthUI.getInstance() }
         scoped<AuthManager> { (context: Context) ->
             FirebaseAuthManager(context, get(), get())
@@ -80,5 +89,6 @@ private fun scopeModules() = module {
 }
 
 private fun authModule() = module {
-    viewModel { AuthViewModel(get()) }
+    factory { AuthUserLiveData(get()) }
+    viewModel { AuthViewModel(get(), get()) }
 }

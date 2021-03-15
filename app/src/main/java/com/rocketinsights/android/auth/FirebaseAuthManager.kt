@@ -27,7 +27,7 @@ class FirebaseAuthManager(
         context.startActivity(
             authUI.createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .build(),
+                .build()
         )
     }
 

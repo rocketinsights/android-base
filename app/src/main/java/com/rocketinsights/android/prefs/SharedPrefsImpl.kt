@@ -10,7 +10,7 @@ class SharedPrefsImpl(context: Context) : SharedPrefs {
     private val sharedPref =
         context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
 
-    override fun getAuthToken(): String = sharedPref.getString(AUTH_TOKEN_KEY,"")?:""
+    override fun getAuthToken(): String = sharedPref.getString(AUTH_TOKEN_KEY, "") ?: ""
 
     override fun setAuthToken(token: String) {
         sharedPref.edit()

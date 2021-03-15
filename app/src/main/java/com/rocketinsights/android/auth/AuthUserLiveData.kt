@@ -8,9 +8,7 @@ import com.google.firebase.auth.FirebaseUser
  * This class observes the current authenticated user.
  * If there is no logged in user, AuthUser will be null.
  */
-class AuthUserLiveData : LiveData<AuthUser?>() {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
+class AuthUserLiveData(private val firebaseAuth: FirebaseAuth) : LiveData<AuthUser?>() {
 
     private val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
         value = firebaseAuth.currentUser?.toAuthUser()
