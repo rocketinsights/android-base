@@ -36,11 +36,6 @@ class LocationManagerImpl(
      */
     private val isMockLocationAllowed: Boolean = false
 ) : LocationManager {
-    companion object {
-        const val TAG = "LocationManager"
-        val EMPTY_LOCATION = LatLng(0.0, 0.0)
-    }
-
     private var locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     private var locationSettings: SettingsClient = LocationServices.getSettingsClient(context)
@@ -183,9 +178,5 @@ class LocationManagerImpl(
 
     override fun stopLocationUpdates() {
         locationCallbacks.forEach { locationCallback -> locationClient.removeLocationUpdates(locationCallback) }
-    }
-
-    override fun stop() {
-        stopLocationUpdates()
     }
 }

@@ -36,8 +36,6 @@ interface LocationManager {
 
     fun stopLocationUpdates()
 
-    fun stop()
-
     enum class DistanceUnit(val multiplier: Double) {
         METERS(1.0),
         MILES(0.000621371),
