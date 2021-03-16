@@ -49,31 +49,14 @@ class LocationManagerImpl(
 
     override fun canGetLocation(): Boolean {
         val androidLocationManager = getAndroidLocationManager()
-
-        var isNetworkEnabled = false
-        var isGpsEnabled = isGpsEnabled()
-
-        // exceptions will be thrown if provider is not permitted.
-        try {
-            isNetworkEnabled = androidLocationManager?.
-            isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER) ?: false
-        } catch (ex: Exception) {
-            // Nothing need
-        }
-
+        val isGpsEnabled = isGpsEnabled()
+        val isNetworkEnabled = androidLocationManager?.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)
+            ?: false
         return isGpsEnabled || isNetworkEnabled
     }
 
-    override fun isGpsEnabled(): Boolean {
-        val androidLocationManager = getAndroidLocationManager()
-
-        return try {
-            androidLocationManager?.
-            isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ?: false
-        } catch (ex: Exception) {
-            false
-        }
-    }
+    override fun isGpsEnabled() = getAndroidLocationManager()?.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)
+        ?: false
 
     private fun getAndroidLocationManager() =
         context.getSystemService(Context.LOCATION_SERVICE) as android.location.LocationManager?
@@ -91,7 +74,6 @@ class LocationManagerImpl(
             endLatLng.latitude,
             endLatLng.longitude,
             distanceInMeters)
-
         return distanceInMeters[0] * unit.multiplier
     }
 
@@ -119,11 +101,10 @@ class LocationManagerImpl(
     }
 
     @SuppressLint("CheckResult")
-    override suspend fun getFirstLocationUpdate(): LatLng {
-        val firstLocationUpdate = startLocationUpdates().first()
-        stopLocationUpdates()
-        return firstLocationUpdate
-    }
+    override suspend fun getFirstLocationUpdate() = startLocationUpdates().first()
+        .apply {
+            stopLocationUpdates()
+        }
 
     @SuppressLint("MissingPermission")
     private fun requestLocationUpdates(): Flow<LatLng> {
