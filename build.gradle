@@ -4,18 +4,14 @@ buildscript {
     ext {
         kotlin_version = '1.4.30'
         gradle_version = '4.1.2'
-        dependency_check_version = '6.1.2'
+        dependency_check_version = '6.1.1'
         gradle_versions_version = '0.36.0'
         navigation_version = "2.3.3"
-
     }
     repositories {
         jcenter()
         google()
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
