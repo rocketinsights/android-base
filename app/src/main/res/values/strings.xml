@@ -7,12 +7,19 @@
     <string name="done">Done after a delay! Tap to go to second view…</string>
     <string name="http_error">Whoops, looks like something went wrong.</string>
     <string name="unknown_error">Something else went wrong!</string>
+    <string name="connectivity_offline">There is no connectivity available</string>
 
     <string name="second_fragment">Now you\'re in the second fragment!</string>
     <string name="stock_image">stock image</string>
     <string name="title_second_fragment">Second Fragment</string>
     <string name="title_first_fragment">First Fragment</string>
     <string name="messages">Messages</string>
+
+    <!--Permissions-->
+    <string name="permissions_request">Request Permissions</string>
+    <string name="permissions_granted">Permissions granted :)</string>
+    <string name="permissions_denied">Permissions denied :(</string>
+
     <string name="parallax_image">Parallax image</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>

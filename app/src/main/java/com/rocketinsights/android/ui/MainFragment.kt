@@ -1,5 +1,6 @@
 package com.rocketinsights.android.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,18 +15,22 @@ import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentMainBinding
 import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.show
+import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.rocketinsights.android.viewmodels.PermissionsResult
+import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MainFragment : ScopeFragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val authViewModel: AuthViewModel by sharedViewModel()
+    private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
     private lateinit var loginMenuItem: MenuItem
@@ -53,6 +58,13 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.messages_fragment -> item.onNavDestinationSelected(findNavController())
+            R.id.request_permissions -> {
+                permissionsViewModel.requestPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                true
+            }
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true
@@ -93,6 +105,19 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
                 findNavController().navigate(MainFragmentDirections.actionSlideTransition())
             }
         }
+
+        permissionsViewModel.permissionsResult.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
+                when (it) {
+                    is PermissionsResult.PermissionsGranted -> {
+                        requireContext().showToast(getString(R.string.permissions_granted))
+                    }
+                    is PermissionsResult.PermissionsError -> {
+                        requireContext().showToast(getString(R.string.permissions_denied))
+                    }
+                }
+            }
+        })
     }
 
     private fun updateUI() {

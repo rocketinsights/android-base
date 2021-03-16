@@ -2,6 +2,7 @@ package com.rocketinsights.android.di
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.room.Room
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -11,6 +12,9 @@ import com.rocketinsights.android.auth.FirebaseAuthManager
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
+import com.rocketinsights.android.managers.InternetManager
+import com.rocketinsights.android.managers.PermissionsManager
+import com.rocketinsights.android.managers.PermissionsManagerImpl
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.prefs.AuthLocalStore
 import com.rocketinsights.android.prefs.AuthLocalStoreImpl
@@ -20,8 +24,10 @@ import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
 import com.rocketinsights.android.viewmodels.AuthViewModel
+import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
+import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -38,6 +44,7 @@ fun Application.initKoin() {
             listOf(
                 networkModule(),
                 databaseModule(),
+                managersModule(),
                 repositoryModule(),
                 authModule(),
                 scopeModules()
@@ -71,6 +78,15 @@ private fun databaseModule() = module {
     single { get<Database>().messageDao() }
 }
 
+private fun managersModule() = module {
+    single {
+        InternetManager(
+            androidContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        )
+    }
+    factory<PermissionsManager> { PermissionsManagerImpl(get()) }
+}
+
 private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
     single { MessageRepository(get(), get(), get()) }
@@ -94,4 +110,6 @@ private fun authModule() = module {
     single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
     factory { AuthUserLiveData(get()) }
     viewModel { AuthViewModel(get(), get()) }
+    viewModel { ConnectivityViewModel(get()) }
+    viewModel { PermissionsViewModel(get()) }
 }

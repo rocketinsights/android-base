@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +11,18 @@ import com.rocketinsights.android.R
 import com.rocketinsights.android.adapters.MessagesAdapter
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
 import com.rocketinsights.android.extensions.getIOErrorMessage
+import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.managers.InternetManager
+import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MessagesFragmentState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MessagesFragment : Fragment(R.layout.fragment_messages) {
-
     private val binding by viewBinding(FragmentMessagesBinding::bind)
     private val viewModel by viewModel<MessagesViewModel>()
+    private val connectivityViewModel by viewModel<ConnectivityViewModel>()
     private lateinit var messagesAdapter: MessagesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +68,18 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
                 is MessagesFragmentState.Error -> {
                     binding.loadingProgressBar.hide()
                     val message = state.exception.getIOErrorMessage(requireContext())
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    requireContext().showToast(message)
+                }
+            }
+        }
+
+        // observe connectivity status
+        connectivityViewModel.status.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { status ->
+                if (status == InternetManager.ConnectivityStatus.CONNECTED) {
+                    viewModel.refreshMessages()
+                } else {
+                    requireContext().showToast(getString(R.string.connectivity_offline))
                 }
             }
         }
