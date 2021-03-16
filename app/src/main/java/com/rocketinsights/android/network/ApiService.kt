@@ -13,7 +13,11 @@ interface ApiService {
     @GET("9b58f48a-048a-4676-a888-ffbeb5e7b762")
     suspend fun getMessages(): List<ApiMessage>
 
+    /**
+     * Post authorization [token] to dedicated backed API where user would be created/updated
+     * based on the token data.
+     */
     @FormUrlEncoded
     @POST("8a532566-f1be-476c-8078-bc44ca42cbd9")
-    suspend fun refreshToken(@Field("token") token: String)
+    suspend fun setAuthToken(@Field("token") token: String)
 }

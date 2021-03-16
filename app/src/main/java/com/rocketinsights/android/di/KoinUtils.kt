@@ -12,8 +12,10 @@ import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.network.ApiService
-import com.rocketinsights.android.prefs.SharedPrefs
-import com.rocketinsights.android.prefs.SharedPrefsImpl
+import com.rocketinsights.android.prefs.AuthLocalStore
+import com.rocketinsights.android.prefs.AuthLocalStoreImpl
+import com.rocketinsights.android.prefs.LocalStore
+import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
@@ -72,8 +74,6 @@ private fun databaseModule() = module {
 private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
     single { MessageRepository(get(), get(), get()) }
-    single<SharedPrefs> { SharedPrefsImpl(get()) }
-    single { FirebaseAuth.getInstance() }
     single { AuthRepository(get(), get(), get(), get()) }
 }
 
@@ -89,6 +89,9 @@ private fun scopeModules() = module {
 }
 
 private fun authModule() = module {
+    single { FirebaseAuth.getInstance() }
+    single<LocalStore> { LocalStoreImpl(get()) }
+    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
     factory { AuthUserLiveData(get()) }
     viewModel { AuthViewModel(get(), get()) }
 }

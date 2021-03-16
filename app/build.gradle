@@ -108,6 +108,7 @@ ext {
     firebase_version = "26.6.0"
     firebase_ui_version = "7.1.1"
     kotlinx_coroutines_play_services_version = "1.4.3"
+    datastore_version = "1.0.0-alpha08"
 }
 
 jacoco {
@@ -170,7 +171,10 @@ dependencies {
     // Source: https://github.com/Kotlin/kotlinx.coroutines/tree/master/integration/kotlinx-coroutines-play-services
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$kotlinx_coroutines_play_services_version"
 
-    //Leak detection
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    // Leak detection
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_canary_version"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leak_canary_version"
