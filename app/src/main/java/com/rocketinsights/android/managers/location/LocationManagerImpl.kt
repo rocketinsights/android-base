@@ -28,6 +28,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+@SuppressLint("MissingPermission")
 class LocationManagerImpl(
     private val context: Context,
     /**
@@ -76,7 +77,6 @@ class LocationManagerImpl(
         return distanceInMeters[0] * unit.multiplier
     }
 
-    @SuppressLint("MissingPermission")
     override suspend fun getLastLocation(): LatLng {
         checkLocationSettings(locationRequest)
         return suspendCoroutine { cont ->
@@ -99,13 +99,11 @@ class LocationManagerImpl(
         return requestLocationUpdates()
     }
 
-    @SuppressLint("CheckResult")
     override suspend fun getFirstLocationUpdate() = startLocationUpdates()
         .onCompletion {
             stopLocationUpdates()
         }.first()
 
-    @SuppressLint("MissingPermission")
     private fun requestLocationUpdates(): Flow<LocationUpdate> {
         val updates = MutableSharedFlow<LocationUpdate>(
             replay = 0,
@@ -138,13 +136,15 @@ class LocationManagerImpl(
     }
 
     override suspend fun getAddressFromLatLng(latLng: LatLng): Address? {
-        val geocoder = Geocoder(context, Locale.getDefault())
-        val geocoderFromLocationResult = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-        if (geocoderFromLocationResult.size > 0) {
-            return geocoderFromLocationResult[0]
-        } else {
-            throw Throwable("No Address found")
-        }
+        Geocoder(context, Locale.getDefault())
+            .getFromLocation(latLng.latitude, latLng.longitude, 1)
+            .let {
+                if (it.size > 0) {
+                    return it[0]
+                } else {
+                    throw Throwable("No Address found")
+                }
+            }
     }
 
     private suspend fun checkLocationSettings(locationRequest: LocationRequest): Unit =
