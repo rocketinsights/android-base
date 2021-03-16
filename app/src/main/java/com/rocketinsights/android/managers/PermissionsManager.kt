@@ -27,7 +27,7 @@ interface PermissionsManager {
 
 class PermissionsManagerImpl(
     private val context: Context
-): PermissionsManager {
+) : PermissionsManager {
 
     override fun hasPermissions(vararg permissions: String): Boolean {
         permissions.forEach {

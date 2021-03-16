@@ -7,7 +7,10 @@
             android:title="@string/messages" />
         <item
             android:id="@+id/request_permissions"
-            android:title="@string/permissions_request" />       
+            android:title="@string/permissions_request" />
+        <item
+            android:id="@+id/photo_fragment"
+            android:title="@string/take_a_photo" />
         <item
             android:id="@+id/menu_login"
             android:title="@string/login" />     

@@ -1,11 +1,14 @@
 package com.rocketinsights.android.ui
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -17,13 +20,14 @@ import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.utils.createImageFile
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
-import org.koin.androidx.scope.ScopeFragment
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -35,6 +39,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
     private lateinit var loginMenuItem: MenuItem
     private lateinit var logoutMenuItem: MenuItem
+    private lateinit var photoMenuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +56,9 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         loginMenuItem = menu.findItem(R.id.menu_login)
         logoutMenuItem = menu.findItem(R.id.menu_logout)
+        photoMenuItem = menu.findItem(R.id.menu_logout)
         hideLoginItems()
+        setPhotoItemVisibility()
         observeUserLoginStatus()
     }
 
@@ -63,6 +70,10 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
+                true
+            }
+            R.id.photo_fragment -> {
+                takePhoto()
                 true
             }
             R.id.menu_login -> {
@@ -138,5 +149,27 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
             logoutMenuItem.isVisible = isLoggedIn
             logoutMenuItem.isEnabled = isLoggedIn
         }
+    }
+
+    /**
+     * Show "Take a photo" menu item only on devices which have a camera.
+     */
+    private fun setPhotoItemVisibility() {
+        val show =
+            requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+        photoMenuItem.isVisible = show
+        photoMenuItem.isEnabled = show
+    }
+
+    private fun takePhoto() {
+        val file = createImageFile(requireContext())
+        val uri = FileProvider.getUriForFile(requireContext(), "file_provider", file)
+        val getCameraImage =
+            registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+                if (success) {
+                    // TODO send URI to PhotoFragment (navigate) and load image to image view
+                }
+            }
+        getCameraImage.launch(uri)
     }
 }
