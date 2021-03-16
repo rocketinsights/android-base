@@ -17,11 +17,10 @@ import com.google.android.gms.location.SettingsClient
 import com.google.android.gms.maps.model.LatLng
 import com.rocketinsights.android.managers.location.LocationManager.Companion.LOCATION_UPDATES_FASTEST_INTERVAL
 import com.rocketinsights.android.managers.location.LocationManager.Companion.LOCATION_UPDATES_INTERVAL
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onCompletion
 import timber.log.Timber
 import java.util.ArrayList
 import java.util.Locale
@@ -95,41 +94,47 @@ class LocationManagerImpl(
         }
     }
 
-    override suspend fun startLocationUpdates(): Flow<LatLng> {
+    override suspend fun startLocationUpdates(): Flow<LocationUpdate> {
         checkLocationSettings(locationRequest)
         return requestLocationUpdates()
     }
 
     @SuppressLint("CheckResult")
-    override suspend fun getFirstLocationUpdate() = startLocationUpdates().first()
-        .apply {
+    override suspend fun getFirstLocationUpdate() = startLocationUpdates()
+        .onCompletion {
             stopLocationUpdates()
-        }
+        }.first()
 
     @SuppressLint("MissingPermission")
-    private fun requestLocationUpdates(): Flow<LatLng> {
-        val updates = BroadcastChannel<LatLng>(1)
+    private fun requestLocationUpdates(): Flow<LocationUpdate> {
+        val updates = MutableSharedFlow<LocationUpdate>(
+            replay = 0,
+            extraBufferCapacity = 1
+        )
+
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 val lastLocation = locationResult?.lastLocation ?: return
                 if (!isMockLocationAllowed && lastLocation.isFromMockProvider) {
                     Timber.w("Mock location not allowed")
-                    updates.close(LocationException.MockLocationNotAllowed())
+                    updates.tryEmit(
+                        LocationUpdate.Error(LocationException.MockLocationNotAllowed())
+                    )
                     return
                 }
 
-                updates.sendBlocking(LatLng(lastLocation.latitude, lastLocation.longitude))
+                updates.tryEmit(
+                    LocationUpdate.Success(LatLng(lastLocation.latitude, lastLocation.longitude))
+                )
             }
         }
 
         locationCallbacks.add(locationCallback)
         locationClient.requestLocationUpdates(locationRequest, locationCallback, null)
 
-        updates.invokeOnClose {
+        return updates.onCompletion {
             locationClient.removeLocationUpdates(locationCallback)
         }
-
-        return updates.asFlow()
     }
 
     override suspend fun getAddressFromLatLng(latLng: LatLng): Address? {

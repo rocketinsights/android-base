@@ -6,6 +6,11 @@ import android.location.Address
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.Flow
 
+sealed class LocationUpdate {
+    data class Success(val latLng: LatLng) : LocationUpdate()
+    data class Error(val exception: Exception) : LocationUpdate()
+}
+
 interface LocationManager {
     companion object {
         const val LOCATION_UPDATES_INTERVAL = 10000L // 10 seconds
@@ -26,9 +31,9 @@ interface LocationManager {
     /**
      * Location Access Required
      */
-    suspend fun startLocationUpdates(): Flow<LatLng>
+    suspend fun startLocationUpdates(): Flow<LocationUpdate>
 
-    suspend fun getFirstLocationUpdate(): LatLng
+    suspend fun getFirstLocationUpdate(): LocationUpdate
 
     suspend fun getLastLocation(): LatLng
 

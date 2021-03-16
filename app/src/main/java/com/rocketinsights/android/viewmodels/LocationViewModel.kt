@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.rocketinsights.android.managers.PermissionsManager
 import com.rocketinsights.android.managers.location.LocationManager
+import com.rocketinsights.android.managers.location.LocationUpdate
 import kotlinx.coroutines.launch
 
 class LocationViewModel(
@@ -34,7 +35,16 @@ class LocationViewModel(
                     return@launch
                 }
 
-                _locationState.value = LocationResult.Location(locationManager.getFirstLocationUpdate())
+                locationManager.getFirstLocationUpdate().let {
+                    when (it) {
+                        is LocationUpdate.Success -> {
+                            _locationState.value = LocationResult.Location(it.latLng)
+                        }
+                        is LocationUpdate.Error -> {
+                            _locationState.value = LocationResult.Error(it.exception)
+                        }
+                    }
+                }
             } catch (e: Throwable) {
                 _locationState.value = LocationResult.Error(e)
             }
