@@ -45,7 +45,9 @@ captures/
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# Uncomment in case of a public repo for security reasons.
+# Warrning: Do not commit google-services.json to the public repo!
+#google-services.json
 
 # Freeline
 freeline.py
