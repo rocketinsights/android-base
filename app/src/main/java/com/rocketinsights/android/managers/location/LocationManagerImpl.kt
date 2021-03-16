@@ -55,8 +55,8 @@ class LocationManagerImpl(
 
         // exceptions will be thrown if provider is not permitted.
         try {
-            isNetworkEnabled = androidLocationManager!!
-                .isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)
+            isNetworkEnabled = androidLocationManager?.
+            isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER) ?: false
         } catch (ex: Exception) {
             // Nothing need
         }
@@ -68,7 +68,8 @@ class LocationManagerImpl(
         val androidLocationManager = getAndroidLocationManager()
 
         return try {
-            androidLocationManager!!.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)
+            androidLocationManager?.
+            isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ?: false
         } catch (ex: Exception) {
             false
         }
