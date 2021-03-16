@@ -142,7 +142,7 @@ class LocationManagerImpl(
                 if (it.size > 0) {
                     return it[0]
                 } else {
-                    throw Throwable("No Address found")
+                    throw LocationException.AddressNotFound()
                 }
             }
     }
