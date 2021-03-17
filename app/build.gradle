@@ -111,6 +111,8 @@ ext {
     datastore_version = "1.0.0-alpha08"
     ktx_activity = "1.3.0-alpha04"
     ktx_fragment = "1.3.0"
+    play_services_maps = "17.0.0"
+    play_services_location = "18.0.0"
 }
 
 jacoco {
@@ -185,6 +187,10 @@ dependencies {
 
     // Permissions
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.1'
+
+    // Location
+    implementation "com.google.android.gms:play-services-maps:$play_services_maps"
+    implementation "com.google.android.gms:play-services-location:$play_services_location"
 
     // Test
     // Unit testing framework
