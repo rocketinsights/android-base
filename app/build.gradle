@@ -29,7 +29,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Google Maps
-        resValue "string", "maps_api_key", "AIzaSyBL-Ot4lrL5aAIVSolf5aEDQnotehQZeSE"
+        resValue "string", "maps_api_key", "AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY"
     }
     buildTypes {
         debug {
