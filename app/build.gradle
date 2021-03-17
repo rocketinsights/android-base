@@ -176,6 +176,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_version"
     // Source: https://github.com/Kotlin/kotlinx.coroutines/tree/master/integration/kotlinx-coroutines-play-services
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$kotlinx_coroutines_play_services_version"
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$datastore_version"

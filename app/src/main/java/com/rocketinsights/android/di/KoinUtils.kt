@@ -18,6 +18,7 @@ import com.rocketinsights.android.managers.PermissionsManagerImpl
 import com.rocketinsights.android.managers.location.LocationManager
 import com.rocketinsights.android.managers.location.LocationManagerImpl
 import com.rocketinsights.android.network.ApiService
+import com.rocketinsights.android.notifications.MyAppNotificationsManager
 import com.rocketinsights.android.prefs.AuthLocalStore
 import com.rocketinsights.android.prefs.AuthLocalStoreImpl
 import com.rocketinsights.android.prefs.LocalStore
@@ -89,6 +90,7 @@ private fun managersModule() = module {
     }
     factory<PermissionsManager> { PermissionsManagerImpl(get()) }
     single<LocationManager> { LocationManagerImpl(get()) }
+    single { MyAppNotificationsManager(get()) }
 }
 
 private fun repositoryModule() = module {
