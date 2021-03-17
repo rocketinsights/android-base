@@ -34,6 +34,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_mainFragment_to_photoFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -51,13 +56,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="photoFragment">
+                  <entry key="photo_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="324" />
-                            <option name="y" value="-267" />
+                            <option name="x" value="340" />
+                            <option name="y" value="-322" />
                           </Point>
                         </option>
                       </LayoutPositions>

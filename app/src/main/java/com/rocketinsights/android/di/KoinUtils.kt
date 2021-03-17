@@ -28,6 +28,7 @@ import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -112,4 +113,5 @@ private fun authModule() = module {
     viewModel { AuthViewModel(get(), get()) }
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }
+    viewModel { PhotoViewModel() }
 }

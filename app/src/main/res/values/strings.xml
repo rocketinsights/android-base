@@ -25,4 +25,5 @@
     <string name="logout">Logout</string>
     <string name="photo">Photo</string>
     <string name="take_a_photo">Take a photo</string>
+    <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
 </resources>
