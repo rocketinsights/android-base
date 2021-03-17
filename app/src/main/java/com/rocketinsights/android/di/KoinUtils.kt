@@ -50,7 +50,7 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                scopeModules()
+                viewModelsModules()
             )
         )
     }
@@ -97,9 +97,11 @@ private fun repositoryModule() = module {
     single { AuthRepository(get(), get(), get(), get()) }
 }
 
-private fun scopeModules() = module {
-    viewModel { MainViewModel(get()) }
-    viewModel { MessagesViewModel(get()) }
+private fun authModule() = module {
+    single { FirebaseAuth.getInstance() }
+    single<LocalStore> { LocalStoreImpl(get()) }
+    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
+    factory { AuthUserLiveData(get()) }
     scope<MainFragment> {
         scoped { AuthUI.getInstance() }
         scoped<AuthManager> { (context: Context) ->
@@ -108,11 +110,9 @@ private fun scopeModules() = module {
     }
 }
 
-private fun authModule() = module {
-    single { FirebaseAuth.getInstance() }
-    single<LocalStore> { LocalStoreImpl(get()) }
-    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
-    factory { AuthUserLiveData(get()) }
+private fun viewModelsModules() = module {
+    viewModel { MainViewModel(get()) }
+    viewModel { MessagesViewModel(get()) }
     viewModel { AuthViewModel(get(), get()) }
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }

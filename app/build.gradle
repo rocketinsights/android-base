@@ -27,6 +27,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Google Maps
+        resValue "string", "maps_api_key", "AIzaSyBL-Ot4lrL5aAIVSolf5aEDQnotehQZeSE"
     }
     buildTypes {
         debug {
@@ -109,10 +112,12 @@ ext {
     firebase_ui_version = "7.1.1"
     kotlinx_coroutines_play_services_version = "1.4.3"
     datastore_version = "1.0.0-alpha08"
-    ktx_activity = "1.3.0-alpha04"
-    ktx_fragment = "1.3.0"
-    play_services_maps = "17.0.0"
-    play_services_location = "18.0.0"
+    ktx_activity_version = "1.3.0-alpha04"
+    ktx_fragment_version = "1.3.0"
+    play_services_maps_version = "17.0.0"
+    play_services_location_version = "18.0.0"
+    google_maps_utils_version = "2.2.0"
+    quickpermissions_version = "0.4.1"
 }
 
 jacoco {
@@ -126,8 +131,8 @@ dependencies {
     implementation "com.google.android.material:material:$material_design_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
-    implementation "androidx.activity:activity-ktx:$ktx_activity"
-    implementation "androidx.fragment:fragment-ktx:$ktx_fragment"
+    implementation "androidx.activity:activity-ktx:$ktx_activity_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_fragment_version"
 
     // Code style
     ktlint "com.pinterest:ktlint:$ktlint_version"
@@ -186,11 +191,14 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leak_canary_version"
 
     // Permissions
-    implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.1'
+    implementation "com.github.quickpermissions:quickpermissions-kotlin:$quickpermissions_version"
 
-    // Location
-    implementation "com.google.android.gms:play-services-maps:$play_services_maps"
-    implementation "com.google.android.gms:play-services-location:$play_services_location"
+    // Maps & Location
+    implementation "com.google.android.gms:play-services-maps:$play_services_maps_version"
+    implementation "com.google.android.gms:play-services-location:$play_services_location_version"
+
+    // Utilities for Maps SDK for Android (requires Google Play Services)
+    implementation "com.google.maps.android:android-maps-utils:$google_maps_utils_version"
 
     // Test
     // Unit testing framework

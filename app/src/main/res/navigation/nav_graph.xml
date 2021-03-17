@@ -25,7 +25,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_mainFragment_to_messagesFragment"
+            android:id="@+id/showMessages"
             app:destination="@id/messages_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -42,4 +42,9 @@
         android:name="com.rocketinsights.android.ui.MessagesFragment"
         android:label="@string/messages"
         tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/maps_fragment"
+        android:name="com.rocketinsights.android.ui.MapsFragment"
+        android:label="@string/maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
