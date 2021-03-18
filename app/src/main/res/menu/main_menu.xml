@@ -12,8 +12,11 @@
             android:id="@+id/photo_fragment"
             android:title="@string/take_a_photo" />
         <item
+            android:id="@+id/request_location"
+            android:title="@string/location_request_current" />
+        <item
             android:id="@+id/menu_login"
-            android:title="@string/login" />     
+            android:title="@string/login" />
         <item
             android:id="@+id/menu_logout"
             android:title="@string/logout" />

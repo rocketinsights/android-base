@@ -15,6 +15,8 @@ import com.rocketinsights.android.db.Database
 import com.rocketinsights.android.managers.InternetManager
 import com.rocketinsights.android.managers.PermissionsManager
 import com.rocketinsights.android.managers.PermissionsManagerImpl
+import com.rocketinsights.android.managers.location.LocationManager
+import com.rocketinsights.android.managers.location.LocationManagerImpl
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.prefs.AuthLocalStore
 import com.rocketinsights.android.prefs.AuthLocalStoreImpl
@@ -25,6 +27,7 @@ import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
+import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
@@ -86,6 +89,7 @@ private fun managersModule() = module {
         )
     }
     factory<PermissionsManager> { PermissionsManagerImpl(get()) }
+    single<LocationManager> { LocationManagerImpl(get()) }
 }
 
 private fun repositoryModule() = module {
@@ -114,4 +118,5 @@ private fun authModule() = module {
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }
     viewModel { PhotoViewModel() }
+    viewModel { LocationViewModel(get(), get()) }
 }

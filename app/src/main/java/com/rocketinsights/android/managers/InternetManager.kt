@@ -3,10 +3,8 @@ package com.rocketinsights.android.managers
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.debounce
 
 class InternetManager(
@@ -17,18 +15,21 @@ class InternetManager(
         NOT_CONNECTED
     }
 
-    val connectivityStatus = BroadcastChannel<ConnectivityStatus>(1)
+    val connectivityStatus = MutableSharedFlow<ConnectivityStatus>(
+        replay = 0,
+        extraBufferCapacity = 1
+    )
 
     init {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             connectivityManager.registerDefaultNetworkCallback(
                 object : ConnectivityManager.NetworkCallback() {
                     override fun onAvailable(network: Network) {
-                        connectivityStatus.sendBlocking(ConnectivityStatus.CONNECTED)
+                        connectivityStatus.tryEmit(ConnectivityStatus.CONNECTED)
                     }
 
                     override fun onLost(network: Network) {
-                        connectivityStatus.sendBlocking(ConnectivityStatus.NOT_CONNECTED)
+                        connectivityStatus.tryEmit(ConnectivityStatus.NOT_CONNECTED)
                     }
                 }
             )
@@ -47,6 +48,5 @@ class InternetManager(
 
     fun observeConnectivityStatus(): Flow<ConnectivityStatus> =
         connectivityStatus
-            .asFlow()
             .debounce(500)
 }

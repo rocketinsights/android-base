@@ -16,10 +16,10 @@ class PermissionsViewModel(
     private val _permissionsResult = MutableLiveData<Event<PermissionsResult>>()
     val permissionsResult: LiveData<Event<PermissionsResult>> = _permissionsResult
 
-    fun requestPermission(fragment: Fragment, permissions: String) {
+    fun requestPermissions(fragment: Fragment, vararg permissions: String) {
         viewModelScope.launch {
             try {
-                manager.requestPermissions(fragment, permissions)
+                manager.requestPermissions(fragment, *permissions)
                 _permissionsResult.value = Event(PermissionsResult.PermissionsGranted)
             } catch (e: Throwable) {
                 _permissionsResult.value = Event(PermissionsResult.PermissionsError(e))
