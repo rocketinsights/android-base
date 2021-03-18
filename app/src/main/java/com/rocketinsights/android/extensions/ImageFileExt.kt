@@ -4,13 +4,13 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import androidx.core.content.FileProvider
+import com.rocketinsights.android.R
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 private const val IMAGE_DATE_PATTERN = "yyyyMMdd_HHmmss"
-private const val FILE_PROVIDER_AUTHORITY = "com.rocketinsights.android.fileprovider"
 
 fun Context.createImageFile(): File {
     val timeStamp = SimpleDateFormat(IMAGE_DATE_PATTERN, Locale.US).format(Date())
@@ -24,4 +24,4 @@ fun Context.createImageFile(): File {
 }
 
 fun Context.getUriForFile(file: File): Uri =
-    FileProvider.getUriForFile(this, FILE_PROVIDER_AUTHORITY, file)
+    FileProvider.getUriForFile(this, getString(R.string.fileProvider), file)

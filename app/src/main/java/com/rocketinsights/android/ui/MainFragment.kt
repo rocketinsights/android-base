@@ -169,7 +169,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
             registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
                 if (success) {
                     photoViewModel.imageUri?.let {
-                        findNavController().navigate(MainFragmentDirections.actionMainFragmentToPhotoFragment())
+                        findNavController().navigate(MainFragmentDirections.showPhotoFragment())
                     }
                 } else {
                     photoViewModel.deletePhoto()
