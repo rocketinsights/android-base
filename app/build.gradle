@@ -54,12 +54,14 @@ android {
             manifestPlaceholders = [appName: "@string/app_name_dev"]
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
+            resValue 'string', 'workManager', "com.rocketinsights.android.dev.workmanager-init"
         }
 
         prod {
             dimension "default"
 
             manifestPlaceholders = [appName: "@string/app_name"]
+            resValue 'string', 'workManager', "com.rocketinsights.android.workmanager-init"
         }
     }
     // Enables view binding.
@@ -113,6 +115,7 @@ ext {
     ktx_fragment = "1.3.0"
     play_services_maps = "17.0.0"
     play_services_location = "18.0.0"
+    work_version = "2.5.0"
 }
 
 jacoco {
@@ -169,6 +172,7 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-workmanager:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
 
     // Firebase
@@ -179,6 +183,9 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    //Work
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
     // Leak detection
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"

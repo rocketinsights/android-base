@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.rocketinsights.android.auth.AuthManager
@@ -31,8 +32,17 @@ import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import com.rocketinsights.android.work.Work
+import com.rocketinsights.android.work.WorkImpl
+import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
+import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
+import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
+import com.rocketinsights.android.work.messages.MessagesUpdateWorker
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.workmanager.dsl.worker
+import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.core.KoinExperimentalAPI
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -40,9 +50,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val API_BASE_URL = "https://run.mocky.io/v3/"
 
+@KoinExperimentalAPI
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
+        workManagerFactory()
         modules(
             listOf(
                 networkModule(),
@@ -50,7 +62,9 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                scopeModules()
+                scopeModules(),
+                viewModelsModule(),
+                workModule()
             )
         )
     }
@@ -98,8 +112,6 @@ private fun repositoryModule() = module {
 }
 
 private fun scopeModules() = module {
-    viewModel { MainViewModel(get()) }
-    viewModel { MessagesViewModel(get()) }
     scope<MainFragment> {
         scoped { AuthUI.getInstance() }
         scoped<AuthManager> { (context: Context) ->
@@ -113,8 +125,21 @@ private fun authModule() = module {
     single<LocalStore> { LocalStoreImpl(get()) }
     single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
     factory { AuthUserLiveData(get()) }
+}
+
+private fun viewModelsModule() = module {
+    viewModel { MainViewModel(get()) }
+    viewModel { MessagesViewModel(get()) }
     viewModel { AuthViewModel(get(), get()) }
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }
     viewModel { LocationViewModel(get(), get()) }
+}
+
+private fun workModule() = module {
+    worker { MessagesUpdateWorker(get(), get(), get()) }
+    single { MessagesUpdateWorkRequestFactory.createWorkRequest() }
+    single { WorkManager.getInstance(get()) }
+    single<Work> { WorkImpl(get()) }
+    single<MessagesUpdateScheduler> { MessagesUpdateSchedulerImpl(get(), get(), get()) }
 }

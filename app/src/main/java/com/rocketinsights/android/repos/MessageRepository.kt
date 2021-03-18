@@ -13,10 +13,18 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-class MessageRepository(private val api: ApiService, private val messageDao: MessageDao, private val dispatcher: DispatcherProvider) {
+class MessageRepository(
+    private val api: ApiService,
+    private val messageDao: MessageDao,
+    private val dispatcher: DispatcherProvider
+) {
 
-    suspend fun getMessage(): Message = withContext(dispatcher.io()) { api.getMessage().toMessage() }
+    suspend fun getMessage(): Message =
+        withContext(dispatcher.io()) { api.getMessage().toMessage() }
 
+    /**
+     * Fetch messages from the remote API and save them to local DB.
+     */
     suspend fun refreshMessages() {
         withContext(dispatcher.io()) {
             val messages = api.getMessages().toDbMessages()

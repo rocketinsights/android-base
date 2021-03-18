@@ -3,9 +3,11 @@ package com.rocketinsights.android
 import android.app.Application
 import com.rocketinsights.android.di.initKoin
 import com.squareup.leakcanary.LeakCanary
+import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 
 class RocketApplication : Application() {
+    @KoinExperimentalAPI
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
