@@ -6,6 +6,9 @@
             android:id="@+id/messages_fragment"
             android:title="@string/messages" />
         <item
+            android:id="@+id/photo_fragment"
+            android:title="@string/take_a_photo" />
+        <item
             android:id="@+id/maps_fragment"
             android:title="@string/maps_display" />
         <item

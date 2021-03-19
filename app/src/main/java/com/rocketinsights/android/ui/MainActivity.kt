@@ -23,8 +23,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBar()
     }
 
-    override fun onSupportNavigateUp() =
-        navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed() // to trigger OnBackPressedCallbacks in your fragments
+        return navigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
 
     private fun setupActionBar() {
         setSupportActionBar(binding.toolbar)
@@ -34,10 +41,8 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
+    private fun navigateUp() =
+        navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
     fun getScrollView() = binding.scrollView
 }
