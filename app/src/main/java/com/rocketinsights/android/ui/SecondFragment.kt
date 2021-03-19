@@ -6,7 +6,7 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
-import com.bumptech.glide.Glide
+import coil.load
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentSecondBinding
 import com.rocketinsights.android.extensions.viewBinding
@@ -31,6 +31,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     }
 
     private fun updateUI() {
-        Glide.with(this).load(R.drawable.stock_image).centerCrop().into(binding.stockImage)
+        binding.stockImage.load(R.drawable.stock_image)
     }
 }
