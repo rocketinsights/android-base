@@ -14,7 +14,7 @@ private const val WORK_FAILED = "Messages update work failed with unknown except
 class MessagesUpdateWorker(
     private val messageRepository: MessageRepository,
     context: Context,
-    params: WorkerParameters,
+    params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {

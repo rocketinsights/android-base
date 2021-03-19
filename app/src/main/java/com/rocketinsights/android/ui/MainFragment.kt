@@ -26,6 +26,7 @@ import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -3,11 +3,17 @@ package com.rocketinsights.android
 import android.app.Application
 import com.rocketinsights.android.di.initKoin
 import com.squareup.leakcanary.LeakCanary
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 
+@KoinExperimentalAPI
 class RocketApplication : Application() {
-    @KoinExperimentalAPI
+
+    private val applicationScope = CoroutineScope(Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -15,16 +21,22 @@ class RocketApplication : Application() {
         }
         LeakCanary.install(this)
 
-        initKoin()
+        delayedInit()
+    }
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-        // uncomment this and the below CrashlyticsTree class out if using Fabric/Crashlytics
+    private fun delayedInit() {
+        applicationScope.launch {
+            initKoin()
+
+            if (BuildConfig.DEBUG) {
+                Timber.plant(Timber.DebugTree())
+            }
+            // uncomment this and the below CrashlyticsTree class out if using Fabric/Crashlytics
 //        else {
 //            Fabric.with(this, Crashlytics(), Answers())
 //            Timber.plant(CrashlyticsTree())
 //        }
+        }
     }
 
 //    private class CrashlyticsTree : Timber.Tree() {
