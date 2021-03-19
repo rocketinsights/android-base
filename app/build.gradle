@@ -96,7 +96,7 @@ ext {
     timber_version = "4.7.1"
     moshi_version = "1.11.0"
     retrofit_version = "2.9.0"
-    leak_canary_version = "1.6.3"
+    leak_canary_version = "2.6"
     lifecycle_extensions = "2.2.0"
     lifecycle_version = "2.3.0"
     room_version = "2.2.6"
@@ -184,8 +184,6 @@ dependencies {
 
     // Leak detection
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_canary_version"
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leak_canary_version"
 
     // Permissions
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.1'
