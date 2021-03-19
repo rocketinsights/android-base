@@ -8,7 +8,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import coil.load
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPhotoBinding
 import com.rocketinsights.android.extensions.viewBinding
@@ -54,6 +54,6 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
     }
 
     private fun updateUI() {
-        Glide.with(this).load(photoViewModel.imageUri).centerCrop().into(binding.imageCameraShot)
+        binding.imageCameraShot.load(photoViewModel.imageUri)
     }
 }
