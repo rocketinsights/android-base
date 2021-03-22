@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
-import com.bumptech.glide.Glide
+import coil.load
 import com.rocketinsights.android.R
 import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentMainBinding
@@ -118,7 +118,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     }
 
     private fun updateUI() {
-        Glide.with(this).load(R.drawable.stock_image).centerCrop().into(binding.stockImage)
+        binding.stockImage.load(R.drawable.stock_image)
     }
 
     private fun hideLoginItems() {
