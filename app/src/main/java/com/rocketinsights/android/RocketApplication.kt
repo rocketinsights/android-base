@@ -2,10 +2,12 @@ package com.rocketinsights.android
 
 import android.app.Application
 import com.rocketinsights.android.di.initKoin
+import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
 import com.squareup.leakcanary.LeakCanary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 
@@ -13,6 +15,7 @@ import timber.log.Timber
 class RocketApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
+    private val messagesUpdateScheduler: MessagesUpdateScheduler by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -21,22 +24,41 @@ class RocketApplication : Application() {
         }
         LeakCanary.install(this)
 
-        delayedInit()
+        applicationScope.launch {
+            init()
+            scheduleWork()
+        }
     }
 
-    private fun delayedInit() {
+    // We wouldn't normally override this method.
+    // This is just an example of calling a method for cancelling background work.
+    // Move this call to your app settings screen or menu where it would be possible to toggle background updates.
+    override fun onTerminate() {
         applicationScope.launch {
-            initKoin()
+            cancelWork()
+        }
+        super.onTerminate()
+    }
 
-            if (BuildConfig.DEBUG) {
-                Timber.plant(Timber.DebugTree())
-            }
-            // uncomment this and the below CrashlyticsTree class out if using Fabric/Crashlytics
+    private fun init() {
+        initKoin()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+        // uncomment this and the below CrashlyticsTree class out if using Fabric/Crashlytics
 //        else {
 //            Fabric.with(this, Crashlytics(), Answers())
 //            Timber.plant(CrashlyticsTree())
 //        }
-        }
+    }
+
+    private suspend fun scheduleWork() {
+        messagesUpdateScheduler.scheduleBackgroundUpdates()
+    }
+
+    private suspend fun cancelWork() {
+        messagesUpdateScheduler.cancelBackgroundUpdates()
     }
 
 //    private class CrashlyticsTree : Timber.Tree() {
