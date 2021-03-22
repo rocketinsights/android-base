@@ -26,6 +26,7 @@ import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
+import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
@@ -63,8 +64,9 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                scopeModules(),
+                scopeModule(),
                 viewModelsModule(),
+                viewInteractorsModule(),
                 workModule()
             )
         )
@@ -112,20 +114,20 @@ private fun repositoryModule() = module {
     single { AuthRepository(get(), get(), get(), get()) }
 }
 
-private fun scopeModules() = module {
+private fun authModule() = module {
+    single { FirebaseAuth.getInstance() }
+    single<LocalStore> { LocalStoreImpl(get()) }
+    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
+    factory { AuthUserLiveData(get()) }
+}
+
+private fun scopeModule() = module {
     scope<MainFragment> {
         scoped { AuthUI.getInstance() }
         scoped<AuthManager> { (context: Context) ->
             FirebaseAuthManager(context, get(), get())
         }
     }
-}
-
-private fun authModule() = module {
-    single { FirebaseAuth.getInstance() }
-    single<LocalStore> { LocalStoreImpl(get()) }
-    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
-    factory { AuthUserLiveData(get()) }
 }
 
 private fun viewModelsModule() = module {
@@ -136,6 +138,10 @@ private fun viewModelsModule() = module {
     viewModel { PermissionsViewModel(get()) }
     viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
+}
+
+private fun viewInteractorsModule() = module {
+    single { ParentScrollProvider() }
 }
 
 private fun workModule() = module {

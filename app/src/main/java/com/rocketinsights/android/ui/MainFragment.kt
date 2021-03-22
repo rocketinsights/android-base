@@ -2,9 +2,7 @@ package com.rocketinsights.android.ui
 
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -25,12 +23,8 @@ import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.AuthViewModel
-import com.rocketinsights.android.viewmodels.LocationResult
-import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
-import com.rocketinsights.android.viewmodels.PermissionsResult
-import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.android.ext.android.inject
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.androidx.scope.ScopeFragment
@@ -44,20 +38,13 @@ private const val ERROR_CREATING_IMAGE = "Error while creating temporary image f
 class MainFragment : ScopeFragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val authViewModel: AuthViewModel by sharedViewModel()
-    private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
-    private val locationViewModel: LocationViewModel by viewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
     private lateinit var loginMenuItem: MenuItem
     private lateinit var logoutMenuItem: MenuItem
     private lateinit var photoMenuItem: MenuItem
     private lateinit var getCameraImage: ActivityResultLauncher<Uri>
-
-    private val requestGpsSwitchOn =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            // We don't need to do anything
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,21 +71,11 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.messages_fragment -> item.onNavDestinationSelected(findNavController())
-            R.id.request_permissions -> {
-                permissionsViewModel.requestPermissions(
-                    this,
-                    *LocationViewModel.LOCATION_PERMISSIONS
-                )
-                true
-            }
             R.id.photo_fragment -> {
                 takePhoto()
                 true
             }
-            R.id.request_location -> {
-                locationViewModel.retrieveCurrentLocation()
-                true
-            }
+            R.id.maps_fragment -> item.onNavDestinationSelected(findNavController())
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true
@@ -139,39 +116,6 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
                 findNavController().navigate(MainFragmentDirections.actionSlideTransition())
             }
         }
-
-        permissionsViewModel.permissionsResult.observe(viewLifecycleOwner, { event ->
-            event.getContentIfNotHandled()?.let { result ->
-                when (result) {
-                    is PermissionsResult.PermissionsGranted -> {
-                        requireContext().showToast(getString(R.string.permissions_granted))
-                    }
-                    is PermissionsResult.PermissionsError -> {
-                        requireContext().showToast(getString(R.string.permissions_denied))
-                    }
-                }
-            }
-        })
-
-        locationViewModel.locationState.observe(viewLifecycleOwner, {
-            when (it) {
-                is LocationResult.Location -> {
-                    requireContext().showToast(getString(R.string.location_current, it.latLng))
-                }
-                is LocationResult.PermissionsNeeded -> {
-                    permissionsViewModel.requestPermissions(
-                        this,
-                        *LocationViewModel.LOCATION_PERMISSIONS
-                    )
-                }
-                is LocationResult.GpsOff -> {
-                    requestGpsSwitchOn.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-                }
-                is LocationResult.Error -> {
-                    requireContext().showToast(getString(R.string.location_error))
-                }
-            }
-        })
     }
 
     private fun updateUI() {
