@@ -71,14 +71,12 @@ fun GoogleMap.drawPolyline(
         .color(color))
 }
 
-object GoogleMapsUtils {
-    fun polylinePointsToLatLng(polylinePoints: List<List<Double>>): List<LatLng> {
-        val points = ArrayList<LatLng>()
-        var i = 0
-        while (i < polylinePoints.size) {
-            points.add(LatLng(polylinePoints[i][0], polylinePoints[i][1]))
-            i++
-        }
-        return points
+fun List<List<Double>>.polylinePointsToLatLng(polylinePoints: List<List<Double>>): List<LatLng> {
+    val points = ArrayList<LatLng>()
+    var i = 0
+    while (i < polylinePoints.size) {
+        points.add(LatLng(polylinePoints[i][0], polylinePoints[i][1]))
+        i++
     }
+    return points
 }

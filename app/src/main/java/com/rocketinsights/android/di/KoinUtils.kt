@@ -25,6 +25,7 @@ import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
+import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
@@ -51,7 +52,8 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                viewModelsModules()
+                viewModelsModule(),
+                viewInteractorsModule()
             )
         )
     }
@@ -111,7 +113,11 @@ private fun authModule() = module {
     }
 }
 
-private fun viewModelsModules() = module {
+private fun viewInteractorsModule() = module {
+    single { ParentScrollProvider() }
+}
+
+private fun viewModelsModule() = module {
     viewModel { MainViewModel(get()) }
     viewModel { MessagesViewModel(get()) }
     viewModel { AuthViewModel(get(), get()) }

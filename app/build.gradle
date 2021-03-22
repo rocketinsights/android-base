@@ -18,6 +18,15 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
+// Google API Keys
+/*
+    We should have separated keys for Prod and Dev in order to avoid impacting the analytics
+    and any usage fee.
+    You also have to restrict them by platform to avoid external use without permission.
+*/
+def GOOGLE_API_PROD = "\"AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY\""
+def GOOGLE_API_DEV = "\"AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY\""
+
 android {
     compileSdkVersion 30
     defaultConfig {
@@ -27,9 +36,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // Google Maps
-        resValue "string", "maps_api_key", "AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY"
     }
     buildTypes {
         debug {
@@ -58,6 +64,9 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
             resValue 'string', 'fileProvider', "com.rocketinsights.android.fileprovider.dev"
+
+            // Google Maps
+            resValue "string", "maps_api_key", GOOGLE_API_PROD
         }
 
         prod {
@@ -65,6 +74,9 @@ android {
 
             manifestPlaceholders = [appName: "@string/app_name"]
             resValue 'string', 'fileProvider', "com.rocketinsights.android.fileprovider.prod"
+
+            // Google Maps
+            resValue "string", "maps_api_key", GOOGLE_API_DEV
         }
     }
     // Enables view binding.

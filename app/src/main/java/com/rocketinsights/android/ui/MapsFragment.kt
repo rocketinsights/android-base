@@ -21,12 +21,14 @@ import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.LocationResult
 import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MapsFragment : Fragment(R.layout.fragment_maps) {
     private val binding by viewBinding(FragmentSecondBinding::bind)
     private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val locationViewModel: LocationViewModel by viewModel()
+    private val parentScrollProvider: ParentScrollProvider by inject()
 
     private val requestGpsSwitchOn =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -54,9 +56,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     }
 
     override fun onDestroyView() {
-        (requireActivity() as MainActivity).getScrollView().apply {
-            requestDisallowInterceptTouchEvent(false)
-        }
+        parentScrollProvider.enableTouchOnParentScrollContainer(false)
         super.onDestroyView()
     }
 
@@ -65,9 +65,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     private fun initUI() {
         getMapsFragment()
             .setOnMapTouchListener {
-                (requireActivity() as MainActivity).getScrollView().apply {
-                    requestDisallowInterceptTouchEvent(true)
-                }
+                parentScrollProvider.enableTouchOnParentScrollContainer(true)
             }
     }
 
