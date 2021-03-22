@@ -71,7 +71,7 @@
 
         <receiver android:name=".notifications.RegisterFCMTokenReceiver">
             <intent-filter>
-                <action android:name="com.seventytwodisciples.RegisterFCMTokenReceiver" />
+                <action android:name="com.rocketinsights.android.notifications.RegisterFCMTokenReceiver" />
             </intent-filter>
         </receiver>
 

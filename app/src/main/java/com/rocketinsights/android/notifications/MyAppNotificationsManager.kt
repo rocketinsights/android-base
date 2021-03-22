@@ -34,12 +34,12 @@ class MyAppNotificationsManager(
     @RequiresApi(api = Build.VERSION_CODES.O)
     override fun createNotificationsChannels() {
         super.createNotificationsChannels()
-        // Create all the channels we need
-        createChatChannel()
+        // Create all the channels we need and then use their ID when creating Notifications, for example:
+        createNewsChannel()
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private fun createChatChannel() {
+    private fun createNewsChannel() {
         val channel = NotificationChannel(
             CHANNEL_ID_NEWS,
             "$defaultTitle - News",

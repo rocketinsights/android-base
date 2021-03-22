@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.rocketinsights.android.R
 import java.util.UUID
+import kotlin.math.absoluteValue
 
 abstract class NotificationsManagerImpl(
     val context: Context
@@ -115,12 +116,12 @@ abstract class NotificationsManagerImpl(
         return notificationsIdWhen[notificationId]!!
     }
 
-    private fun getRandomId(): Int = UUID.randomUUID().toString().hashCode()
+    private fun getRandomId(): Int = UUID.randomUUID().toString().hashCode().absoluteValue
 
     override fun showNotification(id: Int?, title: String?, description: String?) {
         sendNotification(
             id ?: getRandomId(),
-            createNotification(title ?: defaultTitle, description)
+            createNotification(title = title ?: defaultTitle, description = description)
         )
     }
 

@@ -15,7 +15,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     // Override handle intent to use our custom Notification Manager
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Timber.tag("onPushNotification").d(remoteMessage.data.toString())
+        Timber.tag("onPushNotification")
+            .d("Notification: ${remoteMessage.notification.toString()} | Custom Data:  ${remoteMessage.data}")
 
         var title: String? = null
         var description: String? = null
