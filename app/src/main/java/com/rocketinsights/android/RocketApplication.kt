@@ -3,7 +3,6 @@ package com.rocketinsights.android
 import android.app.Application
 import com.rocketinsights.android.di.initKoin
 import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
-import com.squareup.leakcanary.LeakCanary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,10 +18,6 @@ class RocketApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-        LeakCanary.install(this)
 
         applicationScope.launch {
             init()

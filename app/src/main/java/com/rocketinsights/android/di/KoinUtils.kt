@@ -38,6 +38,7 @@ import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
 import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
 import com.rocketinsights.android.work.messages.MessagesUpdateWorker
+import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.workmanager.dsl.worker
@@ -133,6 +134,7 @@ private fun viewModelsModule() = module {
     viewModel { AuthViewModel(get(), get()) }
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }
+    viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
 }
 
