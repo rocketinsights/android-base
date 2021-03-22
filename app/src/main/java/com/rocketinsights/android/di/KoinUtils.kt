@@ -94,6 +94,7 @@ private fun managersModule() = module {
     factory<PermissionsManager> { PermissionsManagerImpl(get()) }
     single<LocationManager> { LocationManagerImpl(get()) }
     single { MyAppNotificationsManager(get()) }
+    single<LocalStore> { LocalStoreImpl(get()) }
 }
 
 private fun repositoryModule() = module {
@@ -104,7 +105,6 @@ private fun repositoryModule() = module {
 
 private fun authModule() = module {
     single { FirebaseAuth.getInstance() }
-    single<LocalStore> { LocalStoreImpl(get()) }
     single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
     factory { AuthUserLiveData(get()) }
     scope<MainFragment> {
