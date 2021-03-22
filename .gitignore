@@ -36,6 +36,7 @@ captures/
 # Android Studio
 *.iml
 .idea
+.idea/navEditor.xml
 
 # Keystore files
 *.jks
