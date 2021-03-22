@@ -22,8 +22,13 @@
 
     <!--Location-->
     <string name="location_request_current">Request Location</string>
-    <string name="location_current">Your current location is %s</string>
+    <string name="location_current_address">Your address is %s</string>
     <string name="location_error">Error checking location</string>
+
+    <!--Maps-->
+    <string name="maps">Google Maps</string>
+    <string name="maps_display">Display Google Maps</string>
+    <string name="maps_current_position">You are here!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

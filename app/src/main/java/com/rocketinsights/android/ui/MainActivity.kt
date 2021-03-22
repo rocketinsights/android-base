@@ -11,16 +11,23 @@ import androidx.navigation.ui.navigateUp
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.ActivityMainBinding
 import com.rocketinsights.android.extensions.viewBinding
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
+    private val parentScrollProvider: ParentScrollProvider by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupActionBar()
+
+        parentScrollProvider.registerEnablementOfParentScrollFunction {
+            binding.scrollView.requestDisallowInterceptTouchEvent(it)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

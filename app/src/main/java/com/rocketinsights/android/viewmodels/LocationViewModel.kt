@@ -1,5 +1,6 @@
 package com.rocketinsights.android.viewmodels
 
+import android.location.Address
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +39,10 @@ class LocationViewModel(
                 locationManager.getFirstLocationUpdate().let {
                     when (it) {
                         is LocationUpdate.Success -> {
-                            _locationState.value = LocationResult.Location(it.latLng)
+                            _locationState.value = LocationResult.Location(
+                                it.latLng,
+                                locationManager.getAddressFromLatLng(it.latLng)
+                            )
                         }
                         is LocationUpdate.Error -> {
                             _locationState.value = LocationResult.Error(it.exception)
@@ -53,7 +57,7 @@ class LocationViewModel(
 }
 
 sealed class LocationResult {
-    data class Location(val latLng: LatLng) : LocationResult()
+    data class Location(val latLng: LatLng, val address: Address?) : LocationResult()
     object GpsOff : LocationResult()
     object PermissionsNeeded : LocationResult()
     data class Error(val exception: Throwable) : LocationResult()

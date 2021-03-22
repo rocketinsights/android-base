@@ -55,4 +55,9 @@
         android:name="com.rocketinsights.android.ui.PhotoFragment"
         android:label="@string/photo"
         tools:layout="@layout/fragment_photo" />
+    <fragment
+        android:id="@+id/maps_fragment"
+        android:name="com.rocketinsights.android.ui.MapsFragment"
+        android:label="@string/maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

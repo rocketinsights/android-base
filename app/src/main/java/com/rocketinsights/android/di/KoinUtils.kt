@@ -26,6 +26,7 @@ import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainFragment
+import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
@@ -52,7 +53,8 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                scopeModules()
+                viewModelsModule(),
+                viewInteractorsModule()
             )
         )
     }
@@ -100,9 +102,11 @@ private fun repositoryModule() = module {
     single { AuthRepository(get(), get(), get(), get()) }
 }
 
-private fun scopeModules() = module {
-    viewModel { MainViewModel(get()) }
-    viewModel { MessagesViewModel(get()) }
+private fun authModule() = module {
+    single { FirebaseAuth.getInstance() }
+    single<LocalStore> { LocalStoreImpl(get()) }
+    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
+    factory { AuthUserLiveData(get()) }
     scope<MainFragment> {
         scoped { AuthUI.getInstance() }
         scoped<AuthManager> { (context: Context) ->
@@ -111,11 +115,13 @@ private fun scopeModules() = module {
     }
 }
 
-private fun authModule() = module {
-    single { FirebaseAuth.getInstance() }
-    single<LocalStore> { LocalStoreImpl(get()) }
-    single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
-    factory { AuthUserLiveData(get()) }
+private fun viewInteractorsModule() = module {
+    single { ParentScrollProvider() }
+}
+
+private fun viewModelsModule() = module {
+    viewModel { MainViewModel(get()) }
+    viewModel { MessagesViewModel(get()) }
     viewModel { AuthViewModel(get(), get()) }
     viewModel { ConnectivityViewModel(get()) }
     viewModel { PermissionsViewModel(get()) }
