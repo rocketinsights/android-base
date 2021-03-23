@@ -1,14 +1,21 @@
 package com.rocketinsights.android.repos
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.rocketinsights.android.auth.AuthUser
+import com.rocketinsights.android.auth.SessionWatcher
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.prefs.AuthLocalStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -24,11 +31,19 @@ class AuthRepository(
     private val prefs: AuthLocalStore,
     private val firebaseAuth: FirebaseAuth,
     dispatcher: DispatcherProvider
-) {
+) : SessionWatcher {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(dispatcher.io() + job)
 
     private lateinit var authToken: StateFlow<String>
+    private var idTokenListener: FirebaseAuth.IdTokenListener? = null
+
+    private val userObserver = MutableStateFlow<AuthUser?>(null)
+
+    private val sessionClearedObserver = MutableSharedFlow<Boolean>(
+        replay = 0,
+        extraBufferCapacity = 1
+    )
 
     init {
         scope.launch {
@@ -37,27 +52,41 @@ class AuthRepository(
                 emit("")
             }.stateIn(scope)
         }
-    }
 
-    private val idTokenListener = FirebaseAuth.IdTokenListener { auth ->
-        scope.launch {
-            try {
-                val tokenResult = auth.getIdToken()
-                tokenResult?.token?.let { token ->
-                    setAuthToken(token)
-                }
-            } catch (e: Throwable) {
-                Timber.e(e, ERROR_GET_TOKEN)
+        firebaseAuth.addAuthStateListener {
+            userObserver.tryEmit(it.currentUser?.toAuthUser())
+
+            if (it.currentUser == null) {
+                sessionClearedObserver.tryEmit(true)
+                removeIdTokenListener()
+            } else {
+                addIdTokenListener()
             }
         }
     }
 
-    fun addIdTokenListener() {
-        firebaseAuth.addIdTokenListener(idTokenListener)
+    private fun addIdTokenListener() {
+        removeIdTokenListener()
+        idTokenListener = FirebaseAuth.IdTokenListener { auth ->
+            scope.launch {
+                try {
+                    val tokenResult = auth.getIdToken()
+                    tokenResult?.token?.let { token ->
+                        setAuthToken(token)
+                    }
+                } catch (e: Throwable) {
+                    Timber.e(e, ERROR_GET_TOKEN)
+                }
+            }
+        }.apply {
+            firebaseAuth.addIdTokenListener(this)
+        }
     }
 
-    fun removeIdTokenListener() {
-        firebaseAuth.removeIdTokenListener(idTokenListener)
+    private fun removeIdTokenListener() {
+        idTokenListener?.let {
+            firebaseAuth.removeIdTokenListener(it)
+        }
     }
 
     private suspend fun FirebaseAuth.getIdToken() = coroutineScope {
@@ -80,4 +109,27 @@ class AuthRepository(
             }
         }
     }
+
+    fun observeUser(): Flow<AuthUser?> = userObserver
+
+    override suspend fun isSignedIn(): Boolean = firebaseAuth.currentUser != null
+
+    override suspend fun refreshAccessToken(): String? = getAccessToken()
+
+    override suspend fun getAccessToken(): String? = prefs.getAuthToken().firstOrNull()
+
+    override fun observeSessionCleared(): Flow<Boolean> = sessionClearedObserver
+
+    override suspend fun signOut() {
+        firebaseAuth.signOut()
+    }
 }
+
+private fun FirebaseUser.toAuthUser() = AuthUser(
+    uid = uid,
+    providerId = providerId,
+    displayName = displayName ?: "",
+    photoUrl = photoUrl,
+    email = email ?: "",
+    phoneNumber = phoneNumber ?: ""
+)

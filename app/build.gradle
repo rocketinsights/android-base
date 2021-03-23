@@ -27,6 +27,10 @@ repositories {
 def GOOGLE_API_PROD = "\"AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY\""
 def GOOGLE_API_DEV = "\"AIzaSyAZ_wlj_s0pihjs16s8MufDiq5_tf9yEcY\""
 
+// API REST URLs
+def API_URL_DEV = "\"https://run.mocky.io/v3/\""
+def API_URL_PROD = "\"https://run.mocky.io/v3/\""
+
 android {
     compileSdkVersion 30
     defaultConfig {
@@ -68,6 +72,9 @@ android {
 
             // Google Maps
             resValue "string", "maps_api_key", GOOGLE_API_PROD
+
+            // API Url for dev
+            buildConfigField "String", "BASE_URL", API_URL_DEV
         }
 
         prod {
@@ -79,6 +86,9 @@ android {
 
             // Google Maps
             resValue "string", "maps_api_key", GOOGLE_API_DEV
+
+            // API Url for prod
+            buildConfigField "String", "BASE_URL", API_URL_PROD
         }
     }
     // Enables view binding.
@@ -135,6 +145,8 @@ ext {
     google_maps_utils_version = "2.2.0"
     quickpermissions_version = "0.4.1"
     work_version = "2.5.0"
+    logging_interceptor_version = "4.9.0"
+    chuck_version = "3.4.0"
 }
 
 jacoco {
@@ -162,6 +174,15 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    // Http Logging Interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+
+    // Friendly Http Inspector through separate App
+    debugImplementation "com.github.chuckerteam.chucker:library:$chuck_version"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuck_version"
+    // Use no-op versions for testing
+    testImplementation "com.readystatesoftware.chuck:library-no-op:$chuck_version"
 
     // Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -201,7 +222,7 @@ dependencies {
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
 
-    //Work
+    // Work
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
     // Leak detection

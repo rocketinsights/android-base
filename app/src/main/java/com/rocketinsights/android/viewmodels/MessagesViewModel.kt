@@ -17,8 +17,8 @@ class MessagesViewModel(
     private val repo: MessageRepository
 ) : ViewModel() {
 
-    private val _viewState = MutableLiveData<MessagesFragmentState>(MessagesFragmentState.Loading)
-    val viewState: LiveData<MessagesFragmentState> = _viewState
+    private val _messagesState = MutableLiveData<MessagesState>(MessagesState.Loading)
+    val messagesState: LiveData<MessagesState> = _messagesState
 
     val messages: LiveData<List<Message>> = repo.getMessages().asLiveData()
 
@@ -27,22 +27,22 @@ class MessagesViewModel(
     }
 
     fun refreshMessages() {
-        _viewState.value = MessagesFragmentState.Loading
+        _messagesState.value = MessagesState.Loading
         viewModelScope.launch {
             try {
                 delay(2000) // just to simulate 2 sec delay - remove from production code
                 repo.refreshMessages()
-                _viewState.value = MessagesFragmentState.Success
+                _messagesState.value = MessagesState.Success
             } catch (e: Throwable) {
-                _viewState.value = MessagesFragmentState.Error(e)
+                _messagesState.value = MessagesState.Error(e)
                 Timber.e(e, ERROR_GET_MESSAGES)
             }
         }
     }
 }
 
-sealed class MessagesFragmentState {
-    object Loading : MessagesFragmentState()
-    object Success : MessagesFragmentState()
-    data class Error(val exception: Throwable) : MessagesFragmentState()
+sealed class MessagesState {
+    object Loading : MessagesState()
+    object Success : MessagesState()
+    data class Error(val exception: Throwable) : MessagesState()
 }
