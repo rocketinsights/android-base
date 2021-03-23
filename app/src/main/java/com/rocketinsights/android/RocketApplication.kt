@@ -2,12 +2,40 @@ package com.rocketinsights.android
 
 import android.app.Application
 import com.rocketinsights.android.di.initKoin
+import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 
+@KoinExperimentalAPI
 class RocketApplication : Application() {
+
+    private val applicationScope = CoroutineScope(Dispatchers.Default)
+    private val messagesUpdateScheduler: MessagesUpdateScheduler by inject()
+
     override fun onCreate() {
         super.onCreate()
 
+        applicationScope.launch {
+            init()
+            scheduleWork()
+        }
+    }
+
+    // We wouldn't normally override this method.
+    // This is just an example of calling a method for cancelling background work.
+    // Move this call to your app settings screen or menu where it would be possible to toggle background updates.
+    override fun onTerminate() {
+        applicationScope.launch {
+            cancelWork()
+        }
+        super.onTerminate()
+    }
+
+    private fun init() {
         initKoin()
 
         if (BuildConfig.DEBUG) {
@@ -18,6 +46,14 @@ class RocketApplication : Application() {
 //            Fabric.with(this, Crashlytics(), Answers())
 //            Timber.plant(CrashlyticsTree())
 //        }
+    }
+
+    private suspend fun scheduleWork() {
+        messagesUpdateScheduler.scheduleBackgroundUpdates()
+    }
+
+    private suspend fun cancelWork() {
+        messagesUpdateScheduler.cancelBackgroundUpdates()
     }
 
 //    private class CrashlyticsTree : Timber.Tree() {

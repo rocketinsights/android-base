@@ -25,6 +25,7 @@ import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.AuthViewModel
 import com.rocketinsights.android.viewmodels.MainFragmentMessage
 import com.rocketinsights.android.viewmodels.MainViewModel
+import org.koin.android.ext.android.inject
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
