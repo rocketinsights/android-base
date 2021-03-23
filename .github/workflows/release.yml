@@ -1,7 +1,7 @@
-name: Main workflow
+name: Release workflow
 
 on:
-  pull_request:
+  push:
     branches:
       - main
       - master
