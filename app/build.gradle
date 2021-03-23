@@ -11,6 +11,7 @@ plugins {
 apply from: 'jacoco.gradle'
 // If code style check fails do not try to make a build
 apply from: 'lint.gradle'
+apply from: 'build-scripts.gradle'
 
 repositories {
     mavenCentral()
@@ -34,7 +35,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName app_version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

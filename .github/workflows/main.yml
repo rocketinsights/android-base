@@ -1,0 +1,59 @@
+name: Main workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Run linter
+        run: ./gradlew --parallel lint
+  unit_tests:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Unit tests
+        run: ./gradlew --parallel test
+  build_apk:
+    runs-on: [ ubuntu-latest ]
+    needs: [ lint, unit_tests ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+      - name: Set env file name
+        run: echo "GENERATED_FILE_NAME=$(./gradlew -q fileName | tail -n 1)" >> $GITHUB_ENV
+
+      - name: Generate APK
+        run: ./gradlew --parallel assembleRelease
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-base-prod-release-${{ env.GENERATED_FILE_NAME }}.apk
+          path: app/build/outputs/apk/prod/release/app-prod-release.apk
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: mapping-${{ env.GENERATED_FILE_NAME }}.txt
+          path: app/build/outputs/mapping/prodRelease/mapping.txt
