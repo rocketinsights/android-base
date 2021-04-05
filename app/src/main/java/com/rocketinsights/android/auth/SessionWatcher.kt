@@ -3,7 +3,8 @@ package com.rocketinsights.android.auth
 import kotlinx.coroutines.flow.Flow
 
 /**
- * This class should be the means to handle anything related to the user's token.
+ * This interface should be implemented by the concrete class that handle anything
+ * related to the user's token and session.
  */
 interface SessionWatcher {
     suspend fun isSignedIn(): Boolean

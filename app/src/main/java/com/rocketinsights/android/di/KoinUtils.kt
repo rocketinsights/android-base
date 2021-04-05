@@ -27,6 +27,7 @@ import com.rocketinsights.android.prefs.LocalStore
 import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
+import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.MainFragment
 import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
@@ -64,7 +65,6 @@ fun Application.initKoin() {
                 managersModule(),
                 repositoryModule(),
                 authModule(),
-                scopeModule(),
                 viewModelsModule(),
                 viewInteractorsModule(),
                 workModule()
@@ -75,7 +75,7 @@ fun Application.initKoin() {
 
 private fun networkModule() = module {
     single {
-        NetworkingManager(get(), get())
+        NetworkingManager(get(), get(), get())
     }
     single<ApiService> {
         get<NetworkingManager>().retrofitInstance.create(ApiService::class.java)
@@ -118,14 +118,8 @@ private fun authModule() = module {
     single { FirebaseAuth.getInstance() }
     single<LocalStore> { LocalStoreImpl(get()) }
     single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
-}
-
-private fun scopeModule() = module {
-    scope<MainFragment> {
-        scoped { AuthUI.getInstance() }
-        scoped<AuthManager> { (context: Context) ->
-            FirebaseAuthManager(context, get(), get())
-        }
+    factory<AuthManager> { (context: Context) ->
+        FirebaseAuthManager(context, get(), AuthUI.getInstance())
     }
 }
 

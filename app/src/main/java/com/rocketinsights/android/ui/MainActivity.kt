@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import com.rocketinsights.android.R
+import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.ActivityMainBinding
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
@@ -17,11 +18,13 @@ import com.rocketinsights.android.viewmodels.SessionDataState
 import com.rocketinsights.android.viewmodels.SessionViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private val authManager: AuthManager by inject(parameters = { parametersOf(this@MainActivity) })
 
     private val sessionViewModel: SessionViewModel by viewModel()
 
@@ -65,13 +68,13 @@ class MainActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let {
                 when (it) {
                     SessionDataState.CLEARING -> {
-                        // TODO Show Progress
+                        // TODO Show Progress would be good
                     }
                     SessionDataState.CLEARED -> {
                         // User Logout
-                        // TODO Hide Progress
+                        // TODO Hide Progress showed when CLEARING
                         showToast(getString(R.string.session_end))
-                        // Here we can redirect the user to the Sign In Screen, restart the app, etc.
+                        authManager.launchSignInFlow()
                     }
                 }
             }

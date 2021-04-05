@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -27,7 +28,6 @@ import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import com.rocketinsights.android.viewmodels.UserViewModel
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -35,7 +35,7 @@ import timber.log.Timber
 
 private const val ERROR_CREATING_IMAGE = "Error while creating temporary image file."
 
-class MainFragment : ScopeFragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val userViewModel: UserViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()

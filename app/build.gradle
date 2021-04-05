@@ -182,7 +182,7 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:$chuck_version"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuck_version"
     // Use no-op versions for testing
-    testImplementation "com.readystatesoftware.chuck:library-no-op:$chuck_version"
+    testImplementation "com.github.chuckerteam.chucker:library-no-op:$chuck_version"
 
     // Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

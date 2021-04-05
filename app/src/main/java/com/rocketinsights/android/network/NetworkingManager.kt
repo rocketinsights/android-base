@@ -5,8 +5,10 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.rocketinsights.android.BuildConfig
 import com.rocketinsights.android.auth.SessionStorage
 import com.rocketinsights.android.auth.SessionWatcher
+import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.managers.InternetManager
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -22,7 +24,8 @@ import java.util.concurrent.TimeUnit
 // We can add support to Apollo here.
 class NetworkingManager(
     private val context: Context,
-    private val internetManager: InternetManager
+    private val internetManager: InternetManager,
+    private val dispatcher: DispatcherProvider
 ) : SessionStorage {
     private var okHttpClient: OkHttpClient? = null
     private var noCachedOkHttpClient: OkHttpClient? = null
@@ -202,17 +205,18 @@ class NetworkingManager(
         }
     }
 
-    override suspend fun clearSessionData() {
-        // Cancel Pending Requests
-        okHttpClient?.dispatcher?.cancelAll()
-        noCachedOkHttpClient?.dispatcher?.cancelAll()
-        cachedOkHttpClient?.dispatcher?.cancelAll()
+    override suspend fun clearSessionData() =
+        withContext(dispatcher.io()) {
+            // Cancel Pending Requests
+            okHttpClient?.dispatcher?.cancelAll()
+            noCachedOkHttpClient?.dispatcher?.cancelAll()
+            cachedOkHttpClient?.dispatcher?.cancelAll()
 
-        // Clear Cached Data
-        try {
-            cache.evictAll()
-        } catch (e: IOException) {
-            Timber.e("Error cleaning http cache")
+            // Clear Cached Data
+            try {
+                cache.evictAll()
+            } catch (e: IOException) {
+                Timber.e("Error cleaning http cache")
+            }
         }
-    }
 }
