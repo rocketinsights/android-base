@@ -1,6 +1,7 @@
 package com.rocketinsights.android.di
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.room.Room
@@ -34,13 +35,13 @@ import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
+import com.rocketinsights.android.viewmodels.PhotoViewModel
 import com.rocketinsights.android.work.Work
 import com.rocketinsights.android.work.WorkImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
 import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
 import com.rocketinsights.android.work.messages.MessagesUpdateWorker
-import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.workmanager.dsl.worker
@@ -107,7 +108,12 @@ private fun managersModule() = module {
     }
     factory<PermissionsManager> { PermissionsManagerImpl(get()) }
     single<LocationManager> { LocationManagerImpl(get()) }
-    single { MyAppNotificationsManager(get()) }
+    single {
+        MyAppNotificationsManager(
+            get(),
+            androidContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        )
+    }
     single<LocalStore> { LocalStoreImpl(get()) }
 }
 

@@ -22,8 +22,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         var description: String? = null
 
         if (remoteMessage.notification != null) { // Comes from Firebase Console
-            title = remoteMessage.notification!!.title
-            description = remoteMessage.notification!!.body
+            title = remoteMessage.notification?.title
+            description = remoteMessage.notification?.body
         } else {
             remoteMessage.data[EXTRA_TITLE]?.let {
                 title = it

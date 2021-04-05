@@ -10,8 +10,9 @@ import androidx.annotation.RequiresApi
 import com.rocketinsights.android.ui.MainActivity
 
 class MyAppNotificationsManager(
-    context: Context
-) : NotificationsManagerImpl(context) {
+    context: Context,
+    notificationManager: NotificationManager
+) : BaseNotificationsManager(context, notificationManager) {
     companion object {
         // If some Channel Configuration it's changed please update the ChannelId since Android SO
         // always keep the original configuration unless the user uninstall and install the application.

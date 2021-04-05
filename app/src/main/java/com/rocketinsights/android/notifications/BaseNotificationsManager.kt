@@ -13,17 +13,14 @@ import com.rocketinsights.android.R
 import java.util.UUID
 import kotlin.math.absoluteValue
 
-abstract class NotificationsManagerImpl(
-    val context: Context
+abstract class BaseNotificationsManager(
+    val context: Context,
+    val notificationManager: NotificationManager
 ) : NotificationsManager {
     companion object {
         // If some Channel Configuration it's changed please update the ChannelId since Android SO
         // always keep the original configuration unless the user uninstall and install the application.
         private const val CHANNEL_ID_DEFAULT = "Notifications-Default"
-    }
-
-    protected val notificationManager: NotificationManager by lazy {
-        context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     }
 
     // This Map is used to save [when] value for notifications to prevent them to switch places
@@ -96,12 +93,11 @@ abstract class NotificationsManagerImpl(
         intent: PendingIntent?
     ) = createBaseNotification(channelId ?: CHANNEL_ID_DEFAULT)
         .apply {
-            if (title != null) {
-                setContentTitle(title)
+            title?.let {
+                setContentTitle(it)
             }
-
-            if (description != null) {
-                setContentText(description)
+            description?.let {
+                setContentText(it)
             }
 
             setContentIntent(intent ?: getDefaultPendingIntent())
