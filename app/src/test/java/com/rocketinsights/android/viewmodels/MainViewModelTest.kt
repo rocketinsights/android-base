@@ -13,7 +13,9 @@ import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -47,8 +49,8 @@ class MainViewModelTest {
         val viewModel = MainViewModel(repo)
 
         // assert
-        assertNotNull(viewModel.message)
-        assertEquals(MainFragmentMessage.Loading, viewModel.message.value)
+        assertNotNull(viewModel.messageState)
+        assertEquals(MainMessageState.Loading, viewModel.messageState.value)
     }
 
     @Test
@@ -62,14 +64,14 @@ class MainViewModelTest {
 
         // assert
         delay(2100)
-        assertEquals(MainFragmentMessage.Success(message), viewModel.message.value)
+        assertEquals(MainMessageState.Success(message), viewModel.messageState.value)
     }
 
     @Test
     fun getDelayedMessageHttpError() = testCoroutineScope.runBlockingTest {
         // arrange
         val errorResponse: Response<Message> =
-            Response.error(500, ResponseBody.create(MediaType.parse("application/json"), ""))
+            Response.error(500, "".toResponseBody("application/json".toMediaTypeOrNull()))
         val error = HttpException(errorResponse)
         whenever(repo.getMessage()).thenThrow(error)
 
@@ -78,7 +80,7 @@ class MainViewModelTest {
 
         // assert
         delay(2100)
-        assertEquals(MainFragmentMessage.Error(error), viewModel.message.value)
+        assertEquals(MainMessageState.Error(error), viewModel.messageState.value)
     }
 
     @Test
@@ -92,6 +94,6 @@ class MainViewModelTest {
 
         // assert
         delay(2100)
-        assertEquals(MainFragmentMessage.Error(error), viewModel.message.value)
+        assertEquals(MainMessageState.Error(error), viewModel.messageState.value)
     }
 }

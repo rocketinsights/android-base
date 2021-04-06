@@ -51,7 +51,7 @@ class MessagesViewModelTest {
         val viewModel = MessagesViewModel(repo)
 
         // assert
-        assertEquals(MessagesFragmentState.Loading, viewModel.viewState.value)
+        assertEquals(MessagesState.Loading, viewModel.messagesState.value)
     }
 
     @Test
@@ -65,7 +65,7 @@ class MessagesViewModelTest {
         // assert
         delay(2100)
         verify(repo).refreshMessages()
-        assertEquals(MessagesFragmentState.Success, viewModel.viewState.value)
+        assertEquals(MessagesState.Success, viewModel.messagesState.value)
     }
 
     @Test
@@ -81,7 +81,7 @@ class MessagesViewModelTest {
         // assert
         delay(2100)
         verify(repo).refreshMessages()
-        assertEquals(MessagesFragmentState.Error(error), viewModel.viewState.value)
+        assertEquals(MessagesState.Error(error), viewModel.messagesState.value)
     }
 
     @Test

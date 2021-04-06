@@ -145,7 +145,7 @@ ext {
     google_maps_utils_version = "2.2.0"
     quickpermissions_version = "0.4.1"
     work_version = "2.5.0"
-    logging_interceptor_version = "4.9.0"
+    ok_http_version = "4.9.0"
     chuck_version = "3.4.0"
 }
 
@@ -176,7 +176,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
     // Http Logging Interceptor
-    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    implementation "com.squareup.okhttp3:okhttp:$ok_http_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
 
     // Friendly Http Inspector through separate App
     debugImplementation "com.github.chuckerteam.chucker:library:$chuck_version"
