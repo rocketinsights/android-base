@@ -2,6 +2,10 @@ package com.rocketinsights.android.notifications
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.rocketinsights.android.coroutines.DispatcherProvider
+import com.rocketinsights.android.repos.AuthRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -12,11 +16,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private val notificationsManager: MyAppNotificationsManager by inject()
+    private val authRepository: AuthRepository by inject()
+    private val dispatcher: DispatcherProvider by inject()
 
     // Override handle intent to use our custom Notification Manager
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Timber.tag("onPushNotification")
-            .d("Notification: ${remoteMessage.notification.toString()} | Custom Data:  ${remoteMessage.data}")
+            .d("Notification: ${remoteMessage.notification} | Custom Data:  ${remoteMessage.data}")
 
         var title: String? = null
         var description: String? = null
@@ -44,8 +50,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         Timber.d("New Firebase Token: %s", token)
+
         // Register Token in our API
-        RegisterFCMTokenReceiver.broadcast(applicationContext)
+        GlobalScope.launch(dispatcher.io()) {
+            try {
+                authRepository.registerNotificationsToken(token)
+            } catch (e: Exception) {
+                Timber.w(e)
+            }
+        }
+
         super.onNewToken(token)
     }
 }

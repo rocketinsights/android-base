@@ -6,7 +6,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.rocketinsights.android.R
@@ -101,7 +100,6 @@ abstract class BaseNotificationsManager(
             }
 
             setContentIntent(intent ?: getDefaultPendingIntent())
-
         }.build()
 
     private fun getWhenFromNotificationId(notificationId: Int): Long {

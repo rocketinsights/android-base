@@ -20,4 +20,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("8a532566-f1be-476c-8078-bc44ca42cbd9")
     suspend fun setAuthToken(@Field("token") token: String)
+
+    @FormUrlEncoded
+    @POST("289aebd7-d869-4f10-ba34-a8990396a820")
+    suspend fun registerNotificationsToken(@Field("token") token: String)
 }

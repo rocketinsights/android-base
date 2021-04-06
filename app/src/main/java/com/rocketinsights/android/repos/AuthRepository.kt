@@ -123,6 +123,10 @@ class AuthRepository(
     override suspend fun signOut() {
         firebaseAuth.signOut()
     }
+
+    suspend fun registerNotificationsToken(token: String) {
+        api.registerNotificationsToken(token)
+    }
 }
 
 private fun FirebaseUser.toAuthUser() = AuthUser(

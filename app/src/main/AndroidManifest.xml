@@ -77,12 +77,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <receiver android:name=".notifications.RegisterFCMTokenReceiver">
-            <intent-filter>
-                <action android:name="com.rocketinsights.android.notifications.RegisterFCMTokenReceiver" />
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>
