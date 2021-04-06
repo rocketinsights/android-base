@@ -15,7 +15,7 @@ import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.managers.InternetManager
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
-import com.rocketinsights.android.viewmodels.MessagesFragmentState
+import com.rocketinsights.android.viewmodels.MessagesState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -57,15 +57,15 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
         }
 
         // observe UI state
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+        viewModel.messagesState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is MessagesFragmentState.Loading -> {
+                is MessagesState.Loading -> {
                     binding.loadingProgressBar.show()
                 }
-                is MessagesFragmentState.Success -> {
+                is MessagesState.Success -> {
                     binding.loadingProgressBar.hide()
                 }
-                is MessagesFragmentState.Error -> {
+                is MessagesState.Error -> {
                     binding.loadingProgressBar.hide()
                     val message = state.exception.getIOErrorMessage(requireContext())
                     requireContext().showToast(message)

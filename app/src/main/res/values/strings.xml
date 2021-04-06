@@ -14,6 +14,7 @@
     <string name="title_second_fragment">Second Fragment</string>
     <string name="title_first_fragment">First Fragment</string>
     <string name="messages">Messages</string>
+    <string name="session_end">Your session ended, please re-login.</string>
 
     <!--Permissions-->
     <string name="permissions_request">Request Permissions</string>
