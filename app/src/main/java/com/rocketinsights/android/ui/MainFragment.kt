@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -22,12 +23,11 @@ import com.rocketinsights.android.extensions.getUriForFile
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
-import com.rocketinsights.android.viewmodels.AuthViewModel
-import com.rocketinsights.android.viewmodels.MainFragmentMessage
+import com.rocketinsights.android.viewmodels.MainMessageState
 import com.rocketinsights.android.viewmodels.MainViewModel
-import org.koin.android.ext.android.inject
 import com.rocketinsights.android.viewmodels.PhotoViewModel
-import org.koin.androidx.scope.ScopeFragment
+import com.rocketinsights.android.viewmodels.UserViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -35,9 +35,9 @@ import timber.log.Timber
 
 private const val ERROR_CREATING_IMAGE = "Error while creating temporary image file."
 
-class MainFragment : ScopeFragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
-    private val authViewModel: AuthViewModel by sharedViewModel()
+    private val userViewModel: UserViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
@@ -102,11 +102,11 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     }
 
     private fun observeMessage() {
-        mainViewModel.message.observe(viewLifecycleOwner) { data ->
+        mainViewModel.messageState.observe(viewLifecycleOwner) { data ->
             when (data) {
-                is MainFragmentMessage.Loading -> binding.message.text = getString(R.string.loading)
-                is MainFragmentMessage.Success -> binding.message.text = data.message.text
-                is MainFragmentMessage.Error -> binding.message.text =
+                is MainMessageState.Loading -> binding.message.text = getString(R.string.loading)
+                is MainMessageState.Success -> binding.message.text = data.message.text
+                is MainMessageState.Error -> binding.message.text =
                     data.exception.getIOErrorMessage(requireContext())
             }
 
@@ -130,7 +130,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
     }
 
     private fun observeUserLoginStatus() {
-        authViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
+        userViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
             loginMenuItem.isVisible = !isLoggedIn
             loginMenuItem.isEnabled = !isLoggedIn
             logoutMenuItem.isVisible = isLoggedIn

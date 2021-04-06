@@ -16,25 +16,25 @@ class MainViewModel(
     private val repo: MessageRepository
 ) : ViewModel() {
 
-    private val _message = MutableLiveData<MainFragmentMessage>(MainFragmentMessage.Loading)
-    val message: LiveData<MainFragmentMessage> = _message
+    private val _messageState = MutableLiveData<MainMessageState>(MainMessageState.Loading)
+    val messageState: LiveData<MainMessageState> = _messageState
 
     init {
         viewModelScope.launch {
             delay(2000) // just to simulate 2 sec delay - remove from production code
             try {
                 val m = repo.getMessage()
-                _message.value = MainFragmentMessage.Success(m)
+                _messageState.value = MainMessageState.Success(m)
             } catch (e: Throwable) {
-                _message.value = MainFragmentMessage.Error(e)
+                _messageState.value = MainMessageState.Error(e)
                 Timber.e(e, ERROR_GET_MESSAGE)
             }
         }
     }
 }
 
-sealed class MainFragmentMessage {
-    object Loading : MainFragmentMessage()
-    data class Success(val message: Message) : MainFragmentMessage()
-    data class Error(val exception: Throwable) : MainFragmentMessage()
+sealed class MainMessageState {
+    object Loading : MainMessageState()
+    data class Success(val message: Message) : MainMessageState()
+    data class Error(val exception: Throwable) : MainMessageState()
 }
