@@ -30,12 +30,12 @@
     <string name="maps_display">Display Google Maps</string>
     <string name="maps_current_position">You are here!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="parallax_image">Parallax image</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="photo">Photo</string>
+    <string name="players">Players</string>
+    <string name="player">Player</string>
     <string name="take_a_photo">Take a photo</string>
     <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
 </resources>

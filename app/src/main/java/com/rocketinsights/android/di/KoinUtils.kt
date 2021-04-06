@@ -25,6 +25,7 @@ import com.rocketinsights.android.prefs.LocalStore
 import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
+import com.rocketinsights.android.repos.PlayerRepository
 import com.rocketinsights.android.ui.MainFragment
 import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.AuthViewModel
@@ -40,6 +41,7 @@ import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
 import com.rocketinsights.android.work.messages.MessagesUpdateWorker
 import com.rocketinsights.android.viewmodels.PhotoViewModel
+import com.rocketinsights.android.viewmodels.PlayerViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.workmanager.dsl.worker
@@ -112,6 +114,7 @@ private fun repositoryModule() = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
     single { MessageRepository(get(), get(), get()) }
     single { AuthRepository(get(), get(), get(), get()) }
+    single { PlayerRepository(get()) }
 }
 
 private fun authModule() = module {
@@ -138,6 +141,7 @@ private fun viewModelsModule() = module {
     viewModel { PermissionsViewModel(get()) }
     viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
+    viewModel { PlayerViewModel(get()) }
 }
 
 private fun viewInteractorsModule() = module {
