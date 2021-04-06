@@ -27,8 +27,6 @@ import com.rocketinsights.android.prefs.LocalStore
 import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
-import com.rocketinsights.android.ui.MainActivity
-import com.rocketinsights.android.ui.MainFragment
 import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
