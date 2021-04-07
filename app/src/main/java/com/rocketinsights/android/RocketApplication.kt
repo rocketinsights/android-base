@@ -19,6 +19,7 @@ class RocketApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initKoin()
         applicationScope.launch {
             init()
             scheduleWork()
@@ -36,7 +37,6 @@ class RocketApplication : Application() {
     }
 
     private fun init() {
-        initKoin()
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
