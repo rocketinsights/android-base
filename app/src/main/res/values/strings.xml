@@ -34,8 +34,15 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="photo">Photo</string>
-    <string name="players">Players</string>
-    <string name="player">Player</string>
     <string name="take_a_photo">Take a photo</string>
     <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
+
+    <!--Player screen-->
+    <string name="players">Players</string>
+    <string name="player">Player</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="position">Position</string>
+    <string name="refresh">Refresh</string>
+    <string name="error_get_player">Error occurred while retrieving player data.</string>
 </resources>

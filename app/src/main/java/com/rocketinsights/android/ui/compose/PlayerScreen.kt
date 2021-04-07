@@ -19,19 +19,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import com.rocketinsights.android.R
 import com.rocketinsights.android.models.Player
 import com.rocketinsights.android.viewmodels.PlayerViewModel
-import java.util.*
+import java.util.Locale
 
 @ExperimentalAnimationApi
 @Composable
 fun PlayerScreen(playerViewModel: PlayerViewModel) {
     val player = playerViewModel.player.observeAsState(initial = Player())
     val isLoading = playerViewModel.isLoading.observeAsState(initial = true)
+    val isError = playerViewModel.isError.observeAsState(initial = false)
     PlayerScreenContent(
         player = player.value,
         isLoading = isLoading.value,
+        isError = isError.value,
         onRefresh = playerViewModel::getPlayer
     )
 }
@@ -41,79 +45,76 @@ fun PlayerScreen(playerViewModel: PlayerViewModel) {
 fun PlayerScreenContent(
     player: Player,
     isLoading: Boolean,
+    isError: Boolean,
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val paddingNormal = dimensionResource(R.dimen.activity_vertical_margin)
+    val paddingSmall = dimensionResource(R.dimen.margin_small)
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(all = 16.dp)
+            .padding(all = paddingNormal)
     ) {
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(top = 16.dp, bottom = 16.dp),
+                .padding(top = paddingNormal, bottom = paddingNormal),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
+            // Player info
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                AnimatedVisibility(visible = !isLoading) {
-                    // // Player info labels
+                AnimatedVisibility(visible = !isLoading && !isError) {
+                    // Player info labels
                     Column(horizontalAlignment = Alignment.End) {
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(text = "First name:")
-                        }
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(text = "Last name:")
-                        }
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(text = "Position:")
-                        }
+                        val labelModifier = Modifier.padding(top = paddingSmall)
+                        Text(
+                            text = "${stringResource(R.string.first_name)}:",
+                            modifier = labelModifier
+                        )
+                        Text(
+                            text = "${stringResource(R.string.last_name)}:",
+                            modifier = labelModifier
+                        )
+                        Text(
+                            text = "${stringResource(R.string.position)}:",
+                            modifier = labelModifier
+                        )
                     }
                 }
-                Spacer(Modifier.width(16.dp))
-                AnimatedVisibility(visible = !isLoading) {
+                Spacer(Modifier.width(paddingNormal))
+                AnimatedVisibility(visible = !isLoading && !isError) {
                     // Player info values
                     Column(horizontalAlignment = Alignment.Start) {
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(player.firstName)
-                        }
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(player.lastName)
-                        }
-                        Row(
-                            Modifier.padding(top = 8.dp)
-                        ) {
-                            Text(player.position.stringValue)
-                        }
+                        val valueModifier = Modifier.padding(top = paddingSmall)
+                        Text(text = player.firstName, modifier = valueModifier)
+                        Text(text = player.lastName, modifier = valueModifier)
+                        Text(text = player.position.stringValue, modifier = valueModifier)
                     }
                 }
             }
-            Spacer(Modifier.height(16.dp))
-            Row {
-                Button(
-                    onClick = onRefresh,
-                    enabled = !isLoading
-                ) {
-                    Text(text = "Refresh".toUpperCase(Locale.ROOT))
-                }
+            Spacer(Modifier.height(paddingNormal))
+            // Refresh button
+            Button(
+                onClick = onRefresh,
+                enabled = !isLoading
+            ) {
+                Text(text = stringResource(R.string.refresh).toUpperCase(Locale.ROOT))
             }
         }
-        if (isLoading) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
+        // Loading indicator
+        AnimatedVisibility(visible = isLoading, modifier = Modifier.align(Alignment.Center)) {
+            CircularProgressIndicator()
+        }
+        // Error message
+        AnimatedVisibility(
+            visible = isError && !isLoading, modifier = Modifier.align(Alignment.Center)
+        ) {
+            Text(stringResource(R.string.error_get_player))
         }
     }
 }
