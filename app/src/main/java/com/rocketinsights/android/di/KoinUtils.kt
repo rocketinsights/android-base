@@ -1,6 +1,7 @@
 package com.rocketinsights.android.di
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.room.Room
@@ -21,6 +22,7 @@ import com.rocketinsights.android.managers.location.LocationManager
 import com.rocketinsights.android.managers.location.LocationManagerImpl
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.network.NetworkingManager
+import com.rocketinsights.android.notifications.MyAppNotificationsManager
 import com.rocketinsights.android.prefs.AuthLocalStore
 import com.rocketinsights.android.prefs.AuthLocalStoreImpl
 import com.rocketinsights.android.prefs.LocalStore
@@ -100,6 +102,13 @@ private fun managersModule() = module {
     }
     factory<PermissionsManager> { PermissionsManagerImpl(get()) }
     single<LocationManager> { LocationManagerImpl(get()) }
+    single {
+        MyAppNotificationsManager(
+            get(),
+            androidContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        )
+    }
+    single<LocalStore> { LocalStoreImpl(get()) }
 }
 
 private fun repositoryModule() = module {
@@ -114,7 +123,6 @@ private fun repositoryModule() = module {
 
 private fun authModule() = module {
     single { FirebaseAuth.getInstance() }
-    single<LocalStore> { LocalStoreImpl(get()) }
     single<AuthLocalStore> { AuthLocalStoreImpl(get()) }
     factory<AuthManager> { (context: Context) ->
         FirebaseAuthManager(context, get(), AuthUI.getInstance())

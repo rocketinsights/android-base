@@ -25,6 +25,8 @@ private const val ERROR_REFRESHING_TOKEN = "Error occurred while refreshing toke
 private const val ERROR_GET_TOKEN = "Error while retrieving user ID token."
 private const val ERROR_GET_TOKEN_LOCAL =
     "Error while retrieving user ID token from the local store."
+private const val ERROR_REGISTERING_PUSH_NOTIFICATIONS_TOKEN = "Error occurred while registering " +
+    "the token for push notifications in the backend."
 
 class AuthRepository(
     private val api: ApiService,
@@ -122,6 +124,14 @@ class AuthRepository(
 
     override suspend fun signOut() {
         firebaseAuth.signOut()
+    }
+
+    suspend fun registerNotificationsToken(token: String) {
+        try {
+            api.registerNotificationsToken(token)
+        } catch (e: Throwable) {
+            Timber.e(e, ERROR_REGISTERING_PUSH_NOTIFICATIONS_TOKEN)
+        }
     }
 }
 
