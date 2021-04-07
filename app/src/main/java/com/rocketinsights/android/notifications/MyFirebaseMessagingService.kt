@@ -4,6 +4,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.repos.AuthRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -18,6 +19,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private val notificationsManager: MyAppNotificationsManager by inject()
     private val authRepository: AuthRepository by inject()
     private val dispatcher: DispatcherProvider by inject()
+    private val scope = CoroutineScope(dispatcher.io())
 
     // Override handle intent to use our custom Notification Manager
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -52,12 +54,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Timber.d("New Firebase Token: %s", token)
 
         // Register Token in our API
-        GlobalScope.launch(dispatcher.io()) {
-            try {
-                authRepository.registerNotificationsToken(token)
-            } catch (e: Exception) {
-                Timber.w(e)
-            }
+        scope.launch {
+            authRepository.registerNotificationsToken(token)
         }
 
         super.onNewToken(token)
