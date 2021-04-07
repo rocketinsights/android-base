@@ -5,7 +5,6 @@ import com.google.firebase.messaging.RemoteMessage
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.repos.AuthRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
