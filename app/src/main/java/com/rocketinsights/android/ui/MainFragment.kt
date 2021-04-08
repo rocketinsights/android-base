@@ -76,6 +76,7 @@ class MainFragment : ScopeFragment(R.layout.fragment_main) {
                 true
             }
             R.id.maps_fragment -> item.onNavDestinationSelected(findNavController())
+            R.id.player_fragment -> item.onNavDestinationSelected(findNavController())
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true

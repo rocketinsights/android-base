@@ -39,6 +39,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_player_fragment"
+            app:destination="@id/player_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
@@ -60,4 +67,8 @@
         android:name="com.rocketinsights.android.ui.MapsFragment"
         android:label="@string/maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/player_fragment"
+        android:name="com.rocketinsights.android.ui.PlayerFragment"
+        android:label="@string/player" />
 </navigation>
