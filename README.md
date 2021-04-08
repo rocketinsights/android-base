@@ -2,6 +2,10 @@
 
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
+Important branches:
+- main - This branch represents the current state of the project. It's under regular maintenance. Use stable version of Android Studio to open the project.
+- canary - This branch is for trying out Android preview features. Some features might be merged from this branch to master branch in the future. It is not under regular maintenance. Use canary version of Android Studio to open the project.
+
 [![Bitrise Build Status](https://app.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://app.bitrise.io/app/edf2965e90d6ca81)
 
 [![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg&circle-token=bd395430a4c3e2741c39f8b305be451bf1655e15)](https://circleci.com/gh/rocketinsights/android-base)
