@@ -1,7 +1,10 @@
 package com.rocketinsights.android.ui.compose
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,8 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.rocketinsights.android.R
 import com.rocketinsights.android.models.Player
+import com.rocketinsights.android.models.Position
 import com.rocketinsights.android.viewmodels.PlayerViewModel
 import java.util.Locale
 
@@ -64,11 +70,15 @@ fun PlayerScreenContent(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             // Player info
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+            AnimatedVisibility(
+                visible = !isLoading && !isError,
+                enter = fadeIn(),
+                exit = fadeOut()
             ) {
-                AnimatedVisibility(visible = !isLoading && !isError) {
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     // Player info labels
                     Column(horizontalAlignment = Alignment.End) {
                         val labelModifier = Modifier.padding(top = paddingSmall)
@@ -85,9 +95,7 @@ fun PlayerScreenContent(
                             modifier = labelModifier
                         )
                     }
-                }
-                Spacer(Modifier.width(paddingNormal))
-                AnimatedVisibility(visible = !isLoading && !isError) {
+                    Spacer(Modifier.width(paddingNormal))
                     // Player info values
                     Column(horizontalAlignment = Alignment.Start) {
                         val valueModifier = Modifier.padding(top = paddingSmall)
@@ -107,14 +115,53 @@ fun PlayerScreenContent(
             }
         }
         // Loading indicator
-        AnimatedVisibility(visible = isLoading, modifier = Modifier.align(Alignment.Center)) {
+        AnimatedVisibility(
+            visible = isLoading,
+            modifier = Modifier.align(Alignment.Center),
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
             CircularProgressIndicator()
         }
         // Error message
         AnimatedVisibility(
-            visible = isError && !isLoading, modifier = Modifier.align(Alignment.Center)
+            visible = isError && !isLoading,
+            modifier = Modifier.align(Alignment.Center),
+            enter = fadeIn(),
+            exit = fadeOut()
         ) {
             Text(stringResource(R.string.error_get_player))
         }
+    }
+}
+
+@ExperimentalAnimationApi
+@Preview
+@Composable
+private fun PlayerScreenContentLightPreview() {
+    PlayerScreenContentPreview()
+}
+
+@ExperimentalAnimationApi
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun PlayerScreenContentDarkPreview() {
+    PlayerScreenContentPreview()
+}
+
+@ExperimentalAnimationApi
+@Composable
+private fun PlayerScreenContentPreview() {
+    val player = Player("Ivan", "Toplak", Position.FW)
+    val isLoading = false
+    val isError = false
+    val onRefresh = {}
+    MdcTheme {
+        PlayerScreenContent(
+            player = player,
+            isLoading = isLoading,
+            isError = isError,
+            onRefresh = onRefresh
+        )
     }
 }
