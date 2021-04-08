@@ -29,15 +29,9 @@ import com.rocketinsights.android.prefs.LocalStore
 import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
+import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.ParentScrollProvider
-import com.rocketinsights.android.viewmodels.ConnectivityViewModel
-import com.rocketinsights.android.viewmodels.LocationViewModel
-import com.rocketinsights.android.viewmodels.MainViewModel
-import com.rocketinsights.android.viewmodels.MessagesViewModel
-import com.rocketinsights.android.viewmodels.PermissionsViewModel
-import com.rocketinsights.android.viewmodels.PhotoViewModel
-import com.rocketinsights.android.viewmodels.SessionViewModel
-import com.rocketinsights.android.viewmodels.UserViewModel
+import com.rocketinsights.android.viewmodels.*
 import com.rocketinsights.android.work.Work
 import com.rocketinsights.android.work.WorkImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
@@ -146,7 +140,9 @@ private fun viewModelsModule() = module {
 }
 
 private fun viewInteractorsModule() = module {
-    single { ParentScrollProvider() }
+    scope<MainActivity> {
+        scoped { ParentScrollProvider() }
+    }
 }
 
 private fun workModule() = module {

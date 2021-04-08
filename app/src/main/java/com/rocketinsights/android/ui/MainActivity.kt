@@ -2,8 +2,6 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,10 +15,12 @@ import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.SessionDataState
 import com.rocketinsights.android.viewmodels.SessionViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ScopeActivity() {
+
     private val binding by viewBinding(ActivityMainBinding::inflate)
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
         navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
     private fun listenSessionViewModelEvents() {
-        sessionViewModel.sessionDataSate.observe(this, Observer {
-            it.getContentIfNotHandled()?.let {
+        sessionViewModel.sessionDataSate.observe(this, { event ->
+            event.getContentIfNotHandled()?.let {
                 when (it) {
                     SessionDataState.CLEARING -> {
                         // TODO Show Progress would be good
