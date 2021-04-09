@@ -2,13 +2,12 @@ name: Pull request workflow
 
 on:
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ $default-branch ]
   workflow_dispatch:
 
 jobs:
   lint:
+    name: Run Linter
     runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +19,9 @@ jobs:
 
       - name: Run linter
         run: ./gradlew --parallel lint
+
   unit_tests:
+    name: Run Unit Tests
     runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@v2
