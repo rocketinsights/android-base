@@ -24,8 +24,11 @@ class TokenAuthenticator(
 
                     // Retrieve refreshed token
                     runBlocking {
-                        requestBuilder.header(NetworkingManager.HEADER_AUTH, NetworkingManager.HEADER_BEARER +
-                            sessionWatcher.refreshAccessToken())
+                        requestBuilder.header(
+                            NetworkingManager.HEADER_AUTH,
+                            NetworkingManager.HEADER_BEARER +
+                                sessionWatcher.refreshAccessToken()
+                        )
                     }
 
                     Timber.w("Token Expired/Invalid - Retrying request with a new one")

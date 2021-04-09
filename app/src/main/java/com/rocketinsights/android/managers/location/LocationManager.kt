@@ -16,8 +16,10 @@ interface LocationManager {
         const val LOCATION_UPDATES_INTERVAL = 10000L // 10 seconds
         const val LOCATION_UPDATES_FASTEST_INTERVAL = 5000L // 5 seconds
 
-        val LOCATION_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION)
+        val LOCATION_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
     }
 
     fun canGetLocation(): Boolean

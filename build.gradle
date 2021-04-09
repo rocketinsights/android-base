@@ -4,13 +4,13 @@ buildscript {
     ext {
         kotlin_version = '1.4.31'
         gradle_version = '4.1.2'
-        dependency_check_version = '6.1.1'
-        gradle_versions_version = '0.36.0'
-        navigation_version = "2.3.4"
+        dependency_check_version = '6.1.5'
+        gradle_versions_version = '0.38.0'
+        navigation_version = "2.3.5"
         google_services_version = "4.3.5"
     }
     repositories {
-        jcenter()
+        gradlePluginPortal()
         google()
         mavenCentral()
     }
@@ -19,17 +19,16 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         classpath "com.google.gms:google-services:$google_services_version"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-
         classpath "org.owasp:dependency-check-gradle:$dependency_check_version"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradle_versions_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        jcenter() // com.github.quickpermissions:quickpermissions-kotlin -> org.jetbrains.anko:anko-commons
         google()
     }
 }

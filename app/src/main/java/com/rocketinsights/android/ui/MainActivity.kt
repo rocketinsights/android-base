@@ -64,20 +64,23 @@ class MainActivity : ScopeActivity() {
         navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
     private fun listenSessionViewModelEvents() {
-        sessionViewModel.sessionDataSate.observe(this, { event ->
-            event.getContentIfNotHandled()?.let {
-                when (it) {
-                    SessionDataState.CLEARING -> {
-                        // TODO Show Progress would be good
-                    }
-                    SessionDataState.CLEARED -> {
-                        // User Logout
-                        // TODO Hide Progress showed when CLEARING
-                        showToast(getString(R.string.session_end))
-                        authManager.launchSignInFlow()
+        sessionViewModel.sessionDataSate.observe(
+            this,
+            { event ->
+                event.getContentIfNotHandled()?.let {
+                    when (it) {
+                        SessionDataState.CLEARING -> {
+                            // TODO Show Progress would be good
+                        }
+                        SessionDataState.CLEARED -> {
+                            // User Logout
+                            // TODO Hide Progress showed when CLEARING
+                            showToast(getString(R.string.session_end))
+                            authManager.launchSignInFlow()
+                        }
                     }
                 }
             }
-        })
+        )
     }
 }

@@ -2,8 +2,6 @@ package com.rocketinsights.android.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.rocketinsights.android.auth.AuthUser
 import com.rocketinsights.android.repos.AuthRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +14,8 @@ import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
 @ExperimentalCoroutinesApi
