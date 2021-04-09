@@ -1,5 +1,6 @@
 ext {
     app_version_name = "1.0"
+    git_hash = this.&getGitHash
 }
 
 def getGitHash = { ->

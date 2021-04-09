@@ -63,7 +63,7 @@ android {
 
             manifestPlaceholders = [appName: "@string/app_name_dev"]
             applicationIdSuffix ".dev"
-            versionNameSuffix "-dev"
+            versionNameSuffix "-" + git_hash + "-dev"
             resValue 'string', 'workManager', "com.rocketinsights.android.dev.workmanager-init"
             resValue 'string', 'fileProvider', "com.rocketinsights.android.fileprovider.dev"
 
@@ -99,6 +99,13 @@ android {
                 includeNoLocationClasses = true
                 excludes = ['jdk.internal.*']
             }
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "android-base-${variant.name}-${variant.versionName}.apk"
+
+            logger.quiet("\t${variant.name} version:\t$outputFileName")
         }
     }
 }
