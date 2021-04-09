@@ -3,9 +3,9 @@ package com.rocketinsights.android
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
-
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.KoinExperimentalAPI
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -14,6 +14,8 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+
+    @KoinExperimentalAPI
     @Test
     @Throws(Exception::class)
     fun useAppContext() {

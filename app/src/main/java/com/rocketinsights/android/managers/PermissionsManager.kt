@@ -41,16 +41,20 @@ class PermissionsManagerImpl(
 
     override suspend fun requestPermissions(activity: AppCompatActivity, vararg permissions: String): Unit =
         suspendCoroutine { cont ->
-            activity.runWithPermissions(*permissions,
-                options = permissionsRequestOptions(cont)) {
+            activity.runWithPermissions(
+                *permissions,
+                options = permissionsRequestOptions(cont)
+            ) {
                 cont.resume(Unit)
             }
         }
 
     override suspend fun requestPermissions(fragment: Fragment, vararg permissions: String): Unit =
         suspendCoroutine { cont ->
-            fragment.runWithPermissions(*permissions,
-                options = permissionsRequestOptions(cont)) {
+            fragment.runWithPermissions(
+                *permissions,
+                options = permissionsRequestOptions(cont)
+            ) {
                 cont.resume(Unit)
             }
         }
@@ -59,9 +63,11 @@ class PermissionsManagerImpl(
         handleRationale = false,
         handlePermanentlyDenied = true,
         permanentDeniedMethod = {
-            cont.resumeWithException(Exception.PermissionPermanentlyDeniedException(
-                it.deniedPermissions.toList()
-            ))
+            cont.resumeWithException(
+                Exception.PermissionPermanentlyDeniedException(
+                    it.deniedPermissions.toList()
+                )
+            )
         },
         permissionsDeniedMethod = {
             cont.resumeWithException(Exception.PermissionsDenied(it.deniedPermissions.toList()))

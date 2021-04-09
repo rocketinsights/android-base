@@ -1,8 +1,5 @@
 package com.rocketinsights.android.repos
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.db.dao.MessageDao
 import com.rocketinsights.android.db.models.DbMessage
@@ -23,6 +20,9 @@ import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class MessageRepositoryTest {

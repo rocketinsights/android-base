@@ -86,9 +86,11 @@ class NetworkingManager(
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .apply {
-                addInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                })
+                addInterceptor(
+                    HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    }
+                )
 
                 if (authRequired) {
                     authenticator(TokenAuthenticator(sessionWatcher))

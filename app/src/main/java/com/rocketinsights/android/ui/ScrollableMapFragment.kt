@@ -22,8 +22,13 @@ class ScrollableMapFragment : SupportMapFragment() {
 
         val frameLayout = TouchableWrapper(requireContext())
         frameLayout.setBackgroundColor(requireContext().getColor(android.R.color.transparent))
-        layout.addView(frameLayout, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT))
+        layout.addView(
+            frameLayout,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
 
         return layout
     }

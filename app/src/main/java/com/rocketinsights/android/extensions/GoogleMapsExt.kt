@@ -13,10 +13,12 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 
 fun GoogleMap.addMarker(position: LatLng, marker: Bitmap, autoRotate: Boolean = false): Marker {
-    return addMarker(MarkerOptions()
-        .flat(autoRotate)
-        .position(position)
-        .icon(BitmapDescriptorFactory.fromBitmap(marker)))
+    return addMarker(
+        MarkerOptions()
+            .flat(autoRotate)
+            .position(position)
+            .icon(BitmapDescriptorFactory.fromBitmap(marker))
+    )
 }
 
 fun GoogleMap.changeCameraPosition(
@@ -65,10 +67,12 @@ fun GoogleMap.drawPolyline(
     polylineWidth: Float,
     color: Int
 ): Polyline {
-    return addPolyline(PolylineOptions()
-        .addAll(decodedPointsList)
-        .width(polylineWidth)
-        .color(color))
+    return addPolyline(
+        PolylineOptions()
+            .addAll(decodedPointsList)
+            .width(polylineWidth)
+            .color(color)
+    )
 }
 
 fun List<List<Double>>.polylinePointsToLatLng(polylinePoints: List<List<Double>>): List<LatLng> {

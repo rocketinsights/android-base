@@ -106,8 +106,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (data) {
                 is MainMessageState.Loading -> binding.message.text = getString(R.string.loading)
                 is MainMessageState.Success -> binding.message.text = data.message.text
-                is MainMessageState.Error -> binding.message.text =
-                    data.exception.getIOErrorMessage(requireContext())
+                is MainMessageState.Error ->
+                    binding.message.text =
+                        data.exception.getIOErrorMessage(requireContext())
             }
 
             binding.stockImage.show()

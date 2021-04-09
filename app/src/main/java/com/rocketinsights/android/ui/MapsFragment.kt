@@ -70,48 +70,51 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     }
 
     private fun setupObservers() {
-        locationViewModel.locationState.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                is LocationResult.Location -> {
-                    (childFragmentManager.findFragmentById(R.id.mapsFragment) as SupportMapFragment)
-                        .getMapAsync { map ->
-                            val bubbleIconGenerator = IconGenerator(requireContext())
-                            bubbleIconGenerator.apply {
-                                setColor(Color.BLUE)
-                                setTextAppearance(R.style.mapsBubbleMarker)
+        locationViewModel.locationState.observe(
+            viewLifecycleOwner,
+            { result ->
+                when (result) {
+                    is LocationResult.Location -> {
+                        (childFragmentManager.findFragmentById(R.id.mapsFragment) as SupportMapFragment)
+                            .getMapAsync { map ->
+                                val bubbleIconGenerator = IconGenerator(requireContext())
+                                bubbleIconGenerator.apply {
+                                    setColor(Color.BLUE)
+                                    setTextAppearance(R.style.mapsBubbleMarker)
+                                }
+
+                                map.apply {
+                                    addMarker(
+                                        position = result.latLng,
+                                        marker = bubbleIconGenerator.makeIcon(getString(R.string.maps_current_position)),
+                                        autoRotate = true
+                                    )
+                                    changeCameraPosition(
+                                        position = result.latLng
+                                    )
+                                }
                             }
 
-                            map.apply {
-                                addMarker(
-                                    position = result.latLng,
-                                    marker = bubbleIconGenerator.makeIcon(getString(R.string.maps_current_position)),
-                                    autoRotate = true
-                                )
-                                changeCameraPosition(
-                                    position = result.latLng
-                                )
-                            }
+                        result.address?.let {
+                            requireContext().showToast(
+                                getString(R.string.location_current_address, it.getAddress())
+                            )
                         }
-
-                    result.address?.let {
-                        requireContext().showToast(
-                            getString(R.string.location_current_address, it.getAddress())
+                    }
+                    is LocationResult.PermissionsNeeded -> {
+                        permissionsViewModel.requestPermissions(
+                            this,
+                            *LocationViewModel.LOCATION_PERMISSIONS
                         )
                     }
-                }
-                is LocationResult.PermissionsNeeded -> {
-                    permissionsViewModel.requestPermissions(
-                        this,
-                        *LocationViewModel.LOCATION_PERMISSIONS
-                    )
-                }
-                is LocationResult.GpsOff -> {
-                    requestGpsSwitchOn.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-                }
-                is LocationResult.Error -> {
-                    requireContext().showToast(getString(R.string.location_error))
+                    is LocationResult.GpsOff -> {
+                        requestGpsSwitchOn.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                    }
+                    is LocationResult.Error -> {
+                        requireContext().showToast(getString(R.string.location_error))
+                    }
                 }
             }
-        })
+        )
     }
 }

@@ -2,9 +2,6 @@ package com.rocketinsights.android.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +19,9 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class MessagesViewModelTest {

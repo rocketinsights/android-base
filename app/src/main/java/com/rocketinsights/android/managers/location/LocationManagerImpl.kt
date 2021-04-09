@@ -69,11 +69,13 @@ class LocationManagerImpl(
         unit: LocationManager.DistanceUnit
     ): Double {
         val distanceInMeters = FloatArray(1)
-        Location.distanceBetween(startLatLng.latitude,
+        Location.distanceBetween(
+            startLatLng.latitude,
             startLatLng.longitude,
             endLatLng.latitude,
             endLatLng.longitude,
-            distanceInMeters)
+            distanceInMeters
+        )
         return distanceInMeters[0] * unit.multiplier
     }
 
