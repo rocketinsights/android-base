@@ -1,14 +1,14 @@
-name: Release workflow
+name: Release
 
 on:
-  push:
-    branches:
-      - main
-      - master
+  create:
+    tags:
+      - v*
   workflow_dispatch:
 
 jobs:
   lint:
+    name: Run Linter
     runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@v2
@@ -19,8 +19,10 @@ jobs:
           java-version: 1.8
 
       - name: Run linter
-        run: ./gradlew --parallel lint
+        run: ./gradlew --parallel lintDebug
+
   unit_tests:
+    name: Run Unit Tests
     runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@v2
@@ -31,8 +33,10 @@ jobs:
           java-version: 1.8
 
       - name: Unit tests
-        run: ./gradlew --parallel test
-  build_apk:
+        run: ./gradlew --parallel testDebugUnitTest
+
+  build_aab:
+    name: Build Release AAB and Upload to Google Play
     runs-on: [ ubuntu-latest ]
     needs: [ lint, unit_tests ]
     steps:
@@ -42,18 +46,46 @@ jobs:
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 1.8
+
       - name: Set env file name
-        run: echo "GENERATED_FILE_NAME=$(./gradlew -q fileName | tail -n 1)" >> $GITHUB_ENV
+        run: echo "GENERATED_FILE_NAME=$(./gradlew -q fileName | head -n 1 | cut -d- -f1)" >> $GITHUB_ENV
 
-      - name: Generate APK
-        run: ./gradlew --parallel assembleRelease
+      # Below is an example workflow for retrieving a base64 encoded signing config and a base64 encoded included in
+      # the GitHub Actions Secrets for a repository, generating a signed app bundle and uploading it to Google Play
+      # internal track based on service account json generated in Google Play
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: android-base-prod-release-${{ env.GENERATED_FILE_NAME }}.apk
-          path: app/build/outputs/apk/prod/release/app-prod-release.apk
+      # - name: Write release signing config
+      #   uses: RollyPeres/base64-to-path@v1
+      #   with:
+      #     filePath: ${{ github.workspace }}/release-signing-config.gradle
+      #     encodedString: ${{ secrets.RELEASE_SIGNING_SETTINGS }}
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: mapping-${{ env.GENERATED_FILE_NAME }}.txt
-          path: app/build/outputs/mapping/prodRelease/mapping.txt
+      # - name: Write release keystore
+      #   uses: RollyPeres/base64-to-path@v1
+      #   with:
+      #     filePath: ${{ github.workspace }}/release.keystore
+      #     encodedString: ${{ secrets.RELEASE_KEYSTORE }}
+
+      # - name: Generate release AAB
+      #   run: ./gradlew bundleRelease
+
+      # - name: Upload release AAB
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: android-base-prodRelease-${{ env.GENERATED_FILE_NAME }}.aab
+      #     path: app/build/outputs/bundle/prod/release/*.aab
+
+      # - name: Upload release mapping file
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: mapping.txt
+      #     path: app/build/outputs/mapping/prodRelease/mapping.txt
+
+      # - name: Upload release AAB to Google Play Internal Track
+      #   uses: r0adkll/upload-google-play@v1
+      #   with:
+      #     serviceAccountJson: generated-service-account.json
+      #     packageName: com.rocketinsights.android
+      #     releaseFiles: app/build/outputs/bundle/prod/release/*.aab
+      #     track: internal
+      #     mappingFile: app/build/outputs/mapping/prodRelease/mapping.txt
