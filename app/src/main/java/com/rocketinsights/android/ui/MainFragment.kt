@@ -76,6 +76,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 true
             }
             R.id.maps_fragment -> item.onNavDestinationSelected(findNavController())
+            R.id.animations_fragment -> item.onNavDestinationSelected(findNavController())
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true
