@@ -35,7 +35,11 @@
     <string name="animations">Animations</string>
     <string name="animation_screen_subtitle">Quick access to animation examples on Android</string>
     <string name="animation_1_title">Animation 1 Title</string>
+    <string name="animation_2_title">Animation 2 Title</string>
+    <string name="animation_3_title">Animation 3 Title</string>
     <string name="animation_1_description">Animation 1 Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</string>
+    <string name="animation_2_description">Animation 2 Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</string>
+    <string name="animation_3_description">Animation 3 Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</string>
 
     <string name="parallax_image">Parallax image</string>
     <string name="login">Login</string>
