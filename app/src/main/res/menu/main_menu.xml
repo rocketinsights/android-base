@@ -12,6 +12,9 @@
             android:id="@+id/maps_fragment"
             android:title="@string/maps_display" />
         <item
+            android:id="@+id/animations_fragment"
+            android:title="@string/animations" />
+        <item
             android:id="@+id/menu_login"
             android:title="@string/login" />
         <item

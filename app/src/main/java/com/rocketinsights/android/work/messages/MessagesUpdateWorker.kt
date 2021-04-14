@@ -12,9 +12,9 @@ private const val WORK_FAILED_HTTP = "Messages update work failed with HTTP exce
 private const val WORK_FAILED = "Messages update work failed with unknown exception."
 
 class MessagesUpdateWorker(
-    private val messageRepository: MessageRepository,
     context: Context,
-    params: WorkerParameters
+    params: WorkerParameters,
+    private val messageRepository: MessageRepository
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
