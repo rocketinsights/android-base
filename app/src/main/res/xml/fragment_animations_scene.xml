@@ -14,7 +14,7 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/card_animation_1"
+            android:id="@+id/card_lottie_animation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small"
@@ -39,7 +39,7 @@
             motion:layout_constraintBottom_toTopOf="@id/card_animation_3"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/card_animation_1" />
+            motion:layout_constraintTop_toBottomOf="@id/card_lottie_animation" />
         <Constraint
             android:id="@+id/card_animation_3"
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/card_animation_1"
+            android:id="@+id/card_lottie_animation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -92,7 +92,7 @@
             motion:layout_constraintBottom_toTopOf="@id/card_animation_3"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/card_animation_1" />
+            motion:layout_constraintTop_toBottomOf="@id/card_lottie_animation" />
         <Constraint
             android:id="@+id/card_animation_3"
             android:layout_width="match_parent"

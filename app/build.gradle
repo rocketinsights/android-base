@@ -147,6 +147,7 @@ ext {
     work_version = "2.5.0"
     ok_http_version = "4.9.0"
     chuck_version = "3.4.0"
+    lottie_version = "3.7.0"
 }
 
 jacoco {
@@ -239,6 +240,9 @@ dependencies {
 
     // Utilities for Maps SDK for Android (requires Google Play Services)
     implementation "com.google.maps.android:android-maps-utils:$google_maps_utils_version"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 
     // Test
     // Unit testing framework

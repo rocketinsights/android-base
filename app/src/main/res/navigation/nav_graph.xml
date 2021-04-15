@@ -71,5 +71,18 @@
         android:id="@+id/animations_fragment"
         android:name="com.rocketinsights.android.ui.AnimationsFragment"
         android:label="@string/animations"
-        tools:layout="@layout/fragment_animations" />
+        tools:layout="@layout/fragment_animations">
+        <action
+            android:id="@+id/show_account_setup_animation_fragment"
+            app:destination="@id/account_setup_animation_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/account_setup_animation_fragment"
+        android:name="com.rocketinsights.android.ui.AccountSetupAnimationFragment"
+        android:label="Account Setup"
+        tools:layout="@layout/fragment_account_setup_animation" />
 </navigation>

@@ -42,10 +42,7 @@ class MainActivity : ScopeActivity() {
         listenSessionViewModelEvents()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed() // to trigger OnBackPressedCallbacks in your fragments
-        return navigateUp()
-    }
+    override fun onSupportNavigateUp(): Boolean = navigateUp()
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
