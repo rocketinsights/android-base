@@ -82,7 +82,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_animation_2"
+        android:id="@+id/card_property_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/CardView.AndroidBase.Animation">

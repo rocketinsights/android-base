@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
     <dimen name="tall_toolbar_height">300dp</dimen>
     <dimen name="progress_bar_size">40dp</dimen>
     <dimen name="fragment_messages_min_height">700dp</dimen>
