@@ -1,0 +1,39 @@
+name: Pull request workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Run Linter
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Run Linter
+        run: ./gradlew --parallel lint
+
+  unit_tests:
+    name: Run Unit Tests
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Unit Tests
+        run: ./gradlew --parallel test

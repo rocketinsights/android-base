@@ -1,0 +1,111 @@
+name: Release Candidate
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Run Linter
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Run Linter
+        run: ./gradlew --parallel lint
+
+  unit_tests:
+    name: Run Unit Tests
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Unit Tests
+        run: ./gradlew --parallel test
+
+  build_apk:
+    name: Build Test APK and Upload to Firebase
+    runs-on: [ ubuntu-latest ]
+    needs: [ lint, unit_tests ]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+      - name: Set File Name Environment Variable
+        run: echo "GENERATED_FILE_NAME=$(./gradlew -q fileName | head -n 1)" >> $GITHUB_ENV
+
+      - name: Generate APK
+        run: ./gradlew --parallel assembleRelease
+
+      - name: Upload QA APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-base-devRelease-${{ env.GENERATED_FILE_NAME }}.apk
+          path: app/build/outputs/apk/dev/release/*.apk
+
+      - name: Upload QA Mapping File
+        uses: actions/upload-artifact@v2
+        with:
+          name: mapping-${{ env.GENERATED_FILE_NAME }}.txt
+          path: app/build/outputs/mapping/devRelease/mapping.txt
+
+      - name: Upload QA APK to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          file: app/build/outputs/apk/dev/release/android-base-devRelease-${{ env.GENERATED_FILE_NAME }}-dev.apk
+
+  firebase_tests:
+    name: Run UI Tests with Firebase Test Lab
+    runs-on: [ ubuntu-latest ]
+    needs: [ lint, unit_tests ]
+
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Set File Name Environment Variable
+        run: echo "GENERATED_FILE_NAME=$(./gradlew -q fileName | head -n 1)" >> $GITHUB_ENV
+
+      - name: Generate Debug APK
+        run: ./gradlew --parallel assembleDebug
+
+      - name: Generate Debug Test APK
+        run: ./gradlew --parallel assembleDevDebugAndroidTest
+
+      - name: Log into Google Cloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '270.0.0'
+          service_account_key: ${{ secrets.GOOGLE_CLOUD_AUTH }}
+
+      - name: Set Current Project
+        run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
+
+      - name: Run Instrumentation Tests in Firebase Test Lab
+        run: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/dev/debug/android-base-devDebug-${{ env.GENERATED_FILE_NAME }}-dev.apk --test app/build/outputs/apk/androidTest/dev/debug/app-dev-debug-androidTest.apk --use-orchestrator --device model=Pixel2,version=28,locale=en_US,orientation=portrait

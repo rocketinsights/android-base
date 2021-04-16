@@ -11,6 +11,7 @@ plugins {
 apply from: 'jacoco.gradle'
 // If code style check fails do not try to make a build
 apply from: 'lint.gradle'
+apply from: 'build-scripts.gradle'
 
 repositories {
     mavenCentral()
@@ -38,7 +39,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName app_version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -66,7 +67,7 @@ android {
 
             manifestPlaceholders = [appName: "@string/app_name_dev"]
             applicationIdSuffix ".dev"
-            versionNameSuffix "-dev"
+            versionNameSuffix "-" + git_hash + "-dev"
             resValue 'string', 'workManager', "com.rocketinsights.android.dev.workmanager-init"
             resValue 'string', 'fileProvider', "com.rocketinsights.android.fileprovider.dev"
 
@@ -108,6 +109,13 @@ android {
                 includeNoLocationClasses = true
                 excludes = ['jdk.internal.*']
             }
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "android-base-${variant.name}-${variant.versionName}.apk"
+
+            logger.quiet("\t${variant.name} version:\t$outputFileName")
         }
     }
 }
