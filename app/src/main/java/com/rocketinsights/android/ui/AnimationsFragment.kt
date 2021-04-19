@@ -36,5 +36,9 @@ class AnimationsFragment : Fragment(R.layout.fragment_animations) {
         binding.cardLottieAnimation.setOnClickListener {
             findNavController().navigate(AnimationsFragmentDirections.showAccountSetupAnimationFragment())
         }
+
+        binding.cardPropertyAnimation.setOnClickListener {
+            findNavController().navigate(AnimationsFragmentDirections.showPropertyAnimationFragment())
+        }
     }
 }
