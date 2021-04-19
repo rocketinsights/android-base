@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.material.transition.MaterialFadeThrough
 
 /**
  * This class provides an implementation to use Google Maps and [android.widget.ScrollView] in the same layout.
@@ -15,6 +16,11 @@ import com.google.android.gms.maps.SupportMapFragment
  */
 class ScrollableMapFragment : SupportMapFragment() {
     private var touchListener: () -> Unit = {}
+
+    override fun onCreate(p0: Bundle?) {
+        super.onCreate(p0)
+        setScreenTransitions()
+    }
 
     override fun onCreateView(layoutInflater: LayoutInflater, viewGroup: ViewGroup?, savedInstance: Bundle?): View? {
         val layout = super.onCreateView(layoutInflater, viewGroup, savedInstance) as ViewGroup?
@@ -46,5 +52,9 @@ class ScrollableMapFragment : SupportMapFragment() {
 
             return super.dispatchTouchEvent(event)
         }
+    }
+
+    private fun setScreenTransitions() {
+        enterTransition = MaterialFadeThrough()
     }
 }

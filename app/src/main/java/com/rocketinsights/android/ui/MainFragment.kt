@@ -14,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import coil.load
+import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentMainBinding
@@ -35,6 +36,10 @@ import timber.log.Timber
 
 private const val ERROR_CREATING_IMAGE = "Error while creating temporary image file."
 
+/**
+ * Main fragment contains an example of a details screen with collapsing toolbar.
+ * It has a main menu which allows navigation to all other examples.
+ */
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
     private val userViewModel: UserViewModel by sharedViewModel()
@@ -70,13 +75,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.messages_fragment -> item.onNavDestinationSelected(findNavController())
+            R.id.messages_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             R.id.photo_fragment -> {
+                setFadeThroughTransition()
                 takePhoto()
                 true
             }
-            R.id.maps_fragment -> item.onNavDestinationSelected(findNavController())
-            R.id.animations_fragment -> item.onNavDestinationSelected(findNavController())
+            R.id.maps_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
+            R.id.animations_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true
@@ -184,5 +199,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             requireContext().showToast(getString(R.string.error_creating_image_file))
             Timber.e(ERROR_CREATING_IMAGE)
         }
+    }
+
+    private fun setFadeThroughTransition() {
+        exitTransition = MaterialFadeThrough()
     }
 }

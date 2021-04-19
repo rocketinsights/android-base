@@ -27,25 +27,16 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/show_messages_fragment"
-            app:destination="@id/messages_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/messages_fragment" />
         <action
             android:id="@+id/show_photo_fragment"
-            app:destination="@id/photo_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/photo_fragment" />
+        <action
+            android:id="@+id/show_maps_fragment"
+            app:destination="@id/maps_fragment" />
         <action
             android:id="@+id/show_animations_fragment"
-            app:destination="@id/animations_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/animations_fragment" />
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
