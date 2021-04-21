@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_100"
+    android:transitionGroup="true"
     app:layoutDescription="@xml/fragment_animations_scene"
     tools:context=".ui.AnimationsFragment">
 
@@ -35,6 +36,7 @@
         android:id="@+id/card_lottie_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="@string/card_lottie_transition"
         style="@style/CardView.AndroidBase.Animation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,6 +87,7 @@
         android:id="@+id/card_property_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="@string/card_property_animation_transition"
         style="@style/CardView.AndroidBase.Animation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,9 +135,10 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_animation_3"
+        android:id="@+id/card_container_transform"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="@string/card_container_transition"
         style="@style/CardView.AndroidBase.Animation">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -12,4 +12,5 @@
     <dimen name="main_image_size">100dp</dimen>
     <dimen name="animation_subtitle_translation_start">10dp</dimen>
     <dimen name="lottie_animation_size">300dp</dimen>
+    <dimen name="button_transform_info_size">48dp</dimen>
 </resources>

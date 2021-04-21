@@ -42,7 +42,12 @@
         android:id="@+id/secondFragment"
         android:name="com.rocketinsights.android.ui.SecondFragment"
         android:label="@string/title_second_fragment"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_second" >
+        <argument
+            android:name="hasSharedElement"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/messages_fragment"
         android:name="com.rocketinsights.android.ui.MessagesFragment"
@@ -65,18 +70,13 @@
         tools:layout="@layout/fragment_animations">
         <action
             android:id="@+id/show_account_setup_animation_fragment"
-            app:destination="@id/account_setup_animation_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/account_setup_animation_fragment" />
         <action
             android:id="@+id/show_property_animation_fragment"
-            app:destination="@id/property_animation_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/property_animation_fragment" />
+        <action
+            android:id="@+id/show_container_transform_fragment"
+            app:destination="@id/container_transform_fragment" />
     </fragment>
     <fragment
         android:id="@+id/account_setup_animation_fragment"
@@ -88,4 +88,9 @@
         android:name="com.rocketinsights.android.ui.PropertyAnimationFragment"
         android:label="Property Animation"
         tools:layout="@layout/fragment_property_animation" />
+    <fragment
+        android:id="@+id/container_transform_fragment"
+        android:name="com.rocketinsights.android.ui.ContainerTransformFragment"
+        android:label="Container Transform"
+        tools:layout="@layout/fragment_container_transform" />
 </navigation>

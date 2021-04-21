@@ -37,8 +37,9 @@ import timber.log.Timber
 private const val ERROR_CREATING_IMAGE = "Error while creating temporary image file."
 
 /**
- * Main fragment contains an example of a details screen with collapsing toolbar.
+ * Main fragment contains an example of details screen with collapsing toolbar.
  * It has a main menu which allows navigation to all other examples.
+ * There is an example of fade through (Material motion), slide and grow (shared element) transitions.
  */
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by viewModel()
@@ -109,7 +110,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             val extras = FragmentNavigatorExtras(
                 binding.stockImage to "stockImage"
             )
-            findNavController().navigate(MainFragmentDirections.actionGrowTransition(), extras)
+            resetScreenTransitions()
+            findNavController().navigate(
+                MainFragmentDirections.actionGrowTransition(
+                    hasSharedElement = true
+                ),
+                extras
+            )
         }
     }
 
@@ -130,6 +137,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.stockImage.show()
 
             binding.message.setOnClickListener {
+                resetScreenTransitions()
                 findNavController().navigate(MainFragmentDirections.actionSlideTransition())
             }
         }
@@ -203,5 +211,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun setFadeThroughTransition() {
         exitTransition = MaterialFadeThrough()
+    }
+
+    private fun resetScreenTransitions() {
+        exitTransition = null
     }
 }

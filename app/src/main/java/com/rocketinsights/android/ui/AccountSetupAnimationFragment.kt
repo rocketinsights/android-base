@@ -3,22 +3,33 @@ package com.rocketinsights.android.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 
 /**
  * A simple example of Lottie animation.
- * Fragment shows loading animation which can be used on the account setup screen while
+ * This screen shows loading animation which can be used on the account setup screen while
  * user's account is being set up on the backend.
+ * It's also a destination of a container transformation (card view to fragment).
  */
 class AccountSetupAnimationFragment : Fragment(R.layout.fragment_account_setup_animation) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setScreenTransitions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.setGroupVisible(R.id.menu_items_group, false)
+    }
+
+    private fun setScreenTransitions() {
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+        }
+        sharedElementReturnTransition = null
     }
 }

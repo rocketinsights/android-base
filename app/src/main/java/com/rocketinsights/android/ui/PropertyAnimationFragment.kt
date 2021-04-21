@@ -15,12 +15,13 @@ import android.widget.Button
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPropertyAnimationBinding
 import com.rocketinsights.android.extensions.disable
 import com.rocketinsights.android.extensions.enable
-import com.rocketinsights.android.extensions.hide
-import com.rocketinsights.android.extensions.show
+import com.rocketinsights.android.extensions.fadeIn
+import com.rocketinsights.android.extensions.fadeOut
 import com.rocketinsights.android.extensions.viewBinding
 
 private const val FADE_IN_DURATION = 500L
@@ -57,6 +58,7 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,6 +84,7 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
         binding.buttonAnimation1.setOnClickListener {
             if (binding.imageBall1.isVisible) {
                 binding.imageBall1.fadeOut(
+                    duration = FADE_OUT_DURATION,
                     listener = disableButtonDuringAnimation(
                         button = binding.buttonAnimation1,
                         buttonText = getString(R.string.show)
@@ -89,6 +92,7 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
                 )
             } else {
                 binding.imageBall1.fadeIn(
+                    duration = FADE_IN_DURATION,
                     listener = disableButtonDuringAnimation(
                         button = binding.buttonAnimation1,
                         buttonText = getString(R.string.hide)
@@ -176,28 +180,13 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
             animation.start()
         }
     }
-}
 
-private fun View.fadeIn(
-    duration: Long = FADE_IN_DURATION,
-    listener: Animator.AnimatorListener? = null
-) {
-    show()
-    animate()
-        .alpha(1F)
-        .setDuration(duration)
-        .setListener(listener)
-}
-
-private fun View.fadeOut(
-    duration: Long = FADE_OUT_DURATION,
-    listener: Animator.AnimatorListener? = null
-) {
-    animate()
-        .alpha(0F)
-        .setDuration(duration)
-        .setListener(listener)
-        .withEndAction { hide() }
+    private fun setScreenTransitions() {
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+        }
+        sharedElementReturnTransition = null
+    }
 }
 
 private fun disableButtonDuringAnimation(

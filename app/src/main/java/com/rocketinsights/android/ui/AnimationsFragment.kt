@@ -5,7 +5,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentAnimationsBinding
@@ -35,16 +37,36 @@ class AnimationsFragment : Fragment(R.layout.fragment_animations) {
     }
 
     private fun setupControls() {
-        binding.cardLottieAnimation.setOnClickListener {
-            findNavController().navigate(AnimationsFragmentDirections.showAccountSetupAnimationFragment())
+        binding.cardLottieAnimation.setOnClickListener { card ->
+            val extras = FragmentNavigatorExtras(card to getString(R.string.card_lottie_transition))
+            findNavController().navigate(
+                AnimationsFragmentDirections.showAccountSetupAnimationFragment(),
+                extras
+            )
         }
 
-        binding.cardPropertyAnimation.setOnClickListener {
-            findNavController().navigate(AnimationsFragmentDirections.showPropertyAnimationFragment())
+        binding.cardPropertyAnimation.setOnClickListener { card ->
+            val extras =
+                FragmentNavigatorExtras(card to getString(R.string.card_property_animation_transition))
+            findNavController().navigate(
+                AnimationsFragmentDirections.showPropertyAnimationFragment(),
+                extras
+            )
+        }
+
+        binding.cardContainerTransform.setOnClickListener { card ->
+            val extras =
+                FragmentNavigatorExtras(card to getString(R.string.card_container_transition))
+            findNavController().navigate(
+                AnimationsFragmentDirections.showContainerTransformFragment(),
+                extras
+            )
         }
     }
 
     private fun setScreenTransitions() {
         enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialElevationScale(true)
+        exitTransition = MaterialElevationScale(false)
     }
 }
