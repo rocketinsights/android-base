@@ -36,10 +36,10 @@
     <string name="animation_screen_subtitle">Quick access to animation examples on Android</string>
     <string name="animation_1_title">Lottie Animation</string>
     <string name="animation_2_title">Property Animations</string>
-    <string name="animation_3_title">Animation 3 Title</string>
+    <string name="animation_3_title">Container Transform Transition</string>
     <string name="animation_1_description">Simple loading animation of a rocket</string>
     <string name="animation_2_description">View property animation examples</string>
-    <string name="animation_3_description">Animation 3 Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</string>
+    <string name="animation_3_description">Transition that transforms a button into a popup card. A container transform is used here to help inform the user that the popup is connected to the button.</string>
     <string name="setting_up_your_rocket_account">Setting up your Rocket account</string>
     <string name="attribution_lottie_files">Pao Nguyen @LottieFiles</string>
     <string name="property_animation_1_title">Visibility</string>
@@ -53,6 +53,11 @@
     <string name="ball_3">Ball 3</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+    <string name="card_lottie_transition">animation_card_to_account_setup_screen</string>
+    <string name="card_property_animation_transition">animation_card_to_property_animation_screen</string>
+    <string name="card_container_transition">animation_card_to_container_transform_screen</string>
+    <string name="button_info_intro">Click the button below to start container transformation from button to card</string>
+    <string name="info_button">Info button</string>
 
     <string name="parallax_image">Parallax image</string>
     <string name="login">Login</string>

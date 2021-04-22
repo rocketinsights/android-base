@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.adapters.MessagesAdapter
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
@@ -28,6 +29,7 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,5 +85,9 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
                 }
             }
         }
+    }
+
+    private fun setScreenTransitions() {
+        enterTransition = MaterialFadeThrough()
     }
 }

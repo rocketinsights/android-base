@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPhotoBinding
 import com.rocketinsights.android.extensions.viewBinding
@@ -28,6 +29,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,5 +57,9 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
 
     private fun updateUI() {
         binding.imageCameraShot.load(photoViewModel.imageUri)
+    }
+
+    private fun setScreenTransitions() {
+        enterTransition = MaterialFadeThrough()
     }
 }
