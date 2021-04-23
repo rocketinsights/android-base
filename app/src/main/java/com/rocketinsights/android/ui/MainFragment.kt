@@ -9,9 +9,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import coil.load
 import com.google.android.material.transition.MaterialFadeThrough
@@ -42,11 +45,14 @@ private const val ERROR_CREATING_IMAGE = "Error while creating temporary image f
  * There is an example of fade through (Material motion), slide and grow (shared element) transitions.
  */
 class MainFragment : Fragment(R.layout.fragment_main) {
+
     private val mainViewModel: MainViewModel by viewModel()
     private val userViewModel: UserViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var loginMenuItem: MenuItem
     private lateinit var logoutMenuItem: MenuItem
     private lateinit var photoMenuItem: MenuItem
@@ -55,17 +61,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setScreenTransitions()
         registerTakePictureAction()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar()
         setupControls()
         setupObservers()
         updateUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
         loginMenuItem = menu.findItem(R.id.menu_login)
         logoutMenuItem = menu.findItem(R.id.menu_logout)
         photoMenuItem = menu.findItem(R.id.menu_logout)
@@ -103,6 +112,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun setupActionBar() {
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+        appBarConfiguration = AppBarConfiguration(findNavController().graph) // set nested graph
+        NavigationUI.setupActionBarWithNavController(
+            activity,
+            findNavController(),
+            appBarConfiguration
+        )
+//        NavigationUI.navigateUp(findNavController(), appBarConfiguration)
     }
 
     private fun setupControls() {
@@ -209,11 +230,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    private fun setScreenTransitions() {
+        enterTransition = MaterialFadeThrough()
+    }
+
     private fun setFadeThroughTransition() {
         exitTransition = MaterialFadeThrough()
     }
 
     private fun resetScreenTransitions() {
+        enterTransition = null
         exitTransition = null
     }
 }
