@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_100"
+    android:background="?attr/colorSecondary"
     android:transitionGroup="true"
     android:transitionName="@string/card_property_animation_transition"
     tools:context=".ui.PropertyAnimationFragment">
@@ -39,7 +39,6 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/property_animation_1_title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +55,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_animation_1_title"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="?attr/colorPrimaryVariant" />
 
             <Button
                 android:id="@+id/button_animation_1"
@@ -104,7 +103,6 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/property_animation_2_title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,7 +119,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_animation_2_title"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="?attr/colorPrimaryVariant" />
 
             <Button
                 android:id="@+id/button_animation_2"
@@ -169,7 +167,6 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/property_animation_3_title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -186,7 +183,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_animation_3_title"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="?attr/colorPrimaryVariant" />
 
             <Button
                 android:id="@+id/button_animation_3"
@@ -234,7 +231,6 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/property_animation_4_title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -251,7 +247,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_animation_4_title"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="?attr/colorPrimaryVariant" />
 
             <Button
                 android:id="@+id/button_animation_4"

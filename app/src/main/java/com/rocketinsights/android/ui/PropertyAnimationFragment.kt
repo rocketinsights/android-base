@@ -12,9 +12,9 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
-import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPropertyAnimationBinding
@@ -162,8 +162,8 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
                     interpolator = AccelerateDecelerateInterpolator()
                 }
 
-        val colorFrom = getColor(requireContext(), R.color.colorPrimaryDark)
-        val colorTo = getColor(requireContext(), R.color.colorAccent)
+        val colorFrom = MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant)
+        val colorTo = MaterialColors.getColor(binding.root, R.attr.colorSecondary)
         val color =
             ObjectAnimator.ofArgb(binding.imageBall4, "colorFilter", colorFrom, colorTo, colorFrom)
                 .apply {
@@ -183,7 +183,7 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
 
     private fun setScreenTransitions() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+            scrimColor = MaterialColors.getColor(requireContext(), R.attr.colorSecondary, "")
         }
         sharedElementReturnTransition = null
     }

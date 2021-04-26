@@ -59,11 +59,16 @@
     <string name="button_info_intro">Click the button below to start container transformation from button to card</string>
     <string name="info_button">Info button</string>
 
-    <string name="parallax_image">Parallax image</string>
+    <!-- Login -->
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="rocket_insights_logo">Rocket Insights logo</string>
+    <string name="login_logo">Login logo</string>
+    <string name="welcome_login_message">Welcome to Android Base App</string>
+
+
+    <string name="parallax_image">Parallax image</string>
     <string name="photo">Photo</string>
     <string name="take_a_photo">Take a photo</string>
     <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
-    <string name="rocket_insights_logo">Rocket Insights logo</string>
 </resources>

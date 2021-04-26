@@ -12,13 +12,23 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentSplashBinding
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.viewmodels.UserViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 private const val FADE_OUT_DURATION = 1000L
+private const val SHOW_SCREEN_DURATION = 500L
 
+@FlowPreview
+/**
+ * Splash fragment represents app's splash screen with logo and background.
+ * After short delay it navigates to main flow, if the user is logged in, or to auth flow otherwise.
+ */
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val binding by viewBinding(FragmentSplashBinding::bind)
+    private val userViewModel: UserViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +38,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideSystemUI()
-        // for testing purposes
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            delay(500)
-            findNavController().navigate(SplashFragmentDirections.showMainFragment())
-        }
+        setupObservers()
     }
 
     override fun onDestroyView() {
@@ -40,12 +46,34 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onDestroyView()
     }
 
+    private fun setupObservers() {
+        userViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
+            when (isLoggedIn) {
+                true -> runAfterDelay {
+                    findNavController().navigate(SplashFragmentDirections.showMainFlow())
+                }
+                false -> runAfterDelay {
+                    findNavController().navigate(SplashFragmentDirections.showAuthFlow())
+                }
+            }
+        }
+    }
+
+    private fun runAfterDelay(delay: Long = SHOW_SCREEN_DURATION, action: () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            delay(delay)
+            action()
+        }
+    }
+
     private fun showSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
         WindowInsetsControllerCompat(
             requireActivity().window,
             binding.root
-        ).show(WindowInsetsCompat.Type.navigationBars())
+        ).run {
+            show(WindowInsetsCompat.Type.navigationBars())
+        }
     }
 
     private fun hideSystemUI() {
@@ -53,7 +81,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         WindowInsetsControllerCompat(
             requireActivity().window,
             binding.root
-        ).hide(WindowInsetsCompat.Type.navigationBars())
+        ).run {
+            hide(WindowInsetsCompat.Type.navigationBars())
+        }
     }
 
     private fun setScreenTransitions() {

@@ -3,8 +3,8 @@ package com.rocketinsights.android.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 
@@ -28,7 +28,7 @@ class AccountSetupAnimationFragment : Fragment(R.layout.fragment_account_setup_a
 
     private fun setScreenTransitions() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+            scrimColor = MaterialColors.getColor(requireContext(), R.attr.colorSecondary, "")
         }
         sharedElementReturnTransition = null
     }

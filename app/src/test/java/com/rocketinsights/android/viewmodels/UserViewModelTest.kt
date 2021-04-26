@@ -6,6 +6,7 @@ import com.rocketinsights.android.auth.AuthUser
 import com.rocketinsights.android.repos.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -19,6 +20,7 @@ import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
 @ExperimentalCoroutinesApi
+@FlowPreview
 class UserViewModelTest {
     // bypasses the main thread check, and immediately runs any tasks on your test thread
     @get:Rule

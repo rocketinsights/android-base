@@ -8,7 +8,7 @@
     </style>
 
     <style name="CardView.AndroidBase.Animation" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardBackgroundColor">?android:attr/colorBackground</item>
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">8dp</item>
     </style>

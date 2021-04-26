@@ -11,96 +11,120 @@
         android:name="com.rocketinsights.android.ui.SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/show_main_fragment"
-            app:destination="@id/mainFragment"
+            android:id="@+id/show_main_flow"
+            app:destination="@id/main_graph"
+            app:popUpTo="@id/splash_fragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/show_auth_flow"
+            app:destination="@id/auth_graph"
             app:popUpTo="@id/splash_fragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.rocketinsights.android.ui.MainFragment"
-        android:label="@string/title_first_fragment"
-        tools:layout="@layout/fragment_main">
+    <!-- Auth flow -->
+    <navigation
+        android:id="@+id/auth_graph"
+        app:startDestination="@id/login_fragment">
+        <fragment
+            android:id="@+id/login_fragment"
+            android:name="com.rocketinsights.android.ui.LoginFragment"
+            tools:layout="@layout/fragment_login" />
         <action
-            android:id="@+id/actionSlideTransition"
-            app:destination="@id/secondFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/actionGrowTransition"
-            app:destination="@id/secondFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/show_messages_fragment"
-            app:destination="@id/messages_fragment" />
-        <action
-            android:id="@+id/show_photo_fragment"
-            app:destination="@id/photo_fragment" />
-        <action
-            android:id="@+id/show_maps_fragment"
-            app:destination="@id/maps_fragment" />
-        <action
-            android:id="@+id/show_animations_fragment"
-            app:destination="@id/animations_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.rocketinsights.android.ui.SecondFragment"
-        android:label="@string/title_second_fragment"
-        tools:layout="@layout/fragment_second" >
-        <argument
-            android:name="hasSharedElement"
-            app:argType="boolean"
-            android:defaultValue="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/messages_fragment"
-        android:name="com.rocketinsights.android.ui.MessagesFragment"
-        android:label="@string/messages"
-        tools:layout="@layout/fragment_messages" />
-    <fragment
-        android:id="@+id/photo_fragment"
-        android:name="com.rocketinsights.android.ui.PhotoFragment"
-        android:label="@string/photo"
-        tools:layout="@layout/fragment_photo" />
-    <fragment
-        android:id="@+id/maps_fragment"
-        android:name="com.rocketinsights.android.ui.MapsFragment"
-        android:label="@string/maps"
-        tools:layout="@layout/fragment_maps" />
-    <fragment
-        android:id="@+id/animations_fragment"
-        android:name="com.rocketinsights.android.ui.AnimationsFragment"
-        android:label="@string/animations"
-        tools:layout="@layout/fragment_animations">
-        <action
-            android:id="@+id/show_account_setup_animation_fragment"
-            app:destination="@id/account_setup_animation_fragment" />
-        <action
-            android:id="@+id/show_property_animation_fragment"
-            app:destination="@id/property_animation_fragment" />
-        <action
-            android:id="@+id/show_container_transform_fragment"
-            app:destination="@id/container_transform_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/account_setup_animation_fragment"
-        android:name="com.rocketinsights.android.ui.AccountSetupAnimationFragment"
-        android:label="Account Setup"
-        tools:layout="@layout/fragment_account_setup_animation" />
-    <fragment
-        android:id="@+id/property_animation_fragment"
-        android:name="com.rocketinsights.android.ui.PropertyAnimationFragment"
-        android:label="Property Animation"
-        tools:layout="@layout/fragment_property_animation" />
-    <fragment
-        android:id="@+id/container_transform_fragment"
-        android:name="com.rocketinsights.android.ui.ContainerTransformFragment"
-        android:label="Container Transform"
-        tools:layout="@layout/fragment_container_transform" />
+            android:id="@+id/show_main_flow"
+            app:destination="@id/main_graph"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true"/>
+    </navigation>
+    <!-- Main flow -->
+    <navigation
+        android:id="@+id/main_graph"
+        app:startDestination="@id/mainFragment">
+        <fragment
+            android:id="@+id/messages_fragment"
+            android:name="com.rocketinsights.android.ui.MessagesFragment"
+            android:label="@string/messages"
+            tools:layout="@layout/fragment_messages" />
+        <fragment
+            android:id="@+id/container_transform_fragment"
+            android:name="com.rocketinsights.android.ui.ContainerTransformFragment"
+            android:label="Container Transform"
+            tools:layout="@layout/fragment_container_transform" />
+        <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.rocketinsights.android.ui.MainFragment"
+            android:label="@string/title_first_fragment"
+            tools:layout="@layout/fragment_main">
+            <action
+                android:id="@+id/actionSlideTransition"
+                app:destination="@id/secondFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/slide_out_right" />
+            <action
+                android:id="@+id/actionGrowTransition"
+                app:destination="@id/secondFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            <action
+                android:id="@+id/show_messages_fragment"
+                app:destination="@id/messages_fragment" />
+            <action
+                android:id="@+id/show_photo_fragment"
+                app:destination="@id/photo_fragment" />
+            <action
+                android:id="@+id/show_maps_fragment"
+                app:destination="@id/maps_fragment" />
+            <action
+                android:id="@+id/show_animations_fragment"
+                app:destination="@id/animations_fragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/account_setup_animation_fragment"
+            android:name="com.rocketinsights.android.ui.AccountSetupAnimationFragment"
+            android:label="Account Setup"
+            tools:layout="@layout/fragment_account_setup_animation" />
+        <fragment
+            android:id="@+id/property_animation_fragment"
+            android:name="com.rocketinsights.android.ui.PropertyAnimationFragment"
+            android:label="Property Animation"
+            tools:layout="@layout/fragment_property_animation" />
+        <fragment
+            android:id="@+id/photo_fragment"
+            android:name="com.rocketinsights.android.ui.PhotoFragment"
+            android:label="@string/photo"
+            tools:layout="@layout/fragment_photo" />
+        <fragment
+            android:id="@+id/animations_fragment"
+            android:name="com.rocketinsights.android.ui.AnimationsFragment"
+            android:label="@string/animations"
+            tools:layout="@layout/fragment_animations">
+            <action
+                android:id="@+id/show_account_setup_animation_fragment"
+                app:destination="@id/account_setup_animation_fragment" />
+            <action
+                android:id="@+id/show_property_animation_fragment"
+                app:destination="@id/property_animation_fragment" />
+            <action
+                android:id="@+id/show_container_transform_fragment"
+                app:destination="@id/container_transform_fragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/secondFragment"
+            android:name="com.rocketinsights.android.ui.SecondFragment"
+            android:label="@string/title_second_fragment"
+            tools:layout="@layout/fragment_second">
+            <argument
+                android:name="hasSharedElement"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </fragment>
+        <fragment
+            android:id="@+id/maps_fragment"
+            android:name="com.rocketinsights.android.ui.MapsFragment"
+            android:label="@string/maps"
+            tools:layout="@layout/fragment_maps" />
+    </navigation>
 </navigation>

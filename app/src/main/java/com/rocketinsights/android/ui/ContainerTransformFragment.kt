@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentContainerTransformBinding
@@ -47,7 +47,7 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
 
     private fun setScreenTransitions() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+            scrimColor = MaterialColors.getColor(requireContext(), R.attr.colorSecondary, "")
         }
         // remove return transition so that it doesn't interfere with reenter animation of previous fragment
         sharedElementReturnTransition = null

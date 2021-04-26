@@ -46,6 +46,7 @@ import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
 import com.rocketinsights.android.work.messages.MessagesUpdateWorker
 import get
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.workmanager.dsl.worker
@@ -55,6 +56,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 @KoinExperimentalAPI
+@FlowPreview
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
