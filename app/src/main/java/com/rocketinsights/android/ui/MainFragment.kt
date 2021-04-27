@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import coil.load
 import com.google.android.material.transition.MaterialFadeThrough
@@ -54,7 +52,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val authManager: AuthManager by inject(parameters = { parametersOf(requireContext()) })
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var loginMenuItem: MenuItem
     private lateinit var logoutMenuItem: MenuItem
     private lateinit var photoMenuItem: MenuItem
@@ -119,13 +116,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun setupActionBar() {
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
-        appBarConfiguration = AppBarConfiguration(findNavController().graph) // set nested graph
-        NavigationUI.setupActionBarWithNavController(
-            activity,
-            findNavController(),
-            appBarConfiguration
-        )
-//        NavigationUI.navigateUp(findNavController(), appBarConfiguration)
+//        appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment))
+//        NavigationUI.setupActionBarWithNavController(
+//            activity,
+//            findNavController(),
+//            appBarConfiguration
+//        )
     }
 
     private fun setupControls() {

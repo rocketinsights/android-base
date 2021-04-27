@@ -33,7 +33,7 @@
             android:id="@+id/show_main_flow"
             app:destination="@id/main_graph"
             app:popUpTo="@id/auth_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </navigation>
     <!-- Main flow -->
     <navigation
@@ -42,7 +42,7 @@
         <fragment
             android:id="@+id/messages_fragment"
             android:name="com.rocketinsights.android.ui.MessagesFragment"
-            android:label="@string/messages"
+            android:label="@string/messages_screen_title"
             tools:layout="@layout/fragment_messages" />
         <fragment
             android:id="@+id/container_transform_fragment"
@@ -52,7 +52,7 @@
         <fragment
             android:id="@+id/mainFragment"
             android:name="com.rocketinsights.android.ui.MainFragment"
-            android:label="@string/title_first_fragment"
+            android:label="@string/first_screen_title"
             tools:layout="@layout/fragment_main">
             <action
                 android:id="@+id/actionSlideTransition"
@@ -89,7 +89,7 @@
         <fragment
             android:id="@+id/property_animation_fragment"
             android:name="com.rocketinsights.android.ui.PropertyAnimationFragment"
-            android:label="Property Animation"
+            android:label="@string/property_animation_screen_title"
             tools:layout="@layout/fragment_property_animation" />
         <fragment
             android:id="@+id/photo_fragment"
@@ -114,7 +114,7 @@
         <fragment
             android:id="@+id/secondFragment"
             android:name="com.rocketinsights.android.ui.SecondFragment"
-            android:label="@string/title_second_fragment"
+            android:label="@string/second_screen_title"
             tools:layout="@layout/fragment_second">
             <argument
                 android:name="hasSharedElement"
@@ -127,4 +127,11 @@
             android:label="@string/maps"
             tools:layout="@layout/fragment_maps" />
     </navigation>
+
+    <!-- Global Actions -->
+    <action
+        android:id="@+id/show_auth_flow"
+        app:destination="@id/auth_graph"
+        app:popUpTo="@id/main_graph"
+        app:popUpToInclusive="true" />
 </navigation>

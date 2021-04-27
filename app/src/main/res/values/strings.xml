@@ -3,18 +3,21 @@
     <string name="app_name_dev">[DEV] Rocket Base Project</string>
 
     <string name="loading">Loading…</string>
-
-    <string name="done">Done after a delay! Tap to go to second view…</string>
     <string name="http_error">Whoops, looks like something went wrong.</string>
     <string name="unknown_error">Something else went wrong!</string>
     <string name="connectivity_offline">There is no connectivity available</string>
-
     <string name="second_fragment">Now you\'re in the second fragment!</string>
     <string name="stock_image">stock image</string>
-    <string name="title_second_fragment">Second Fragment</string>
-    <string name="title_first_fragment">First Fragment</string>
     <string name="messages">Messages</string>
     <string name="session_end">Your session ended, please re-login.</string>
+    <string name="parallax_image">Parallax image</string>
+
+    <!-- Screen titles -->
+    <string name="first_screen_title">First Screen</string>
+    <string name="second_screen_title">Second Screen</string>
+    <string name="messages_screen_title">Messages</string>
+    <string name="property_animation_screen_title">Property Animation</string>
+    <string name="container_transform_screen_title">Container Transform</string>
 
     <!--Permissions-->
     <string name="permissions_request">Request Permissions</string>
@@ -59,16 +62,15 @@
     <string name="button_info_intro">Click the button below to start container transformation from button to card</string>
     <string name="info_button">Info button</string>
 
+    <!-- Photo -->
+    <string name="photo">Photo</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
+
     <!-- Login -->
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="rocket_insights_logo">Rocket Insights logo</string>
     <string name="login_logo">Login logo</string>
     <string name="welcome_login_message">Welcome to Android Base App</string>
-
-
-    <string name="parallax_image">Parallax image</string>
-    <string name="photo">Photo</string>
-    <string name="take_a_photo">Take a photo</string>
-    <string name="error_creating_image_file">Error occurred while creating temporary image file for your photo.</string>
 </resources>

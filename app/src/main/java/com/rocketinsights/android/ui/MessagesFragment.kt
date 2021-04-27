@@ -1,10 +1,10 @@
 package com.rocketinsights.android.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
@@ -20,6 +20,17 @@ import com.rocketinsights.android.viewmodels.MessagesState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Messages fragment shows list of messages from the remote API and cached in the local database.
+ *
+ * Contains examples of:
+ *  - View binding,
+ *  - Fade through transition,
+ *  - RecyclerView with ListAdapter,
+ *  - Setting up action bar,
+ *  - Observing UI state,
+ *  - Observing connectivity status.
+ */
 class MessagesFragment : Fragment(R.layout.fragment_messages) {
     private val binding by viewBinding(FragmentMessagesBinding::bind)
     private val viewModel by viewModel<MessagesViewModel>()
@@ -28,18 +39,22 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar()
         setupRecyclerView()
         setupObservers()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.menu_items_group, false)
+    private fun setupActionBar() {
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
     }
 
     private fun setupRecyclerView() {

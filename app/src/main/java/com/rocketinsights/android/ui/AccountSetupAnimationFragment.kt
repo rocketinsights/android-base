@@ -1,8 +1,6 @@
 package com.rocketinsights.android.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
@@ -18,12 +16,7 @@ class AccountSetupAnimationFragment : Fragment(R.layout.fragment_account_setup_a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         setScreenTransitions()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.menu_items_group, false)
     }
 
     private fun setScreenTransitions() {

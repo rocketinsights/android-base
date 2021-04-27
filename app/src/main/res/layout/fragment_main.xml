@@ -10,7 +10,7 @@
     tools:context=".ui.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -47,6 +47,7 @@
                 android:layout_gravity="bottom"
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
+                app:title="@string/first_screen_title"
                 app:titleTextColor="?attr/colorOnPrimary" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -68,10 +69,9 @@
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/main_message_margin_top"
+                android:layout_marginTop="@dimen/margin_large"
                 android:text="@string/loading"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                 android:id="@+id/stockImage"
                 android:layout_width="@dimen/main_image_size"
                 android:layout_height="@dimen/main_image_size"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="@dimen/margin_large"
                 android:contentDescription="@string/stock_image"
                 android:transitionName="stockImage"
                 android:visibility="gone"

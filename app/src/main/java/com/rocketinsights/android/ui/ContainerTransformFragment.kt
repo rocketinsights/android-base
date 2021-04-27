@@ -2,10 +2,10 @@ package com.rocketinsights.android.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.transition.TransitionManager
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
@@ -32,17 +32,13 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar()
         setupControls()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.menu_items_group, false)
     }
 
     private fun setScreenTransitions() {
@@ -51,6 +47,14 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
         }
         // remove return transition so that it doesn't interfere with reenter animation of previous fragment
         sharedElementReturnTransition = null
+    }
+
+    private fun setupActionBar() {
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
     }
 
     private fun setupControls() {
