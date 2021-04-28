@@ -3,6 +3,7 @@ package com.rocketinsights.android.auth
 import android.content.Context
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.rocketinsights.android.R
 
 class FirebaseAuthManager(
     private val context: Context,
@@ -27,6 +28,12 @@ class FirebaseAuthManager(
         context.startActivity(
             authUI.createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setLogo(R.drawable.ic_rocketinsights_logo) // set logo
+                .setTheme(R.style.AppTheme) // set theme
+                .setTosAndPrivacyPolicyUrls(
+                    "https://example.com/terms.html",
+                    "https://example.com/privacy.html"
+                ) // set ToS and Privacy Policy URLs
                 .build()
         )
     }
