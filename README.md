@@ -14,6 +14,8 @@ Important branches:
 
 [![Travis Build Status](https://travis-ci.com/rocketinsights/android-base.svg?token=HUkRE8RunPYqyTqAocsA&branch=master)](https://travis-ci.com/rocketinsights/android-base)
 
+![GitHub Actions Build Status](https://github.com/rocketinsights/android-base/actions/workflows/pull_request.yml/badge.svg)
+
 ## Application Installation
 Below are the instructions on how to install the Android app.
 
