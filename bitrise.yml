@@ -87,6 +87,23 @@ workflows:
 
       The next change in your repository that matches any of your trigger map event will start **deploy** workflow.
     steps:
+    - script@1:
+        title: ktlint
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            ./gradlew ktlint
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
     - android-lint@0:
         inputs:
         - project_location: "$PROJECT_LOCATION"
