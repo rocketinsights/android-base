@@ -2,15 +2,14 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentSplashBinding
+import com.rocketinsights.android.extensions.hideSystemUI
+import com.rocketinsights.android.extensions.showSystemUI
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.UserViewModel
 import kotlinx.coroutines.FlowPreview
@@ -37,12 +36,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hideSystemUI()
+        hideSystemUI(binding.root)
         setupObservers()
     }
 
     override fun onDestroyView() {
-        showSystemUI()
+        showSystemUI(binding.root)
         super.onDestroyView()
     }
 
@@ -63,26 +62,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             delay(delay)
             action()
-        }
-    }
-
-    private fun showSystemUI() {
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-        WindowInsetsControllerCompat(
-            requireActivity().window,
-            binding.root
-        ).run {
-            show(WindowInsetsCompat.Type.navigationBars())
-        }
-    }
-
-    private fun hideSystemUI() {
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
-        WindowInsetsControllerCompat(
-            requireActivity().window,
-            binding.root
-        ).run {
-            hide(WindowInsetsCompat.Type.navigationBars())
         }
     }
 
