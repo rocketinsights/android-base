@@ -60,7 +60,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     }
 
     private fun getMapsFragment() =
-        childFragmentManager.findFragmentById(R.id.mapsFragment) as ScrollableMapFragment
+        childFragmentManager.findFragmentById(R.id.maps_fragment) as ScrollableMapFragment
 
     private fun initUI() {
         getMapsFragment()
@@ -75,7 +75,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             { result ->
                 when (result) {
                     is LocationResult.Location -> {
-                        (childFragmentManager.findFragmentById(R.id.mapsFragment) as SupportMapFragment)
+                        (childFragmentManager.findFragmentById(R.id.maps_fragment) as SupportMapFragment)
                             .getMapAsync { map ->
                                 val bubbleIconGenerator = IconGenerator(requireContext())
                                 bubbleIconGenerator.apply {

@@ -2,12 +2,10 @@ package com.rocketinsights.android.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentContainerTransformBinding
@@ -15,6 +13,7 @@ import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
 import com.rocketinsights.android.extensions.hide
 import com.rocketinsights.android.extensions.remove
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.viewBinding
 
@@ -32,22 +31,18 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar(binding.toolbar)
         setupControls()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.menu_items_group, false)
     }
 
     private fun setScreenTransitions() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+            scrimColor = MaterialColors.getColor(requireContext(), R.attr.colorSecondary, "")
         }
         // remove return transition so that it doesn't interfere with reenter animation of previous fragment
         sharedElementReturnTransition = null

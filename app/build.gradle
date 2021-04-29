@@ -156,6 +156,7 @@ ext {
     ok_http_version = "4.9.0"
     chuck_version = "3.4.0"
     lottie_version = "3.7.0"
+    core_version = "1.5.0-rc01"
 }
 
 jacoco {
@@ -171,6 +172,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.activity:activity-ktx:$ktx_activity_version"
     implementation "androidx.fragment:fragment-ktx:$ktx_fragment_version"
+    implementation "androidx.core:core-ktx:$core_version"
 
     // Code style
     ktlint "com.pinterest:ktlint:$ktlint_version"

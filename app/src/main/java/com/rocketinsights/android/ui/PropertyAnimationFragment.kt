@@ -7,14 +7,12 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
-import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPropertyAnimationBinding
@@ -22,6 +20,7 @@ import com.rocketinsights.android.extensions.disable
 import com.rocketinsights.android.extensions.enable
 import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.viewBinding
 
 private const val FADE_IN_DURATION = 500L
@@ -57,17 +56,13 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         setScreenTransitions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar(binding.toolbar)
         setupControls()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.menu_items_group, false)
     }
 
     private fun setupControls() {
@@ -162,8 +157,8 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
                     interpolator = AccelerateDecelerateInterpolator()
                 }
 
-        val colorFrom = getColor(requireContext(), R.color.colorPrimaryDark)
-        val colorTo = getColor(requireContext(), R.color.colorAccent)
+        val colorFrom = MaterialColors.getColor(binding.root, R.attr.colorPrimaryVariant)
+        val colorTo = MaterialColors.getColor(binding.root, R.attr.colorSecondary)
         val color =
             ObjectAnimator.ofArgb(binding.imageBall4, "colorFilter", colorFrom, colorTo, colorFrom)
                 .apply {
@@ -183,7 +178,7 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
 
     private fun setScreenTransitions() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = getColor(requireContext(), R.color.blue_100_32)
+            scrimColor = MaterialColors.getColor(requireContext(), R.attr.colorSecondary, "")
         }
         sharedElementReturnTransition = null
     }

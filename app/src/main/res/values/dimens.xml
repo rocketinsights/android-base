@@ -13,4 +13,5 @@
     <dimen name="animation_subtitle_translation_start">10dp</dimen>
     <dimen name="lottie_animation_size">300dp</dimen>
     <dimen name="button_transform_info_size">48dp</dimen>
+    <dimen name="small_toolbar_height">56dp</dimen>
 </resources>

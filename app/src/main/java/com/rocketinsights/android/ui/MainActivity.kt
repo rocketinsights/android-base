@@ -1,83 +1,51 @@
 package com.rocketinsights.android.ui
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
+import com.rocketinsights.android.NavGraphDirections
 import com.rocketinsights.android.R
-import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.ActivityMainBinding
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
-import com.rocketinsights.android.viewmodels.SessionDataState
-import com.rocketinsights.android.viewmodels.SessionViewModel
-import org.koin.android.ext.android.inject
+import com.rocketinsights.android.viewmodels.UserViewModel
+import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
+@FlowPreview
 class MainActivity : ScopeActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var navController: NavController
-    private val authManager: AuthManager by inject(parameters = { parametersOf(this@MainActivity) })
-
-    private val sessionViewModel: SessionViewModel by viewModel()
-
-    private val parentScrollProvider: ParentScrollProvider by inject()
+    private val userViewModel: UserViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(binding.root)
-        setupActionBar()
-
-        parentScrollProvider.registerEnablementOfParentScrollFunction {
-            binding.scrollView.requestDisallowInterceptTouchEvent(it)
-        }
-
-        listenSessionViewModelEvents()
+        setNavController()
+        observeUserLoginStatus()
     }
 
-    override fun onSupportNavigateUp(): Boolean = navigateUp()
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    private fun setupActionBar() {
-        setSupportActionBar(binding.toolbar)
+    private fun setNavController() {
         navController =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!.findNavController()
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
-    private fun navigateUp() =
-        navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-
-    private fun listenSessionViewModelEvents() {
-        sessionViewModel.sessionDataSate.observe(
-            this,
-            { event ->
-                event.getContentIfNotHandled()?.let {
-                    when (it) {
-                        SessionDataState.CLEARING -> {
-                            // TODO Show Progress would be good
-                        }
-                        SessionDataState.CLEARED -> {
-                            // User Logout
-                            // TODO Hide Progress showed when CLEARING
-                            showToast(getString(R.string.session_end))
-                            authManager.launchSignInFlow()
-                        }
-                    }
-                }
+    /**
+     * Go to the login screen if the user logs out and current screen is not splash / login.
+     */
+    private fun observeUserLoginStatus() {
+        userViewModel.isLoggedIn.observe(this) { isLoggedIn ->
+            val notSplashScreen =
+                navController.graph.startDestination != navController.currentDestination?.id
+            val notLoginScreen = navController.currentDestination?.id != R.id.login_fragment
+            if (isLoggedIn == false && notSplashScreen && notLoginScreen) {
+                showToast(getString(R.string.session_end))
+                navController.navigate(NavGraphDirections.showAuthFlow())
             }
-        )
+        }
     }
 }
