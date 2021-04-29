@@ -6,6 +6,14 @@ Important branches:
 - main - This branch represents the current state of the project. It's under regular maintenance. Use stable version of Android Studio to open the project.
 - canary - This branch is for trying out Android preview features. Some features might be merged from this branch to master branch in the future. It is not under regular maintenance. Use canary version of Android Studio to open the project.
 
+List of functionalities:
+- REST API integration - [Retrofit](https://github.com/square/retrofit) library is used as a type-safe HTTP client. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) are used in Retrofit interfaces.
+- Saving data locally - [Room](https://developer.android.com/training/data-storage/room) persistence library provides an abstraction layer over SQLite to allow database access. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) and [Flows](https://kotlinlang.org/docs/flow.html#flows) are used in Room DAO-s.
+- Dependency injection - [Koin](https://insert-koin.io/) is used as a dependency injection framework.
+- Navigation - [Android Jetpack's Navigation component](https://developer.android.com/guide/navigation) is used to implement navigation between fragments. Nav graph contains splash screen, main graph and auth graph. Auth graph represents sign-in flow, and main graph represents main application flow.
+- Splash screen - SplashFragment contains Rocket Insights logo.
+- Login screen - LoginFragment contains welcome message and login button which calls [FirebaseUI](https://firebase.google.com/docs/auth/android/firebaseui) sign-in flow.
+
 [![Bitrise Build Status](https://app.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://app.bitrise.io/app/edf2965e90d6ca81)
 
 [![CircleCI Build Status](https://circleci.com/gh/rocketinsights/android-base.svg?style=svg&circle-token=bd395430a4c3e2741c39f8b305be451bf1655e15)](https://circleci.com/gh/rocketinsights/android-base)
