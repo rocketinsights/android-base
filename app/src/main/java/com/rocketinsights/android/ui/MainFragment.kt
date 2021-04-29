@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -22,6 +21,7 @@ import com.rocketinsights.android.databinding.FragmentMainBinding
 import com.rocketinsights.android.extensions.createImageFile
 import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.getUriForFile
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
@@ -66,7 +66,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActionBar()
+        setupActionBar(binding.toolbar)
         setupControls()
         setupObservers()
         updateUI()
@@ -111,17 +111,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun setupActionBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-//        appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment))
-//        NavigationUI.setupActionBarWithNavController(
-//            activity,
-//            findNavController(),
-//            appBarConfiguration
-//        )
     }
 
     private fun setupControls() {

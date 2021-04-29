@@ -19,9 +19,7 @@ class MainActivity : ScopeActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     private lateinit var navController: NavController
-    private lateinit var destinationChangedListener: NavController.OnDestinationChangedListener
     private val userViewModel: UserViewModel by viewModel()
-    private var notLoginScreen = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +29,9 @@ class MainActivity : ScopeActivity() {
         observeUserLoginStatus()
     }
 
-    override fun onDestroy() {
-        navController.removeOnDestinationChangedListener(destinationChangedListener)
-        super.onDestroy()
-    }
-
     private fun setNavController() {
         navController =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!.findNavController()
-        destinationChangedListener =
-            NavController.OnDestinationChangedListener { _, destination, _ ->
-                notLoginScreen = destination.id != R.id.login_fragment
-            }
-        navController.addOnDestinationChangedListener(destinationChangedListener)
     }
 
     /**
@@ -53,6 +41,7 @@ class MainActivity : ScopeActivity() {
         userViewModel.isLoggedIn.observe(this) { isLoggedIn ->
             val notSplashScreen =
                 navController.graph.startDestination != navController.currentDestination?.id
+            val notLoginScreen = navController.currentDestination?.id != R.id.login_fragment
             if (isLoggedIn == false && notSplashScreen && notLoginScreen) {
                 showToast(getString(R.string.session_end))
                 navController.navigate(NavGraphDirections.showAuthFlow())

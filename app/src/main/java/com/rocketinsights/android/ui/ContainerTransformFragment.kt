@@ -3,9 +3,7 @@ package com.rocketinsights.android.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.transition.TransitionManager
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
@@ -15,6 +13,7 @@ import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
 import com.rocketinsights.android.extensions.hide
 import com.rocketinsights.android.extensions.remove
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.viewBinding
 
@@ -37,7 +36,7 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActionBar()
+        setupActionBar(binding.toolbar)
         setupControls()
     }
 
@@ -47,14 +46,6 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
         }
         // remove return transition so that it doesn't interfere with reenter animation of previous fragment
         sharedElementReturnTransition = null
-    }
-
-    private fun setupActionBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
-        }
     }
 
     private fun setupControls() {

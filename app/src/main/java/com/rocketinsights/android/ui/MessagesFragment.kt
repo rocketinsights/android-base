@@ -2,9 +2,7 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
@@ -12,6 +10,7 @@ import com.rocketinsights.android.R
 import com.rocketinsights.android.adapters.MessagesAdapter
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
 import com.rocketinsights.android.extensions.getIOErrorMessage
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.managers.InternetManager
@@ -44,17 +43,9 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActionBar()
+        setupActionBar(binding.toolbar)
         setupRecyclerView()
         setupObservers()
-    }
-
-    private fun setupActionBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
-        }
     }
 
     private fun setupRecyclerView() {

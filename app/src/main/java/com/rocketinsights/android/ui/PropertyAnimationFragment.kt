@@ -10,10 +10,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
@@ -22,6 +20,7 @@ import com.rocketinsights.android.extensions.disable
 import com.rocketinsights.android.extensions.enable
 import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
+import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.viewBinding
 
 private const val FADE_IN_DURATION = 500L
@@ -62,16 +61,8 @@ class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActionBar()
+        setupActionBar(binding.toolbar)
         setupControls()
-    }
-
-    private fun setupActionBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
-        }
     }
 
     private fun setupControls() {

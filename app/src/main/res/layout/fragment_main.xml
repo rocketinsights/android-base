@@ -46,6 +46,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
                 android:background="@android:color/transparent"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
                 app:layout_collapseMode="pin"
                 app:title="@string/first_screen_title"
                 app:titleTextColor="?attr/colorOnPrimary" />
@@ -55,7 +57,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -78,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/stockImage"
+                android:id="@+id/stock_image"
                 android:layout_width="@dimen/main_image_size"
                 android:layout_height="@dimen/main_image_size"
                 android:layout_marginTop="@dimen/margin_large"
