@@ -2,17 +2,29 @@
 
 This is the first version of a mock application that hopefully will evolve into the base project for Rocket's Android application.
 
-Important branches:
-- main - This branch represents the current state of the project. It's under regular maintenance. Use stable version of Android Studio to open the project.
-- canary - This branch is for trying out Android preview features. Some features might be merged from this branch to master branch in the future. It is not under regular maintenance. Use canary version of Android Studio to open the project.
+### Important branches:
+- **main** - This branch represents the current state of the project. It's under regular maintenance. Use stable version of Android Studio to open the project.
+- **canary** - This branch is for trying out Android preview features. Some features might be merged from this branch to master branch in the future. It is not under regular maintenance. Use canary version of Android Studio to open the project.
 
-List of functionalities:
-- REST API integration - [Retrofit](https://github.com/square/retrofit) library is used as a type-safe HTTP client. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) are used in Retrofit interfaces.
-- Saving data locally - [Room](https://developer.android.com/training/data-storage/room) persistence library provides an abstraction layer over SQLite to allow database access. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) and [Flows](https://kotlinlang.org/docs/flow.html#flows) are used in Room DAO-s.
-- Dependency injection - [Koin](https://insert-koin.io/) is used as a dependency injection framework.
-- Navigation - [Android Jetpack's Navigation component](https://developer.android.com/guide/navigation) is used to implement navigation between fragments. Nav graph contains splash screen, main graph and auth graph. Auth graph represents sign-in flow, and main graph represents main application flow.
-- Splash screen - SplashFragment contains Rocket Insights logo.
-- Login screen - LoginFragment contains welcome message and login button which calls [FirebaseUI](https://firebase.google.com/docs/auth/android/firebaseui) sign-in flow.
+### Functionalities:
+- **REST API integration** - [Retrofit](https://github.com/square/retrofit) library is used as a type-safe HTTP client. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) are used in Retrofit interfaces. [Moshi](https://github.com/square/moshi) is used as a JSON to Kotlin converter.
+- **Saving data locally** - [Room](https://developer.android.com/training/data-storage/room) persistence library provides an abstraction layer over SQLite to allow database access. [Suspending functions](https://kotlinlang.org/docs/composing-suspending-functions.html#sequential-by-default) and [Flows](https://kotlinlang.org/docs/flow.html#flows) are used in Room DAO-s. [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) is used to save user preferences.
+- **Scheduling background tasks** - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) is used to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. `MessagesUpdateWorker` is a `CoroutineWorker` and an example of recurring background work. Koin's [WorkManagerFactory](https://insert-koin.io/docs/reference/koin-android/workmanager/) is used instead of default one.
+- **Dependency injection** - [Koin](https://insert-koin.io/) is used as a dependency injection framework.
+- **Navigation** - [Android Jetpack's Navigation component](https://developer.android.com/guide/navigation) is used to implement navigation between fragments. Nav graph contains splash screen, main graph and auth graph. Auth graph represents sign-in flow, and main graph represents main application flow.
+- **Splash screen** - `SplashFragment` contains Rocket Insights logo.
+- **Login screen** - `LoginFragment` contains welcome message and login button which calls [FirebaseUI](https://firebase.google.com/docs/auth/android/firebaseui) sign-in flow.
+- **View binding** - [Android Jetpack's View binding](https://developer.android.com/topic/libraries/view-binding) allows writing code that interacts with views.
+- **Image loading** - [Coil](https://github.com/coil-kt/coil) is an image loading library for Android backed by Kotlin Coroutines.
+- **Taking a picture** - [ActivityResultContracts.TakePicture](https://developer.android.com/reference/kotlin/androidx/activity/result/contract/ActivityResultContracts.TakePicture) class is used to register 'take picture' action which calls camera app. Check `MainFragment` and `PhotoFragment` for an example.
+- **MotionLayout animation** - `AnimationsFragment` contains an example of [MotionLayout](https://developer.android.com/training/constraint-layout/motionlayout) animation. It is a `ConstraintSet` animation which runs automatically when the fragment is visible.
+- **Lottie animation** - `AccountSetupAnimationFragment` contains a simple example of [Lottie](https://airbnb.design/lottie/) animation from [LottieFiles](https://lottiefiles.com/).
+- **Property animation** - `PropertyAnimationFragment` shows examples of `View` property animations with `ViewPropertyAnimator` and `ObjectAnimator`.
+- **Material design** - Material design [components](https://material.io/components?platform=android) and [theming](https://material.io/design/material-theming/overview.html#material-theming) are used.
+- **Transitions** - [Material motion](https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md#motion) transitions are used throughout the app. There are also examples of slide and grow ([shared element](https://developer.android.com/guide/fragments/animate#shared)) transitions between `MainFragment` and `SecondFragment`.
+- **Leak detection** - [LeakCanary](https://square.github.io/leakcanary/) is used for memory leak detection.
+- **Network traffic monitoring** - [Chucker](https://github.com/ChuckerTeam/chucker) is used for inspection of HTTP(S) requests/responses fired by this app.
+- **Logging** - [Timber](https://github.com/JakeWharton/timber) is used for logging to make sure that puppies live :)
 
 [![Bitrise Build Status](https://app.bitrise.io/app/edf2965e90d6ca81/status.svg?token=M9TjJbSh1cmaUfFqzBkEUg&branch=master)](https://app.bitrise.io/app/edf2965e90d6ca81)
 
