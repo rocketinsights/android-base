@@ -20,4 +20,10 @@
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
+    <!-- App Widget Theme -->
+    <style name="ThemeOverlay.Androidbase.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/colorPrimary</item>
+        <item name="appWidgetTextColor">@color/white</item>
+    </style>
+
 </resources>
