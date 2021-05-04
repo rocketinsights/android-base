@@ -19,11 +19,10 @@ import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
- * Calendar fragment shows how to interact with the user device calendar.
+ * Calendar fragment shows how to interact with the User's Default Calendar.
  *
  * Contains examples of:
  *  - Adding an Event in User's Default Calendar,
- *  - Edit an Event,
  *  - Visualize All Added Events
  */
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
