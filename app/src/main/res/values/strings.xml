@@ -74,5 +74,8 @@
     <string name="login_logo">Login logo</string>
     <string name="welcome_login_message">Welcome to Android Base App</string>
 
-    <string name="appwidget_text">Bla Bla Bla Widget</string>
+    <!-- Animation Widget -->
+    <string name="lottie">Lottie</string>
+    <string name="property">Property</string>
+    <string name="container">Container</string>
 </resources>

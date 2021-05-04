@@ -13,4 +13,10 @@
         <item name="cardElevation">8dp</item>
     </style>
 
+    <style name="Button.AndroidBase.AppWidget" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="android:backgroundTint">?attr/appWidgetControlBackgroundColor</item>
+        <item name="android:textColor">?attr/appWidgetControlTextColor</item>
+        <item name="android:textSize">@dimen/widget_button_text_size</item>
+    </style>
+
 </resources>

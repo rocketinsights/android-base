@@ -2,9 +2,9 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/animation_widget"
-    android:minHeight="40dp"
-    android:minWidth="180dp"
-    android:previewImage="@drawable/ic_rocketinsights_logo"
-    android:resizeMode="vertical"
+    android:minHeight="@dimen/animation_widget_size"
+    android:minWidth="@dimen/animation_widget_size"
+    android:previewImage="@drawable/animation_widget_preview_image"
+    android:resizeMode="none"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen" />
