@@ -23,7 +23,7 @@
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="?attr/colorOnPrimary"
             app:title="@string/property_animation_screen_title"
-            app:navigationIcon="@drawable/ic_detail"/>
+            app:navigationIcon="@drawable/ic_detail_back"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

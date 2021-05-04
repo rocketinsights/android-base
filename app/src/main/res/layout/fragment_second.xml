@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_detail"
+            app:navigationIcon="@drawable/ic_detail_back"
             app:title="@string/second_screen_title"
             app:titleTextColor="?attr/colorOnPrimary" />
 
