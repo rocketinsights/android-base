@@ -14,12 +14,12 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import coil.load
-import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentMainBinding
 import com.rocketinsights.android.extensions.createImageFile
+import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.getUriForFile
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
