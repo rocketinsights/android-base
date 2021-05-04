@@ -14,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import coil.load
+import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.auth.AuthManager
