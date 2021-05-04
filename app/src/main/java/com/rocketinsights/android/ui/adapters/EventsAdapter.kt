@@ -8,7 +8,7 @@ import com.rocketinsights.android.databinding.ListItemEventBinding
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.managers.CalendarEvent
 
-class EventsAdapter : ListAdapter<CalendarEvent, EventsAdapter.ViewHolder>(MessageDiffCallback()) {
+class EventsAdapter : ListAdapter<CalendarEvent, EventsAdapter.ViewHolder>(EventDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.viewBinding(ListItemEventBinding::inflate))
@@ -26,7 +26,7 @@ class EventsAdapter : ListAdapter<CalendarEvent, EventsAdapter.ViewHolder>(Messa
         }
     }
 
-    private class MessageDiffCallback : DiffUtil.ItemCallback<CalendarEvent>() {
+    private class EventDiffCallback : DiffUtil.ItemCallback<CalendarEvent>() {
         override fun areItemsTheSame(oldItem: CalendarEvent, newItem: CalendarEvent): Boolean =
             oldItem.id == newItem.id
 
