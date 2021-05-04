@@ -62,6 +62,10 @@
     <string name="button_info_intro">Click the button below to start container transformation from button to card</string>
     <string name="info_button">Info button</string>
 
+    <!-- Calendar -->
+    <string name="calendar">Calendar</string>
+    <string name="calendar_permission_not_granted">Calendar Write/Read permissions are needed for this feature</string>
+
     <!-- Photo -->
     <string name="photo">Photo</string>
     <string name="take_a_photo">Take a photo</string>

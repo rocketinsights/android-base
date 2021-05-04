@@ -23,7 +23,7 @@
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="?attr/colorOnPrimary"
             app:title="@string/property_animation_screen_title"
-            app:navigationIcon="@drawable/ic_detail_back"/>
+            app:navigationIcon="@drawable/ic_detail"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -78,7 +78,7 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:contentDescription="@string/ball_1"
-                        android:src="@drawable/ic_round_sports_soccer_24"
+                        android:src="@drawable/ic_round_sports_soccer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_animation_1_title"
@@ -141,7 +141,7 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:contentDescription="@string/ball_2"
-                        android:src="@drawable/ic_round_sports_soccer_24"
+                        android:src="@drawable/ic_round_sports_soccer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_animation_2_title"
@@ -205,7 +205,7 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:contentDescription="@string/ball_3"
-                        android:src="@drawable/ic_round_sports_soccer_24"
+                        android:src="@drawable/ic_round_sports_soccer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_animation_3_title"
@@ -272,7 +272,7 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:contentDescription="@string/ball_3"
-                        android:src="@drawable/ic_round_sports_soccer_24"
+                        android:src="@drawable/ic_round_sports_soccer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_animation_4_title"

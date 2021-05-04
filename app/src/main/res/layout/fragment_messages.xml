@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="?attr/colorOnPrimary"
             app:title="@string/messages_screen_title"
-            app:navigationIcon="@drawable/ic_detail_back"/>
+            app:navigationIcon="@drawable/ic_detail"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

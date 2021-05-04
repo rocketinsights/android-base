@@ -46,6 +46,9 @@
         <action
             android:id="@+id/show_animations_fragment"
             app:destination="@id/animations_fragment" />
+        <action
+            android:id="@+id/show_calendar_fragment"
+            app:destination="@id/calendar_fragment" />
     </fragment>
     <fragment
         android:id="@+id/account_setup_animation_fragment"
@@ -92,4 +95,10 @@
         android:name="com.rocketinsights.android.ui.MapsFragment"
         android:label="@string/maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/calendar_fragment"
+        android:name="com.rocketinsights.android.ui.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar" />
+
 </navigation>

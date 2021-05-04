@@ -3,7 +3,7 @@
 buildscript {
     ext {
         kotlin_version = '1.4.31'
-        gradle_version = '4.1.2'
+        gradle_version = '4.1.3'
         dependency_check_version = '6.1.5'
         gradle_versions_version = '0.38.0'
         navigation_version = "2.3.5"

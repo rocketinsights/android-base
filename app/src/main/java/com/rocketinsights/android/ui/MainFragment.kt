@@ -19,7 +19,6 @@ import com.rocketinsights.android.R
 import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentMainBinding
 import com.rocketinsights.android.extensions.createImageFile
-import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.getUriForFile
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
@@ -108,6 +107,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             R.id.menu_logout -> {
                 authManager.logout()
                 true
+            }
+            R.id.calendar_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
             }
             else -> super.onOptionsItemSelected(item)
         }

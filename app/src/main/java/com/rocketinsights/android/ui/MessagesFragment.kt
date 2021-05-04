@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
-import com.rocketinsights.android.adapters.MessagesAdapter
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
 import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.managers.InternetManager
+import com.rocketinsights.android.ui.adapters.MessagesAdapter
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MessagesState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
