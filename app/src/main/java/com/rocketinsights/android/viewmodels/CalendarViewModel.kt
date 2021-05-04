@@ -9,8 +9,8 @@ import com.rocketinsights.android.managers.CalendarEvent
 import com.rocketinsights.android.managers.CalendarManager
 import com.rocketinsights.android.viewmodels.event.Event
 import kotlinx.coroutines.launch
+import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
-import java.time.ZonedDateTime
 
 class CalendarViewModel(
     private val calendarManager: CalendarManager

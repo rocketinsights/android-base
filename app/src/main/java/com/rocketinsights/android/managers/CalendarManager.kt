@@ -7,14 +7,14 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CalendarContract
+import com.rocketinsights.android.extensions.DateUtils
 import com.rocketinsights.android.prefs.LocalStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.time.Year
-import java.time.ZonedDateTime
 import java.util.Calendar
 
 /**
@@ -95,8 +95,8 @@ class CalendarManagerImpl(
                 savedEventsIds.firstOrNull()?.toMutableSet()
                     ?: mutableSetOf()
                 ).apply {
-                add(eventId.toString())
-            }
+                    add(eventId.toString())
+                }
 
             localStore.setStringSetValue(CALENDAR_EVENTS_IDS, savedEvents)
 
@@ -131,11 +131,11 @@ class CalendarManagerImpl(
         // event instances
         // TODO: Update this according to the App Requirements
         val startMillis: Long = Calendar.getInstance().run {
-            set(Year.now().value - 2, 1, 1, 0, 0)
+            set(DateUtils.currentYear() - 2, 1, 1, 0, 0)
             timeInMillis
         }
         val endMillis: Long = Calendar.getInstance().run {
-            set(Year.now().value + 2, 1, 1, 0, 0)
+            set(DateUtils.currentYear() + 2, 1, 1, 0, 0)
             timeInMillis
         }
 
