@@ -1,6 +1,7 @@
 package com.rocketinsights.android
 
 import android.app.Application
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.rocketinsights.android.di.initKoin
 import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +38,7 @@ class RocketApplication : Application() {
     }
 
     private fun init() {
+        AndroidThreeTen.init(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
