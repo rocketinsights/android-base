@@ -98,8 +98,8 @@ class CalendarManagerImpl(
                 savedEventsIds.firstOrNull()?.toMutableSet()
                     ?: mutableSetOf()
                 ).apply {
-                    add(eventId.toString())
-                }
+                add(eventId.toString())
+            }
 
             localStore.setStringSetValue(CALENDAR_EVENTS_IDS, savedEvents)
 
