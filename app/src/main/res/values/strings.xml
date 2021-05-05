@@ -73,4 +73,9 @@
     <string name="rocket_insights_logo">Rocket Insights logo</string>
     <string name="login_logo">Login logo</string>
     <string name="welcome_login_message">Welcome to Android Base App</string>
+
+    <!-- Animation Widget -->
+    <string name="lottie">Lottie</string>
+    <string name="property">Property</string>
+    <string name="container">Container</string>
 </resources>

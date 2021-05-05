@@ -22,6 +22,7 @@ This is the first version of a mock application that hopefully will evolve into 
 - **Property animation** - `PropertyAnimationFragment` shows examples of `View` property animations with `ViewPropertyAnimator` and `ObjectAnimator`.
 - **Material design** - Material design [components](https://material.io/components?platform=android) and [theming](https://material.io/design/material-theming/overview.html#material-theming) are used.
 - **Transitions** - [Material motion](https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md#motion) transitions are used throughout the app. There are also examples of slide and grow ([shared element](https://developer.android.com/guide/fragments/animate#shared)) transitions between `MainFragment` and `SecondFragment`.
+- **App Widget** - `AnimationWidget` is an example of app widget. It provides shortcuts to animation screens.
 - **Leak detection** - [LeakCanary](https://square.github.io/leakcanary/) is used for memory leak detection.
 - **Network traffic monitoring** - [Chucker](https://github.com/ChuckerTeam/chucker) is used for inspection of HTTP(S) requests/responses fired by this app.
 - **Logging** - [Timber](https://github.com/JakeWharton/timber) is used for logging to make sure that puppies live :)

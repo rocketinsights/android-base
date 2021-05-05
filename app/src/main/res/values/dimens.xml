@@ -14,4 +14,7 @@
     <dimen name="lottie_animation_size">300dp</dimen>
     <dimen name="button_transform_info_size">48dp</dimen>
     <dimen name="small_toolbar_height">56dp</dimen>
+    <dimen name="widget_button_width">150dp</dimen>
+    <dimen name="widget_button_text_size">12sp</dimen>
+    <dimen name="animation_widget_size">180dp</dimen>
 </resources>

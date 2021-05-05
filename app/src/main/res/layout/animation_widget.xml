@@ -1,0 +1,54 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/animation_widget_container"
+    android:layout_width="@dimen/animation_widget_size"
+    android:layout_height="@dimen/animation_widget_size"
+    android:background="?attr/appWidgetBackgroundColor"
+    android:theme="@style/ThemeOverlay.AndroidBase.AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/text_widget_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/animations"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="?attr/appWidgetTextColor" />
+
+    <Button
+        android:id="@+id/button_widget_lottie"
+        android:layout_width="@dimen/widget_button_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_below="@id/text_widget_title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lottie"
+        style="@style/Button.AndroidBase.AppWidget" />
+
+    <Button
+        android:id="@+id/button_widget_property"
+        android:layout_width="@dimen/widget_button_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_below="@id/button_widget_lottie"
+        android:layout_centerHorizontal="true"
+        android:text="@string/property"
+        style="@style/Button.AndroidBase.AppWidget" />
+
+    <Button
+        android:id="@+id/button_widget_container"
+        android:layout_width="@dimen/widget_button_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_below="@id/button_widget_property"
+        android:layout_centerHorizontal="true"
+        android:text="@string/container"
+        style="@style/Button.AndroidBase.AppWidget" />
+
+</RelativeLayout>
