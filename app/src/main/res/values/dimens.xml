@@ -15,12 +15,6 @@
     <dimen name="main_message_margin_top">70dp</dimen>
     <dimen name="main_image_size">100dp</dimen>
 
-    <!--Messages Fragment-->
-    <dimen name="fragment_messages_min_height">700dp</dimen>
-
-    <!--Photo Fragment-->
-    <dimen name="fragment_photo_min_height">700dp</dimen>
-
     <!--Animations-->
     <dimen name="animation_subtitle_translation_start">10dp</dimen>
     <dimen name="lottie_animation_size">300dp</dimen>
@@ -30,5 +24,4 @@
     <dimen name="widget_button_width">150dp</dimen>
     <dimen name="widget_button_text_size">12sp</dimen>
     <dimen name="animation_widget_size">180dp</dimen>
-
 </resources>

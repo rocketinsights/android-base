@@ -115,7 +115,7 @@ private fun managersModule() = module {
         )
     }
     single<LocalStore> { LocalStoreImpl(get()) }
-    single<CalendarManager> { CalendarManagerImpl(get(), get()) }
+    single<CalendarManager> { CalendarManagerImpl(get(), get(), get()) }
 }
 
 private fun repositoryModule() = module {

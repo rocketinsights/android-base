@@ -65,6 +65,7 @@
     <!-- Calendar -->
     <string name="calendar">Calendar</string>
     <string name="calendar_permission_not_granted">Calendar Write/Read permissions are needed for this feature</string>
+    <string name="calendar_error">Error occurred while manipulating the Calendar</string>
 
     <!-- Photo -->
     <string name="photo">Photo</string>

@@ -7,11 +7,13 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.CalendarContract
+import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.extensions.DateUtils
 import com.rocketinsights.android.prefs.LocalStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -55,7 +57,8 @@ data class CalendarEvent(val id: Long, val title: String, val description: Strin
 
 class CalendarManagerImpl(
     private val context: Context,
-    private val localStore: LocalStore
+    private val localStore: LocalStore,
+    private val dispatcher: DispatcherProvider
 ) : CalendarManager {
     private val savedEventsIds = localStore.getStringSetValue(CALENDAR_EVENTS_IDS)
 
@@ -71,7 +74,7 @@ class CalendarManagerImpl(
         startDate: ZonedDateTime,
         endDate: ZonedDateTime,
         address: String
-    ): Long {
+    ): Long = withContext(dispatcher.io()) {
         val startMillis = startDate.toInstant().toEpochMilli()
         val endMillis = endDate.toInstant().toEpochMilli()
 
@@ -104,12 +107,12 @@ class CalendarManagerImpl(
             retrieveEvents()
         }
 
-        return eventId
+        return@withContext eventId
     }
 
     override fun events(): Flow<List<CalendarEvent>> = events
 
-    override suspend fun refreshEvents() {
+    override suspend fun refreshEvents() = withContext(dispatcher.io()) {
         retrieveEvents()
     }
 
@@ -214,7 +217,7 @@ class CalendarManagerImpl(
 
             calendarCursor.close()
 
-            return calendarID.toLong()
+            calendarID.toLong()
         } else {
             null
         }

@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentCalendarBinding
+import com.rocketinsights.android.extensions.hide
 import com.rocketinsights.android.extensions.setupActionBar
+import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.ui.adapters.EventsAdapter
+import com.rocketinsights.android.viewmodels.CalendarState
 import com.rocketinsights.android.viewmodels.CalendarViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
@@ -70,18 +73,30 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             eventsAdapter.submitList(events)
         }
 
+        viewModel.calendarState.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { calendarState ->
+                when (calendarState) {
+                    CalendarState.Loading -> binding.progress.show()
+                    CalendarState.Success -> {
+                        binding.progress.hide()
+                    }
+                    is CalendarState.Error -> {
+                        binding.progress.hide()
+                        requireContext().showToast(
+                            getString(R.string.calendar_error)
+                        )
+                    }
+                }
+            }
+        }
+
         permissionsViewModel.permissionsResult.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { permissionResult ->
-                when (permissionResult) {
-                    is PermissionsResult.PermissionsError -> {
-                        requireContext().showToast(
-                            getString(R.string.calendar_permission_not_granted)
-                        )
-                        findNavController().popBackStack()
-                    }
-                    else -> {
-                        // Nothing
-                    }
+                if (permissionResult is PermissionsResult.PermissionsError) {
+                    requireContext().showToast(
+                        getString(R.string.calendar_permission_not_granted)
+                    )
+                    findNavController().popBackStack()
                 }
             }
         }
