@@ -15,6 +15,8 @@ import com.rocketinsights.android.auth.SessionWatcher
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
+import com.rocketinsights.android.managers.CalendarManager
+import com.rocketinsights.android.managers.CalendarManagerImpl
 import com.rocketinsights.android.managers.InternetManager
 import com.rocketinsights.android.managers.PermissionsManager
 import com.rocketinsights.android.managers.PermissionsManagerImpl
@@ -31,6 +33,7 @@ import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.ParentScrollProvider
+import com.rocketinsights.android.viewmodels.CalendarViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
@@ -112,6 +115,7 @@ private fun managersModule() = module {
         )
     }
     single<LocalStore> { LocalStoreImpl(get()) }
+    single<CalendarManager> { CalendarManagerImpl(get(), get(), get()) }
 }
 
 private fun repositoryModule() = module {
@@ -146,6 +150,7 @@ private fun viewModelsModule() = module {
     viewModel { PermissionsViewModel(get()) }
     viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
+    viewModel { CalendarViewModel(get()) }
 }
 
 private fun viewInteractorsModule() = module {

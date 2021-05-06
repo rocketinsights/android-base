@@ -60,7 +60,7 @@
             android:background="?android:selectableItemBackgroundBorderless"
             android:contentDescription="@string/info_button"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_info_24"
+            android:src="@drawable/ic_info"
             android:tint="?attr/colorPrimaryVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

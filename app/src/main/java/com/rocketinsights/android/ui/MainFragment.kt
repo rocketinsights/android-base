@@ -109,6 +109,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 authManager.logout()
                 true
             }
+            R.id.calendar_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

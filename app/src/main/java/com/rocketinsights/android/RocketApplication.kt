@@ -37,7 +37,6 @@ class RocketApplication : Application() {
     }
 
     private fun init() {
-
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

@@ -1,19 +1,26 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">@dimen/margin</dimen>
+    <dimen name="activity_vertical_margin">@dimen/margin</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
-    <dimen name="tall_toolbar_height">300dp</dimen>
+
+    <!--Core-->
+    <dimen name="small_toolbar_height">56dp</dimen>
     <dimen name="progress_bar_size">40dp</dimen>
-    <dimen name="fragment_messages_min_height">700dp</dimen>
-    <dimen name="fragment_photo_min_height">700dp</dimen>
+
+    <!--Main Fragment-->
+    <dimen name="tall_toolbar_height">300dp</dimen>
     <dimen name="main_message_margin_top">70dp</dimen>
     <dimen name="main_image_size">100dp</dimen>
+
+    <!--Animations-->
     <dimen name="animation_subtitle_translation_start">10dp</dimen>
     <dimen name="lottie_animation_size">300dp</dimen>
     <dimen name="button_transform_info_size">48dp</dimen>
-    <dimen name="small_toolbar_height">56dp</dimen>
+
+    <!--Widget-->
     <dimen name="widget_button_width">150dp</dimen>
     <dimen name="widget_button_text_size">12sp</dimen>
     <dimen name="animation_widget_size">180dp</dimen>

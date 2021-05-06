@@ -1,4 +1,4 @@
-package com.rocketinsights.android.adapters
+package com.rocketinsights.android.ui.adapters
 
 import android.text.format.DateUtils
 import android.text.format.DateUtils.FORMAT_SHOW_TIME
