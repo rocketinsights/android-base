@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class PermissionsViewModel(
     private val manager: PermissionsManager
 ) : ViewModel() {
-
     private val _permissionsResult = MutableLiveData<Event<PermissionsResult>>()
     val permissionsResult: LiveData<Event<PermissionsResult>> = _permissionsResult
 

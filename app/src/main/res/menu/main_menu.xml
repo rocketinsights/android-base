@@ -18,6 +18,9 @@
             android:id="@+id/calendar_fragment"
             android:title="@string/calendar" />
         <item
+            android:id="@+id/bluetooth_fragment"
+            android:title="@string/bluetooth" />
+        <item
             android:id="@+id/menu_login"
             android:title="@string/login" />
         <item

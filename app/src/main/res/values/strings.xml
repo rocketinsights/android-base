@@ -83,4 +83,9 @@
     <string name="lottie">Lottie</string>
     <string name="property">Property</string>
     <string name="container">Container</string>
+
+    <!-- Bluetooth -->
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_permission_not_granted">Bluetooth permissions are needed for this feature</string>
+
 </resources>
