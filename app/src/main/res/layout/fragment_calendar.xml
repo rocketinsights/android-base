@@ -54,6 +54,7 @@
 
         <include
             android:id="@+id/progress"
+            android:visibility="gone"
             layout="@layout/layout_progress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

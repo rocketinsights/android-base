@@ -49,6 +49,9 @@
         <action
             android:id="@+id/show_calendar_fragment"
             app:destination="@id/calendar_fragment" />
+        <action
+            android:id="@+id/show_bluetooth_fragment"
+            app:destination="@id/bluetooth_fragment" />
     </fragment>
     <fragment
         android:id="@+id/account_setup_animation_fragment"
@@ -100,5 +103,9 @@
         android:name="com.rocketinsights.android.ui.CalendarFragment"
         android:label="@string/calendar"
         tools:layout="@layout/fragment_calendar" />
-
+    <fragment
+        android:id="@+id/bluetooth_fragment"
+        android:name="com.rocketinsights.android.ui.BluetoothFragment"
+        android:label="@string/bluetooth"
+        tools:layout="@layout/fragment_bluetooth" />
 </navigation>

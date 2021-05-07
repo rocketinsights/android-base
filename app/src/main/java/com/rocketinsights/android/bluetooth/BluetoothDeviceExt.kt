@@ -9,6 +9,9 @@ private const val LOG_SEPARATOR = "==========================================="
 private const val LOG_NEW_LINE = "\n"
 private const val LOG_ITEM_SEPARATOR = "----------"
 
+/**
+ * There is not a direct way to remove bond, we must use reflection for it.
+ */
 fun BluetoothDevice.removeBond() {
     try {
         javaClass.getMethod("removeBond").invoke(this)

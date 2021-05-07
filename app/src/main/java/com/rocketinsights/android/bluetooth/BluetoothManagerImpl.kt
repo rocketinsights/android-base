@@ -36,11 +36,7 @@ class BluetoothManagerImpl(
     private var isDiscoveringReceiverRegistered = false
     private var isPairingReceiverRegistered = false
 
-    // Forever Observers
-    private val bluetoothStatusObserver = MutableSharedFlow<Int>(
-        replay = 0,
-        extraBufferCapacity = 1
-    )
+    private val bluetoothStatusObserver = MutableStateFlow(BluetoothState.BLUETOOTH_ON)
     private val bluetoothStatusReceiver: BroadcastReceiver? = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             val action = intent?.action ?: return
@@ -84,7 +80,6 @@ class BluetoothManagerImpl(
         class Error(val error: Exception) : PairingProcessResult()
     }
 
-    // One Time Observers
     private var pairingObserver = MutableStateFlow<PairingProcessResult?>(null)
     private val pairingReceiver: BroadcastReceiver? = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
@@ -192,6 +187,14 @@ class BluetoothManagerImpl(
         bluetoothDevice.createBond()
     }
 
+    override suspend fun unpair(deviceMacAddress: String?) {
+        getPairedDevice(deviceMacAddress)?.removeBond()
+    }
+
+    // ======== End Pairing Related ========
+
+    // ======== Start Discovery Related ========
+
     override suspend fun startDiscovery() {
         getBluetoothAdapter().apply {
             if (!isDiscovering) {
@@ -206,14 +209,7 @@ class BluetoothManagerImpl(
         getBluetoothAdapter().cancelDiscovery()
     }
 
-    // ======== End Pairing Related ========
-
-    // ======== Start Discovery Related ========
     override fun observeBluetoothDiscovery(): Flow<BluetoothDevice> = discoveryObserver
-
-    override suspend fun unpair(deviceMacAddress: String?) {
-        getPairedDevice(deviceMacAddress)?.removeBond()
-    }
 
     override suspend fun discoverAndPairDevice(deviceMacAddress: String?) {
         stopDiscovery()
@@ -228,6 +224,8 @@ class BluetoothManagerImpl(
         pairDevice(device)
         stopDiscovery()
     }
+
+    // ======== End Discovery Related ========
 
     override fun stop() {
         getBluetoothAdapter().cancelDiscovery()
@@ -247,8 +245,6 @@ class BluetoothManagerImpl(
             isPairingReceiverRegistered = true
         }
     }
-
-    // ======== End Discovery Related ========
 
     private fun unregisterToBTPairingReceiver() {
         if (isPairingReceiverRegistered) {
@@ -273,7 +269,7 @@ class BluetoothManagerImpl(
     private fun getBluetoothPairedDevices(): Set<BluetoothDevice> =
         getBluetoothAdapter().bondedDevices
 
-    protected fun getBluetoothAdapter(): BluetoothAdapter {
+    private fun getBluetoothAdapter(): BluetoothAdapter {
         return BluetoothAdapter.getDefaultAdapter()
             ?: throw BleException.BluetoothNotSupportedException // Device does not support Bluetooth
     }

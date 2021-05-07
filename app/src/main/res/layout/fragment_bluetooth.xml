@@ -84,6 +84,16 @@
                 android:layout_marginEnd="@dimen/margin_small"
                 android:text="Search Nearby Devices" />
 
+            <Button
+                android:id="@+id/bluetooth_stop_discover_devices_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="Stop Search"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,5 +127,10 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/progress"
+        android:visibility="gone"
+        layout="@layout/layout_progress" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

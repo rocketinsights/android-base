@@ -6,6 +6,6 @@ fun LayoutProgressBinding.show() {
     root.show()
 }
 
-fun LayoutProgressBinding.hide() {
-    root.hide()
+fun LayoutProgressBinding.remove() {
+    root.remove()
 }

@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.rocketinsights.android.bluetooth.BleException
 import com.rocketinsights.android.bluetooth.BluetoothManager
 import com.rocketinsights.android.viewmodels.event.Event
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class BluetoothViewModel(
     private val bluetoothManager: BluetoothManager
@@ -24,7 +26,24 @@ class BluetoothViewModel(
 
     val bluetoothState: LiveData<Int> = bluetoothManager.observeBluetoothStatus().asLiveData()
 
+    private val _pairedDevices = MutableLiveData<List<BluetoothDevice>>()
+    val pairedDevices: LiveData<List<BluetoothDevice>> = _pairedDevices
+
     val nearDevices: LiveData<BluetoothDevice> = bluetoothManager.observeBluetoothDiscovery().asLiveData()
+
+    init {
+        retrievePairedDevices()
+    }
+
+    private fun retrievePairedDevices() {
+        viewModelScope.launch {
+            try {
+                _pairedDevices.value = bluetoothManager.pairedDevices().toList()
+            } catch (e: Exception) {
+                Timber.w(e)
+            }
+        }
+    }
 
     fun turnOnBluetooth() {
         viewModelScope.launch {
@@ -57,12 +76,12 @@ class BluetoothViewModel(
     fun startNearBluetoothDevicesSearch() {
         viewModelScope.launch {
             try {
-                _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Loading)
+                _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStart.Loading)
                 bluetoothManager.startDiscovery()
-                _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Done)
+                _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStart.Done)
             } catch (e: Exception) {
                 handlerError(e) {
-                    _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Error(e))
+                    _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStart.Error(e))
                 }
             }
         }
@@ -71,12 +90,12 @@ class BluetoothViewModel(
     fun stopNearBluetoothDevicesSearch() {
         viewModelScope.launch {
             try {
-                _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Loading)
+                _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStop.Loading)
                 bluetoothManager.stopDiscovery()
-                _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Done)
+                _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStop.Done)
             } catch (e: Exception) {
                 handlerError(e) {
-                    _bluetoothActionState.value = Event(BluetoothActionState.Discovery.Error(e))
+                    _bluetoothActionState.value = Event(BluetoothActionState.DiscoveryStop.Error(e))
                 }
             }
         }
@@ -88,6 +107,9 @@ class BluetoothViewModel(
                 _bluetoothActionState.value = Event(BluetoothActionState.Pair.Loading)
                 bluetoothManager.pairDevice(bluetoothDevice)
                 _bluetoothActionState.value = Event(BluetoothActionState.Pair.Done)
+
+                // Update Paired Devices List
+                retrievePairedDevices()
             } catch (e: Exception) {
                 handlerError(e) {
                     _bluetoothActionState.value = Event(BluetoothActionState.Pair.Error(e))
@@ -100,8 +122,11 @@ class BluetoothViewModel(
         viewModelScope.launch {
             try {
                 _bluetoothActionState.value = Event(BluetoothActionState.UnPair.Loading)
-                bluetoothManager.pairDevice(bluetoothDevice)
+                bluetoothManager.unpair(bluetoothDevice.address)
                 _bluetoothActionState.value = Event(BluetoothActionState.UnPair.Done)
+
+                // Update Paired Devices List
+                retrievePairedDevices()
             } catch (e: Exception) {
                 handlerError(e) {
                     _bluetoothActionState.value = Event(BluetoothActionState.UnPair.Error(e))
@@ -160,9 +185,15 @@ sealed class BluetoothActionState {
         class Error(error: Exception) : UnPair()
     }
 
-    sealed class Discovery : BluetoothActionState() {
-        object Loading : Discovery()
-        object Done : Discovery()
-        class Error(error: Exception) : Discovery()
+    sealed class DiscoveryStart : BluetoothActionState() {
+        object Loading : DiscoveryStart()
+        object Done : DiscoveryStart()
+        class Error(error: Exception) : DiscoveryStart()
+    }
+
+    sealed class DiscoveryStop : BluetoothActionState() {
+        object Loading : DiscoveryStop()
+        object Done : DiscoveryStop()
+        class Error(error: Exception) : DiscoveryStop()
     }
 }
