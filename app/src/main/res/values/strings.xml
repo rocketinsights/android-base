@@ -100,5 +100,7 @@
     <string name="bluetooth_search_stop">Stop Search</string>
     <string name="bluetooth_paired_devices">Paired Devices:</string>
     <string name="bluetooth_near_devices">Near Devices:</string>
+    <string name="bluetooth_mac_address">MAC Address: %s</string>
+    <string name="bluetooth_unnamed">Unnamed Device</string>
 
 </resources>

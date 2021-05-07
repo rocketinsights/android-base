@@ -71,8 +71,8 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
         pairedDevicesAdapter = BluetoothDevicesAdapter { btDevice ->
             MaterialAlertDialogBuilder(requireContext())
                 .setCancelable(true)
-                .setTitle(btDevice.name ?: "Unnamed Device")
-                .setMessage("MAC Address: " + btDevice.address)
+                .setTitle(btDevice.name ?: getString(R.string.bluetooth_unnamed))
+                .setMessage(getString(R.string.bluetooth_mac_address, btDevice.address))
                 .setPositiveButton(R.string.bluetooth_unpair) { _, _ ->
                     bluetoothViewModel.unpairDevice(btDevice)
                 }
@@ -86,8 +86,8 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
         nearDevicesAdapter = BluetoothDevicesAdapter { btDevice ->
             MaterialAlertDialogBuilder(requireContext())
                 .setCancelable(true)
-                .setTitle(btDevice.name ?: "Unnamed Device")
-                .setMessage("MAC Address: " + btDevice.address)
+                .setTitle(btDevice.name ?: getString(R.string.bluetooth_unnamed))
+                .setMessage(getString(R.string.bluetooth_mac_address, btDevice.address))
                 .setPositiveButton(R.string.bluetooth_pair) { _, _ ->
                     bluetoothViewModel.pairDevice(btDevice)
                 }
@@ -187,8 +187,8 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
             val currentList = nearDevicesAdapter.currentList.toMutableList()
             // During discovery the same device could appear multiple times
             if (currentList.firstOrNull {
-                it.address == btDevice.address
-            } == null
+                    it.address == btDevice.address
+                } == null
             ) {
                 currentList.add(btDevice)
                 nearDevicesAdapter.submitList(currentList)
