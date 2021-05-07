@@ -43,8 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
-                android:text="Bluetooth Status" />
-
+                android:text="@string/bluetooth_status" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -62,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:text="Paired Devices:" />
+                        android:text="@string/bluetooth_paired_devices" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/bluetooth_paired_devices_list"
@@ -82,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="Search Nearby Devices" />
+                android:text="@string/bluetooth_search_start" />
 
             <Button
                 android:id="@+id/bluetooth_stop_discover_devices_button"
@@ -90,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="Stop Search"
+                android:text="@string/bluetooth_search_stop"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -110,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:text="Near Devices:" />
+                        android:text="@string/bluetooth_near_devices" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/bluetooth_near_devices_list"

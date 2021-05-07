@@ -5,13 +5,10 @@ import android.bluetooth.BluetoothDevice
 import kotlinx.coroutines.flow.Flow
 
 /**
- * BLE Generic Operations:
- * - Turn On / Off
- * - Discover Devices
- * - Pairing / Unpairing
+ * Bluetooth Manager allows us to perform the basic bluetooth actions: turn on, turn off,
+ * search for devices, pair and un-pair.
  *
- * Once you got your device paired you must use a BluetoothDeviceManager Instance to perform I/O
- * events.
+ * The sending of operations (read, write and subscribe) to a BLE device is pending.
  */
 interface BluetoothManager {
     companion object {
