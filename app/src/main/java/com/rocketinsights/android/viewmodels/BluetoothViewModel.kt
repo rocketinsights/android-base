@@ -126,7 +126,13 @@ class BluetoothViewModel(
                 _bluetoothActionState.value = Event(BluetoothActionState.UnPair.Done)
 
                 // Update Paired Devices List
-                retrievePairedDevices()
+                val newPairedDevices = _pairedDevices.value?.toMutableList()?.apply {
+                    removeAll {
+                        it.address == bluetoothDevice.address
+                    }
+                }
+
+                _pairedDevices.value = newPairedDevices ?: listOf()
             } catch (e: Exception) {
                 handlerError(e) {
                     _bluetoothActionState.value = Event(BluetoothActionState.UnPair.Error(e))

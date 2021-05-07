@@ -17,6 +17,7 @@ interface BluetoothManager {
     companion object {
         val BLUETOOTH_PERMISSIONS = arrayOf(
             Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
