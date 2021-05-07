@@ -187,8 +187,8 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
             val currentList = nearDevicesAdapter.currentList.toMutableList()
             // During discovery the same device could appear multiple times
             if (currentList.firstOrNull {
-                    it.address == btDevice.address
-                } == null
+                it.address == btDevice.address
+            } == null
             ) {
                 currentList.add(btDevice)
                 nearDevicesAdapter.submitList(currentList)
