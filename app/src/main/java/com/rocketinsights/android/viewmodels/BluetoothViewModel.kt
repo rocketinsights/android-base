@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.rocketinsights.android.bluetooth.BleException
 import com.rocketinsights.android.bluetooth.BluetoothManager
 import com.rocketinsights.android.viewmodels.event.Event
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

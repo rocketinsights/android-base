@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.databinding.ListItemBluetoothDeviceBinding
-import com.rocketinsights.android.databinding.ListItemMessageBinding
 import com.rocketinsights.android.extensions.viewBinding
 
 class BluetoothDevicesAdapter(private val itemClickListener: (btDevice: BluetoothDevice) -> Unit) :
