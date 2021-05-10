@@ -140,7 +140,7 @@ class BluetoothViewModel(
         }
     }
 
-    private fun handlerError(error: Exception, fallback: () -> Unit) {
+    private fun handlerError(error: Exception, callback: () -> Unit) {
         when (error) {
             is BleException.BluetoothNotSupportedException -> {
                 _bluetoothActionState.value = Event(BluetoothActionState.Unsupported)
@@ -151,7 +151,7 @@ class BluetoothViewModel(
             is BleException.BluetoothAccessNotGrantedException -> {
                 _bluetoothActionState.value = Event(BluetoothActionState.PermissionsNeed)
             }
-            else -> fallback.invoke()
+            else -> callback.invoke()
         }
     }
 
