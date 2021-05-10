@@ -83,4 +83,9 @@
     <string name="lottie">Lottie</string>
     <string name="property">Property</string>
     <string name="container">Container</string>
+
+    <!-- Dialog -->
+    <string name="dialog">Dsl Dialog</string>
+    <string name="dialog_title">Dialog Title</string>
+    <string name="dialog_content">Dialog Content</string>
 </resources>

@@ -25,6 +25,7 @@ import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.components.dialog
 import com.rocketinsights.android.viewmodels.MainMessageState
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
@@ -113,7 +114,30 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }
+            R.id.dialog -> {
+                showDslDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showDslDialog() {
+        dialog {
+            titleRes = R.string.dialog_title
+            contentRes = R.string.dialog_content
+            cancelable = false
+            positiveText = "Positive"
+            negativeText = "Negative"
+            positiveAction = {
+                requireContext().showToast("Positive Action Clicked")
+            }
+            negativeAction = {
+                requireContext().showToast("Negative Action Clicked")
+            }
+            dismissAction = {
+                requireContext().showToast("Alert Dismissed")
+            }
         }
     }
 
