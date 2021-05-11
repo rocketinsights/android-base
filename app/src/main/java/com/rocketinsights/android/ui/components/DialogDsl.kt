@@ -52,44 +52,25 @@ class DialogBuilder(
         setup()
 
         return MaterialAlertDialogBuilder(context).apply {
-            title?.let {
-                setTitle(it)
-            } ?: run {
-                titleRes?.let {
-                    setTitle(it)
-                }
-            }
-
-            content?.let {
-                setTitle(it)
-            } ?: run {
-                contentRes?.let {
-                    setTitle(it)
-                }
-            }
+            ternary(title, { setTitle(it) }, titleRes, { setTitle(it) })
+            ternary(content, { setMessage(it) }, contentRes, { setMessage(it) })
 
             customLayout?.let {
                 setView(it)
             }
 
             negativeAction?.let { action ->
-                negativeText?.let {
-                    setNegativeButton(it) { _, _ -> action.invoke() }
-                } ?: run {
-                    negativeTextRes?.let {
-                        setNegativeButton(it) { _, _ -> action.invoke() }
-                    }
-                }
+                ternary(
+                    negativeText, { setNegativeButton(it) { _, _ -> action.invoke() } },
+                    negativeTextRes, { setNegativeButton(it) { _, _ -> action.invoke() } }
+                )
             }
 
             positiveAction?.let { action ->
-                positiveText?.let {
-                    setPositiveButton(it) { _, _ -> action.invoke() }
-                } ?: run {
-                    positiveTextRes?.let {
-                        setPositiveButton(it) { _, _ -> action.invoke() }
-                    }
-                }
+                ternary(
+                    positiveText, { setPositiveButton(it) { _, _ -> action.invoke() } },
+                    positiveTextRes, { setPositiveButton(it) { _, _ -> action.invoke() } }
+                )
             }
 
             dismissAction?.let {
@@ -103,12 +84,23 @@ class DialogBuilder(
     }
 }
 
-fun Fragment.dialog(setup: DialogBuilder.() -> Unit) {
-    val builder = DialogBuilder(requireContext(), setup = setup)
-    builder.build().show()
+private fun <T, U> Any.ternary(
+    primaryValue: T?,
+    primaryAction: ((T) -> Unit)? = null,
+    secondaryValue: U?,
+    secondaryAction: ((U) -> Unit)? = null
+) {
+    primaryValue?.let {
+        primaryAction?.invoke(it)
+    } ?: run {
+        secondaryValue?.let {
+            secondaryAction?.invoke(it)
+        }
+    }
 }
 
-fun Activity.dialog(setup: DialogBuilder.() -> Unit) {
-    val builder = DialogBuilder(this, setup = setup)
-    builder.build().show()
-}
+fun Fragment.dialog(setup: DialogBuilder.() -> Unit) =
+    DialogBuilder(requireContext(), setup = setup).build().show()
+
+fun Activity.dialog(setup: DialogBuilder.() -> Unit) =
+    DialogBuilder(this, setup = setup).build().show()
