@@ -113,8 +113,7 @@ class BluetoothManagerImpl(
         }
     }
 
-    // ======== Start Bluetooth Status Related ========
-
+    // region BT Status
     override suspend fun bluetoothStatus(): Int {
         return if (getBluetoothAdapter().isEnabled) {
             BluetoothState.BLUETOOTH_ON
@@ -152,16 +151,14 @@ class BluetoothManagerImpl(
             }
         }
     }
+    // endregion BT Status
 
-    // ======== End Bluetooth Status Related ========
-
-    // ======== Start Pairing Related ========
-
+    // region Pairing
     override fun pairedDevices() = getBluetoothPairedDevices()
 
-    override suspend fun pairDevice(bluetoothDevice: BluetoothDevice?): Unit = suspendCoroutine { cont ->
+    override suspend fun pairDevice(bluetoothDevice: BluetoothDevice): Unit = suspendCoroutine { cont ->
         // Check if device is already paired
-        if (getPairedDevice(bluetoothDevice!!.address) != null) {
+        if (getPairedDevice(bluetoothDevice.address) != null) {
             cont.resume(Unit)
             return@suspendCoroutine
         }
@@ -187,14 +184,12 @@ class BluetoothManagerImpl(
         bluetoothDevice.createBond()
     }
 
-    override suspend fun unpair(deviceMacAddress: String?) {
+    override suspend fun unpair(deviceMacAddress: String) {
         getPairedDevice(deviceMacAddress)?.removeBond()
     }
+    // endregion Pairing
 
-    // ======== End Pairing Related ========
-
-    // ======== Start Discovery Related ========
-
+    // region Discovery
     override suspend fun startDiscovery() {
         getBluetoothAdapter().apply {
             if (!isDiscovering) {
@@ -211,7 +206,7 @@ class BluetoothManagerImpl(
 
     override fun observeBluetoothDiscovery(): Flow<BluetoothDevice> = discoveryObserver
 
-    override suspend fun discoverAndPairDevice(deviceMacAddress: String?) {
+    override suspend fun discoverAndPairDevice(deviceMacAddress: String) {
         stopDiscovery()
         startDiscovery()
 
@@ -224,8 +219,7 @@ class BluetoothManagerImpl(
         pairDevice(device)
         stopDiscovery()
     }
-
-    // ======== End Discovery Related ========
+    // endregion Discovery
 
     override fun stop() {
         getBluetoothAdapter().cancelDiscovery()
@@ -274,7 +268,7 @@ class BluetoothManagerImpl(
             ?: throw BleException.BluetoothNotSupportedException // Device does not support Bluetooth
     }
 
-    private fun isDevicePaired(mac: String?) = getPairedDevice(mac) != null
+    private fun isDevicePaired(mac: String) = getPairedDevice(mac) != null
 
     private fun getPairedDevice(mac: String?): BluetoothDevice? {
         return getBluetoothPairedDevices().firstOrNull { bluetoothDevice ->

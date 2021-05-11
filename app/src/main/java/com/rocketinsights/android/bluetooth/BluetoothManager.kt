@@ -37,9 +37,9 @@ interface BluetoothManager {
     fun observeBluetoothDiscovery(): Flow<BluetoothDevice>
 
     // Actions
-    suspend fun pairDevice(bluetoothDevice: BluetoothDevice?)
-    suspend fun unpair(deviceMacAddress: String?)
-    suspend fun discoverAndPairDevice(deviceMacAddress: String?)
+    suspend fun pairDevice(bluetoothDevice: BluetoothDevice)
+    suspend fun unpair(deviceMacAddress: String)
+    suspend fun discoverAndPairDevice(deviceMacAddress: String)
 
     // Stop / Clear states
     fun stop()
