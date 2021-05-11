@@ -52,22 +52,22 @@ class DialogBuilder(
         setup()
 
         return MaterialAlertDialogBuilder(context).apply {
-            ternary(title, { setTitle(it) }, titleRes, { setTitle(it) })
-            ternary(content, { setMessage(it) }, contentRes, { setMessage(it) })
+            quartus(title, { setTitle(it) }, titleRes, { setTitle(it) })
+            quartus(content, { setMessage(it) }, contentRes, { setMessage(it) })
 
             customLayout?.let {
                 setView(it)
             }
 
             negativeAction?.let { action ->
-                ternary(
+                quartus(
                     negativeText, { setNegativeButton(it) { _, _ -> action.invoke() } },
                     negativeTextRes, { setNegativeButton(it) { _, _ -> action.invoke() } }
                 )
             }
 
             positiveAction?.let { action ->
-                ternary(
+                quartus(
                     positiveText, { setPositiveButton(it) { _, _ -> action.invoke() } },
                     positiveTextRes, { setPositiveButton(it) { _, _ -> action.invoke() } }
                 )
@@ -84,7 +84,7 @@ class DialogBuilder(
     }
 }
 
-private fun <T, U> Any.ternary(
+private fun <T, U> Any.quartus(
     primaryValue: T?,
     primaryAction: ((T) -> Unit)? = null,
     secondaryValue: U?,
