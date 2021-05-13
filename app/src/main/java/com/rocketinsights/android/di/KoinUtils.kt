@@ -12,6 +12,8 @@ import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.auth.FirebaseAuthManager
 import com.rocketinsights.android.auth.SessionStorage
 import com.rocketinsights.android.auth.SessionWatcher
+import com.rocketinsights.android.bluetooth.BluetoothManager
+import com.rocketinsights.android.bluetooth.BluetoothManagerImpl
 import com.rocketinsights.android.coroutines.DispatcherProvider
 import com.rocketinsights.android.coroutines.DispatcherProviderImpl
 import com.rocketinsights.android.db.Database
@@ -33,6 +35,7 @@ import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
 import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.ParentScrollProvider
+import com.rocketinsights.android.viewmodels.BluetoothViewModel
 import com.rocketinsights.android.viewmodels.CalendarViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
@@ -73,7 +76,8 @@ fun Application.initKoin() {
                 authModule(),
                 viewModelsModule(),
                 viewInteractorsModule(),
-                workModule()
+                workModule(),
+                bluetoothModule(),
             )
         )
     }
@@ -151,6 +155,7 @@ private fun viewModelsModule() = module {
     viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
     viewModel { CalendarViewModel(get()) }
+    viewModel { BluetoothViewModel(get()) }
 }
 
 private fun viewInteractorsModule() = module {
@@ -165,4 +170,10 @@ private fun workModule() = module {
     single { WorkManager.getInstance(get()) }
     single<Work> { WorkImpl(get()) }
     single<MessagesUpdateScheduler> { MessagesUpdateSchedulerImpl(get(), get(), get()) }
+}
+
+private fun bluetoothModule() = module {
+    single<BluetoothManager> {
+        BluetoothManagerImpl(get(), get())
+    }
 }

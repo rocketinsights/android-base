@@ -29,7 +29,6 @@ class MessagesAdapter : ListAdapter<Message, MessagesAdapter.ViewHolder>(Message
     }
 
     private class MessageDiffCallback : DiffUtil.ItemCallback<Message>() {
-
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean =
             oldItem.id == newItem.id
 

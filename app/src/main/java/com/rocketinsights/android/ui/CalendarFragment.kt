@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentCalendarBinding
-import com.rocketinsights.android.extensions.hide
+import com.rocketinsights.android.extensions.remove
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
@@ -78,10 +78,10 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 when (calendarState) {
                     CalendarState.Loading -> binding.progress.show()
                     CalendarState.Success -> {
-                        binding.progress.hide()
+                        binding.progress.remove()
                     }
                     is CalendarState.Error -> {
-                        binding.progress.hide()
+                        binding.progress.remove()
                         requireContext().showToast(
                             getString(R.string.calendar_error)
                         )

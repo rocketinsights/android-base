@@ -17,6 +17,11 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+    <!-- BLUETOOTH -->
+    <!-- Also Location permissions are needed -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />

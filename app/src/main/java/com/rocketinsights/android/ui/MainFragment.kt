@@ -77,7 +77,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         inflater.inflate(R.menu.main_menu, menu)
         loginMenuItem = menu.findItem(R.id.menu_login)
         logoutMenuItem = menu.findItem(R.id.menu_logout)
-        photoMenuItem = menu.findItem(R.id.menu_logout)
+        photoMenuItem = menu.findItem(R.id.photo_fragment)
         hideLoginItems()
         setPhotoItemVisibility()
         observeUserLoginStatus()
@@ -99,6 +99,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 item.onNavDestinationSelected(findNavController())
             }
             R.id.animations_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
+            R.id.bluetooth_fragment -> {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }

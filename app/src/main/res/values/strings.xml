@@ -84,8 +84,28 @@
     <string name="property">Property</string>
     <string name="container">Container</string>
 
+    <!-- Bluetooth -->
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_status">Bluetooth Status</string>
+    <string name="bluetooth_permission_not_granted">Bluetooth permissions are needed for this feature</string>
+    <string name="bluetooth_permissions_denied">Bluetooth permissions were denied</string>
+    <string name="bluetooth_not_supported">Bluetooth is not supported in this device</string>
+    <string name="bluetooth_off">Bluetooth is off, please enable it for performing any action</string>
+    <string name="bluetooth_generic_error">Bluetooth Unknown Error</string>
+    <string name="bluetooth_pair">Pair</string>
+    <string name="bluetooth_pair_done">Device Paired Successfully</string>
+    <string name="bluetooth_unpair">Un-pair</string>
+    <string name="bluetooth_unpair_done">Device Un-Paired Successfully</string>
+    <string name="bluetooth_search_start">Search Nearby Devices</string>
+    <string name="bluetooth_search_stop">Stop Search</string>
+    <string name="bluetooth_paired_devices">Paired Devices:</string>
+    <string name="bluetooth_near_devices">Near Devices:</string>
+    <string name="bluetooth_mac_address">MAC Address: %s</string>
+    <string name="bluetooth_unnamed">Unnamed Device</string>
+
     <!-- Dialog -->
     <string name="dialog">Dsl Dialog</string>
     <string name="dialog_title">Dialog Title</string>
     <string name="dialog_content">Dialog Content</string>
+
 </resources>
