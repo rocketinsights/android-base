@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rocketinsights.android.R
 import com.rocketinsights.android.bluetooth.BluetoothState.Companion.BLUETOOTH_ON
 import com.rocketinsights.android.databinding.FragmentBluetoothBinding
@@ -17,6 +16,7 @@ import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.ui.adapters.BluetoothDevicesAdapter
+import com.rocketinsights.android.ui.components.dialog
 import com.rocketinsights.android.viewmodels.BluetoothActionState
 import com.rocketinsights.android.viewmodels.BluetoothViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
@@ -69,14 +69,14 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
 
     private fun setupPairedDevicesList() {
         pairedDevicesAdapter = BluetoothDevicesAdapter { btDevice ->
-            MaterialAlertDialogBuilder(requireContext())
-                .setCancelable(true)
-                .setTitle(btDevice.name ?: getString(R.string.bluetooth_unnamed))
-                .setMessage(getString(R.string.bluetooth_mac_address, btDevice.address))
-                .setPositiveButton(R.string.bluetooth_unpair) { _, _ ->
+            dialog {
+                title = btDevice.name ?: getString(R.string.bluetooth_unnamed)
+                content = getString(R.string.bluetooth_mac_address, btDevice.address)
+                positiveTextRes = R.string.bluetooth_unpair
+                positiveAction = {
                     bluetoothViewModel.unpairDevice(btDevice)
                 }
-                .show()
+            }
         }
 
         binding.bluetoothPairedDevicesList.adapter = pairedDevicesAdapter
@@ -84,14 +84,14 @@ class BluetoothFragment : Fragment(R.layout.fragment_bluetooth) {
 
     private fun setupNearDevicesList() {
         nearDevicesAdapter = BluetoothDevicesAdapter { btDevice ->
-            MaterialAlertDialogBuilder(requireContext())
-                .setCancelable(true)
-                .setTitle(btDevice.name ?: getString(R.string.bluetooth_unnamed))
-                .setMessage(getString(R.string.bluetooth_mac_address, btDevice.address))
-                .setPositiveButton(R.string.bluetooth_pair) { _, _ ->
+            dialog {
+                title = btDevice.name ?: getString(R.string.bluetooth_unnamed)
+                content = getString(R.string.bluetooth_mac_address, btDevice.address)
+                positiveTextRes = R.string.bluetooth_pair
+                positiveAction = {
                     bluetoothViewModel.pairDevice(btDevice)
                 }
-                .show()
+            }
         }
 
         binding.bluetoothNearDevicesList.adapter = nearDevicesAdapter
