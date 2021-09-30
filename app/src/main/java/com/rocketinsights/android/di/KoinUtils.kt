@@ -41,6 +41,7 @@ import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import com.rocketinsights.android.viewmodels.SessionViewModel
+import com.rocketinsights.android.viewmodels.TheGreatestRecyclerViewViewModel
 import com.rocketinsights.android.viewmodels.UserViewModel
 import com.rocketinsights.android.work.Work
 import com.rocketinsights.android.work.WorkImpl
@@ -151,6 +152,7 @@ private fun viewModelsModule() = module {
     viewModel { PhotoViewModel() }
     viewModel { LocationViewModel(get(), get()) }
     viewModel { CalendarViewModel(get()) }
+    viewModel { TheGreatestRecyclerViewViewModel() }
 }
 
 private fun viewInteractorsModule() = module {

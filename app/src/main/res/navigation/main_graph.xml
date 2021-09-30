@@ -100,5 +100,10 @@
         android:name="com.rocketinsights.android.ui.CalendarFragment"
         android:label="@string/calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/the_greatest_recyclerview_fragment"
+        android:name="com.rocketinsights.android.ui.TheGreatestRecyclerViewFragment"
+        android:label="@string/the_greatest_recyclerview_screen_title"
+        tools:layout="@layout/fragment_the_greatest_recyclerview" />
 
 </navigation>
