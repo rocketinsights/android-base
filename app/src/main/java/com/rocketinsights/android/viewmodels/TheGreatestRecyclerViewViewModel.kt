@@ -46,6 +46,14 @@ class TheGreatestRecyclerViewViewModel : ViewModel() {
         }
     }
 
+    fun removeItem(position: Int) {
+        _list.value?.let {
+            val list = ArrayList(it)
+            list.removeAt(position)
+            _list.value = list
+        }
+    }
+
     fun shuffleItems() {
         _list.value?.let {
             val list = ArrayList(it)
