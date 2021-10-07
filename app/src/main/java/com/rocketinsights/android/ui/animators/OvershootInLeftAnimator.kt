@@ -2,7 +2,6 @@ package com.rocketinsights.android.ui.animators
 
 import android.view.animation.OvershootInterpolator
 import androidx.recyclerview.widget.RecyclerView
-import com.rocketinsights.android.ui.animators.BaseItemAnimator
 
 /**
  * Copyright (C) 2021 Daichi Furiya / Wasabeef
@@ -20,36 +19,36 @@ import com.rocketinsights.android.ui.animators.BaseItemAnimator
  * limitations under the License.
  */
 open class OvershootInLeftAnimator : BaseItemAnimator {
-  private val tension: Float
+    private val tension: Float
 
-  constructor() {
-    tension = 2.0f
-  }
+    constructor() {
+        tension = 2.0f
+    }
 
-  constructor(tension: Float) {
-    this.tension = tension
-  }
+    constructor(tension: Float) {
+        this.tension = tension
+    }
 
-  override fun animateRemoveImpl(holder: RecyclerView.ViewHolder) {
-    holder.itemView.animate().apply {
-      translationX(-holder.itemView.rootView.width.toFloat())
-      duration = removeDuration
-      setListener(DefaultRemoveAnimatorListener(holder))
-      startDelay = getRemoveDelay(holder)
-    }.start()
-  }
+    override fun animateRemoveImpl(holder: RecyclerView.ViewHolder) {
+        holder.itemView.animate().apply {
+            translationX(-holder.itemView.rootView.width.toFloat())
+            duration = removeDuration
+            setListener(DefaultRemoveAnimatorListener(holder))
+            startDelay = getRemoveDelay(holder)
+        }.start()
+    }
 
-  override fun preAnimateAddImpl(holder: RecyclerView.ViewHolder) {
-    holder.itemView.translationX = -holder.itemView.rootView.width.toFloat()
-  }
+    override fun preAnimateAddImpl(holder: RecyclerView.ViewHolder) {
+        holder.itemView.translationX = -holder.itemView.rootView.width.toFloat()
+    }
 
-  override fun animateAddImpl(holder: RecyclerView.ViewHolder) {
-    holder.itemView.animate().apply {
-      translationX(0f)
-      duration = addDuration
-      setListener(DefaultAddAnimatorListener(holder))
-      interpolator = OvershootInterpolator(tension)
-      startDelay = getAddDelay(holder)
-    }.start()
-  }
+    override fun animateAddImpl(holder: RecyclerView.ViewHolder) {
+        holder.itemView.animate().apply {
+            translationX(0f)
+            duration = addDuration
+            setListener(DefaultAddAnimatorListener(holder))
+            interpolator = OvershootInterpolator(tension)
+            startDelay = getAddDelay(holder)
+        }.start()
+    }
 }
