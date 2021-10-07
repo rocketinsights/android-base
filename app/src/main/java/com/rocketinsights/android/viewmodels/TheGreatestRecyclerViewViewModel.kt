@@ -3,14 +3,13 @@ package com.rocketinsights.android.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rocketinsights.android.models.RecyclerViewItemModel
 
 class TheGreatestRecyclerViewViewModel : ViewModel() {
 
     private var id = 0
 
-    private val _list = MutableLiveData<List<RecyclerViewItemModel>>()
-    val list: LiveData<List<RecyclerViewItemModel>> = _list
+    private val _list = MutableLiveData<List<ItemModel>>()
+    val list: LiveData<List<ItemModel>> = _list
 
     private val randomStrings = listOf("some", "random", "strings", "to", "be", "unique")
 
@@ -18,10 +17,10 @@ class TheGreatestRecyclerViewViewModel : ViewModel() {
         _list.value = listOf(getRandomItem(), getRandomItem(), getRandomItem())
     }
 
-    private fun getRandomItem(): RecyclerViewItemModel {
+    private fun getRandomItem(): ItemModel {
         val shuffledList = ArrayList(randomStrings)
         shuffledList.shuffle()
-        val item = RecyclerViewItemModel(
+        val item = ItemModel(
             text = shuffledList.joinToString(" "),
             id = id
         )
@@ -61,4 +60,9 @@ class TheGreatestRecyclerViewViewModel : ViewModel() {
             _list.value = list
         }
     }
+
+    data class ItemModel(
+        val id: Int,
+        val text: String
+    )
 }

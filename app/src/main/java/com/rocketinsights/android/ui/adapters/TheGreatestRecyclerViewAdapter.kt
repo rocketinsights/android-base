@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.databinding.ListItemTextBinding
 import com.rocketinsights.android.extensions.viewBinding
-import com.rocketinsights.android.models.RecyclerViewItemModel
+import com.rocketinsights.android.viewmodels.TheGreatestRecyclerViewViewModel
 
 class TheGreatestRecyclerViewAdapter :
-    ListAdapter<RecyclerViewItemModel, TheGreatestRecyclerViewAdapter.ViewHolder>(
+    ListAdapter<TheGreatestRecyclerViewViewModel.ItemModel, TheGreatestRecyclerViewAdapter.ViewHolder>(
         TheGreatestDiffCallback()
     ) {
 
@@ -23,17 +23,24 @@ class TheGreatestRecyclerViewAdapter :
     class ViewHolder(private val binding: ListItemTextBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: RecyclerViewItemModel) {
+        fun bind(item: TheGreatestRecyclerViewViewModel.ItemModel) {
             binding.listItemTextView.text = item.text
         }
     }
 
-    private class TheGreatestDiffCallback : DiffUtil.ItemCallback<RecyclerViewItemModel>() {
+    private class TheGreatestDiffCallback :
+        DiffUtil.ItemCallback<TheGreatestRecyclerViewViewModel.ItemModel>() {
 
-        override fun areItemsTheSame(oldItem: RecyclerViewItemModel, newItem: RecyclerViewItemModel): Boolean =
+        override fun areItemsTheSame(
+            oldItem: TheGreatestRecyclerViewViewModel.ItemModel,
+            newItem: TheGreatestRecyclerViewViewModel.ItemModel
+        ): Boolean =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: RecyclerViewItemModel, newItem: RecyclerViewItemModel): Boolean =
+        override fun areContentsTheSame(
+            oldItem: TheGreatestRecyclerViewViewModel.ItemModel,
+            newItem: TheGreatestRecyclerViewViewModel.ItemModel
+        ): Boolean =
             oldItem == newItem
     }
 }
