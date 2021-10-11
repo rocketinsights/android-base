@@ -18,7 +18,6 @@ import android.view.View
  * limitations under the License.
  */
 object ViewHelper {
-    @JvmStatic
     fun clear(v: View) {
         v.apply {
             alpha = 1f
