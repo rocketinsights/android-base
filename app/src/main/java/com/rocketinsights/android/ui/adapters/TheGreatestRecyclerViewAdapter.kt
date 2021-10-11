@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.databinding.ListItemTextBinding
 import com.rocketinsights.android.extensions.viewBinding
-import com.rocketinsights.android.viewmodels.TheGreatestRecyclerViewViewModel
+import com.rocketinsights.android.models.RecyclerViewItemModel
 
 class TheGreatestRecyclerViewAdapter :
-    ListAdapter<TheGreatestRecyclerViewViewModel.ItemModel, TheGreatestRecyclerViewAdapter.ViewHolder>(
+    ListAdapter<RecyclerViewItemModel, TheGreatestRecyclerViewAdapter.ViewHolder>(
         TheGreatestDiffCallback()
     ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(parent.viewBinding(ListItemTextBinding::inflate))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -23,24 +23,21 @@ class TheGreatestRecyclerViewAdapter :
     class ViewHolder(private val binding: ListItemTextBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TheGreatestRecyclerViewViewModel.ItemModel) {
+        fun bind(item: RecyclerViewItemModel) {
             binding.listItemTextView.text = item.text
         }
     }
 
-    private class TheGreatestDiffCallback :
-        DiffUtil.ItemCallback<TheGreatestRecyclerViewViewModel.ItemModel>() {
+    private class TheGreatestDiffCallback : DiffUtil.ItemCallback<RecyclerViewItemModel>() {
 
         override fun areItemsTheSame(
-            oldItem: TheGreatestRecyclerViewViewModel.ItemModel,
-            newItem: TheGreatestRecyclerViewViewModel.ItemModel
-        ): Boolean =
-            oldItem.id == newItem.id
+            oldItem: RecyclerViewItemModel,
+            newItem: RecyclerViewItemModel
+        ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: TheGreatestRecyclerViewViewModel.ItemModel,
-            newItem: TheGreatestRecyclerViewViewModel.ItemModel
-        ): Boolean =
-            oldItem == newItem
+            oldItem: RecyclerViewItemModel,
+            newItem: RecyclerViewItemModel
+        ) = oldItem == newItem
     }
 }
