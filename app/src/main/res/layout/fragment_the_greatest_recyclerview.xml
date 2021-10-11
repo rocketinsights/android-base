@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/small_toolbar_height">
 
         <Button
-            android:id="@+id/addItem"
+            android:id="@+id/add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -41,17 +41,17 @@
             android:text="@string/add" />
 
         <Button
-            android:id="@+id/subtractItem"
+            android:id="@+id/subtract_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/addItem"
+            app:layout_constraintTop_toBottomOf="@id/add_item"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/subtract" />
 
         <Button
-            android:id="@+id/shuffleItems"
+            android:id="@+id/shuffle_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -61,17 +61,17 @@
             android:text="@string/shuffle" />
 
         <Button
-            android:id="@+id/changeAnimatorItems"
+            android:id="@+id/change_animations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shuffleItems"
+            app:layout_constraintTop_toBottomOf="@id/shuffle_items"
             android:text="@string/chaos" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/theGreatestRecyclerView"
+            android:id="@+id/the_greatest_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="visible"
@@ -79,7 +79,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtractItem"
+            app:layout_constraintTop_toBottomOf="@id/subtract_item"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/list_item_text"/>
 

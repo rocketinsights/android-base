@@ -60,7 +60,7 @@ class TheGreatestRecyclerViewFragment : Fragment(R.layout.fragment_the_greatest_
         binding.addItem.setOnClickListener { viewModel.addItem() }
         binding.subtractItem.setOnClickListener { viewModel.subtractItem() }
         binding.shuffleItems.setOnClickListener { viewModel.shuffleItems() }
-        binding.changeAnimatorItems.setOnClickListener { updateItemAnimator() }
+        binding.changeAnimations.setOnClickListener { updateItemAnimator() }
     }
 
     private fun setupObservers() {
