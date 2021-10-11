@@ -54,10 +54,16 @@
 
         <!-- Remove default WorkManagerFactory to be able to use one from Koin -->
         <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="@string/workManager"
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="@string/appStartup"
             android:exported="false"
-            tools:node="remove" />
+            tools:node="merge"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="@string/fileProvider"
