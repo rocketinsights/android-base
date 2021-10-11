@@ -39,7 +39,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class TheGreatestRecyclerViewFragment : Fragment(R.layout.fragment_the_greatest_recyclerview) {
     private val binding by viewBinding(FragmentTheGreatestRecyclerviewBinding::bind)
     private val viewModel by viewModel<TheGreatestRecyclerViewViewModel>()
-    private val theGreatestRecyclerViewAdapter = TheGreatestRecyclerViewAdapter()
+    private val theGreatestRecyclerViewAdapter get() =
+        binding.theGreatestRecyclerView.adapter as TheGreatestRecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +50,7 @@ class TheGreatestRecyclerViewFragment : Fragment(R.layout.fragment_the_greatest_
     }
 
     private fun setUpBindings() {
-        binding.theGreatestRecyclerView.adapter = theGreatestRecyclerViewAdapter
+        binding.theGreatestRecyclerView.adapter = TheGreatestRecyclerViewAdapter()
         val swipeHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.removeItem(viewHolder.adapterPosition)
