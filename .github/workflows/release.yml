@@ -28,7 +28,7 @@ jobs:
   build_aab:
     name: Build Release AAB and Upload to Google Play
     runs-on: [ ubuntu-latest ]
-    needs: [ lint, unit_tests ]
+    needs: [ build ]
     steps:
       - name: Check Out
         uses: actions/checkout@v2
