@@ -148,7 +148,7 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
             }
             if (removalsPending) {
                 val holder = changes[0].oldHolder
-                holder!!.itemView.postOnAnimationDelayed(changer, removeDuration)
+                holder?.itemView?.postOnAnimationDelayed(changer, removeDuration)
             } else {
                 changer.run()
             }
@@ -233,9 +233,8 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
         return true
     }
 
-    protected fun getRemoveDelay(holder: RecyclerView.ViewHolder): Long {
-        return abs(holder.oldPosition * removeDuration / 4)
-    }
+    protected fun getRemoveDelay(holder: RecyclerView.ViewHolder) =
+        abs(holder.oldPosition * removeDuration / 4)
 
     override fun animateAdd(holder: RecyclerView.ViewHolder): Boolean {
         endAnimation(holder)
@@ -244,9 +243,8 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
         return true
     }
 
-    protected fun getAddDelay(holder: RecyclerView.ViewHolder): Long {
-        return abs(holder.adapterPosition * addDuration / 4)
-    }
+    protected fun getAddDelay(holder: RecyclerView.ViewHolder) =
+        abs(holder.adapterPosition * addDuration / 4)
 
     override fun animateMove(
         holder: RecyclerView.ViewHolder,
@@ -359,7 +357,9 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
         val newHolder = changeInfo.newHolder
         val newView = newHolder?.itemView
         if (view != null) {
-            if (changeInfo.oldHolder != null) changeAnimations.add(changeInfo.oldHolder!!)
+            changeInfo.oldHolder?.let {
+                changeAnimations.add(it)
+            }
             val oldViewAnim = view.animate().setDuration(
                 changeDuration
             )
@@ -376,13 +376,17 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
                     view.translationX = 0f
                     view.translationY = 0f
                     dispatchChangeFinished(changeInfo.oldHolder, true)
-                    if (changeInfo.oldHolder != null) changeAnimations.remove(changeInfo.oldHolder!!)
+                    changeInfo.oldHolder?.let {
+                        changeAnimations.remove(it)
+                    }
                     dispatchFinishedWhenDone()
                 }
             }).start()
         }
         if (newView != null) {
-            if (changeInfo.newHolder != null) changeAnimations.add(changeInfo.newHolder!!)
+            changeInfo.newHolder?.let {
+                changeAnimations.add(it)
+            }
             val newViewAnimation = newView.animate()
             newViewAnimation.translationX(0f).translationY(0f).setDuration(changeDuration).alpha(1f)
                 .setListener(object : AnimatorListenerAdapter() {
@@ -396,7 +400,9 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
                         newView.translationX = 0f
                         newView.translationY = 0f
                         dispatchChangeFinished(changeInfo.newHolder, false)
-                        if (changeInfo.newHolder != null) changeAnimations.remove(changeInfo.newHolder!!)
+                        changeInfo.newHolder?.let {
+                            changeAnimations.remove(it)
+                        }
                         dispatchFinishedWhenDone()
                     }
                 }).start()
@@ -440,9 +446,9 @@ abstract class BaseItemAnimator : SimpleItemAnimator() {
                 return false
             }
         }
-        item!!.itemView.alpha = 1f
-        item.itemView.translationX = 0f
-        item.itemView.translationY = 0f
+        item?.itemView?.alpha = 1f
+        item?.itemView?.translationX = 0f
+        item?.itemView?.translationY = 0f
         dispatchChangeFinished(item, oldItem)
         return true
     }
