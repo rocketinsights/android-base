@@ -1,36 +1,55 @@
-version: 2
+version: 2.1
+
+orbs:
+  android: circleci/android@1.0.3
+
 jobs:
-  build:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-28
-    environment:
-      JVM_OPTS: -Xmx3200m
+  unit-test:
+    executor:
+      name: android/android-machine
+      resource-class: xlarge
     steps:
       - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-#      - run:
-#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-#         command: sudo chmod +x ./gradlew
+      - android/restore-gradle-cache
+      - android/restore-build-cache
       - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          name: Ktlint and Android lint
+          command: ./gradlew ktlint lint
+          when: always      
+      - android/run-tests:
+          test-command: ./gradlew test
+      - android/save-gradle-cache
+      - android/save-build-cache
       - run:
-          name: Run Tests
-          command: ./gradlew ktlint lint test
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
+          name: Save test results
+          command: |
+              mkdir -p ~/test-results/junit/
+              find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
       - store_test_results:
-          path: app/build/test-results
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit  
+
+  build:
+    executor:
+      name: android/android-machine
+      resource-class: xlarge
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - android/restore-build-cache
       - run:
-          name: Build
+          name: Assemble debug build
           command: ./gradlew clean assembleDebug --no-daemon --stacktrace
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/
+
+workflows:
+  test-and-build:
+    jobs:
+      - unit-test
+      - build:
+          requires:
+            - unit-test                  
