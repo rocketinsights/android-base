@@ -18,6 +18,7 @@
     <string name="messages_screen_title">Messages</string>
     <string name="property_animation_screen_title">Property Animation</string>
     <string name="container_transform_screen_title">Container Transform</string>
+    <string name="the_greatest_recyclerview_screen_title">The Greatest RecyclerView</string>
 
     <!--Permissions-->
     <string name="permissions_request">Request Permissions</string>
@@ -88,4 +89,10 @@
     <string name="dialog">Dsl Dialog</string>
     <string name="dialog_title">Dialog Title</string>
     <string name="dialog_content">Dialog Content</string>
+
+    <!-- RecyclerView Demo -->
+    <string name="add">Add</string>
+    <string name="subtract">Subtract</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="chaos">\???</string>
 </resources>

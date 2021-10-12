@@ -21,6 +21,9 @@
             android:id="@+id/dialog"
             android:title="@string/dialog" />
         <item
+            android:id="@+id/the_greatest_recyclerview_fragment"
+            android:title="@string/the_greatest_recyclerview_screen_title" />
+        <item
             android:id="@+id/menu_login"
             android:title="@string/login" />
         <item

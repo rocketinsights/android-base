@@ -114,6 +114,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }
+            R.id.the_greatest_recyclerview_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             R.id.dialog -> {
                 showDslDialog()
                 true
