@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocketinsights.android.auth.SessionStorage
 import com.rocketinsights.android.auth.SessionWatcher
+import com.rocketinsights.android.extensions.postEvent
 import com.rocketinsights.android.viewmodels.event.Event
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,8 +20,7 @@ class SessionViewModel(
 ) : ViewModel() {
 
     private val _sessionDataSate = MutableLiveData<Event<SessionDataState>>()
-    val sessionDataSate: LiveData<Event<SessionDataState>>
-        get() = _sessionDataSate
+    val sessionDataSate: LiveData<Event<SessionDataState>> get() = _sessionDataSate
 
     init {
         viewModelScope.launch {
@@ -34,7 +34,7 @@ class SessionViewModel(
 
     private fun clearSessionData() {
         viewModelScope.launch {
-            _sessionDataSate.postValue(Event(SessionDataState.CLEARING))
+            _sessionDataSate.postEvent(SessionDataState.CLEARING)
             try {
                 sessionStorageContainers.forEach {
                     it.clearSessionData()
@@ -42,7 +42,7 @@ class SessionViewModel(
             } catch (error: Exception) {
                 Timber.e(error, ERROR_CLEARING_SESSION_DATA)
             }
-            _sessionDataSate.postValue(Event(SessionDataState.CLEARED))
+            _sessionDataSate.postEvent(SessionDataState.CLEARED)
         }
     }
 }

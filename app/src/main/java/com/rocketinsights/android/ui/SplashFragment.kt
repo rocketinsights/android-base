@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentSplashBinding
-import com.rocketinsights.android.extensions.hideSystemUI
-import com.rocketinsights.android.extensions.showSystemUI
+import com.rocketinsights.android.extensions.hideNavBar
+import com.rocketinsights.android.extensions.showNavBar
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.UserViewModel
 import kotlinx.coroutines.FlowPreview
@@ -36,12 +36,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hideSystemUI(binding.root)
+        hideNavBar(binding.root)
         setupObservers()
     }
 
     override fun onDestroyView() {
-        showSystemUI(binding.root)
+        showNavBar(binding.root)
         super.onDestroyView()
     }
 

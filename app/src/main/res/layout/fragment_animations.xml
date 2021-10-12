@@ -37,6 +37,9 @@
                 android:id="@+id/text_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:text="@string/animation_screen_subtitle"
                 android:textAppearance="?attr/textAppearanceSubtitle1" />
 
