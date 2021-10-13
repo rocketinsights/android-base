@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentCalendarBinding
 import com.rocketinsights.android.extensions.hide
+import com.rocketinsights.android.extensions.observeEvent
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showToast
@@ -73,31 +74,27 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             eventsAdapter.submitList(events)
         }
 
-        viewModel.calendarState.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { calendarState ->
-                when (calendarState) {
-                    CalendarState.Loading -> binding.progress.show()
-                    CalendarState.Success -> {
-                        binding.progress.hide()
-                    }
-                    is CalendarState.Error -> {
-                        binding.progress.hide()
-                        requireContext().showToast(
-                            getString(R.string.calendar_error)
-                        )
-                    }
+        viewModel.calendarState.observeEvent(viewLifecycleOwner) { calendarState ->
+            when (calendarState) {
+                CalendarState.Loading -> binding.progress.show()
+                CalendarState.Success -> {
+                    binding.progress.hide()
+                }
+                is CalendarState.Error -> {
+                    binding.progress.hide()
+                    requireContext().showToast(
+                        getString(R.string.calendar_error)
+                    )
                 }
             }
         }
 
-        permissionsViewModel.permissionsResult.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { permissionResult ->
-                if (permissionResult is PermissionsResult.PermissionsError) {
-                    requireContext().showToast(
-                        getString(R.string.calendar_permission_not_granted)
-                    )
-                    findNavController().popBackStack()
-                }
+        permissionsViewModel.permissionsResult.observeEvent(viewLifecycleOwner) { permissionResult ->
+            if (permissionResult is PermissionsResult.PermissionsError) {
+                requireContext().showToast(
+                    getString(R.string.calendar_permission_not_granted)
+                )
+                findNavController().popBackStack()
             }
         }
     }
@@ -108,7 +105,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             RecyclerView.VERTICAL
         )
 
-        val separatorDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.list_item_separator_default)
+        val separatorDrawable =
+            ContextCompat.getDrawable(requireContext(), R.drawable.list_item_separator_default)
         dividerItemDecoration.setDrawable(separatorDrawable!!)
 
         dividerItemDecoration

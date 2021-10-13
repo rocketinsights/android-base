@@ -9,6 +9,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentMessagesBinding
 import com.rocketinsights.android.extensions.getIOErrorMessage
+import com.rocketinsights.android.extensions.observeEvent
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
@@ -82,13 +83,11 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
         }
 
         // observe connectivity status
-        connectivityViewModel.status.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { status ->
-                if (status == InternetManager.ConnectivityStatus.CONNECTED) {
-                    viewModel.refreshMessages()
-                } else {
-                    requireContext().showToast(getString(R.string.connectivity_offline))
-                }
+        connectivityViewModel.status.observeEvent(viewLifecycleOwner) { status ->
+            if (status == InternetManager.ConnectivityStatus.CONNECTED) {
+                viewModel.refreshMessages()
+            } else {
+                requireContext().showToast(getString(R.string.connectivity_offline))
             }
         }
     }

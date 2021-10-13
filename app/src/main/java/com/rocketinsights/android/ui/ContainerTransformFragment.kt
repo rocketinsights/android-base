@@ -12,7 +12,7 @@ import com.rocketinsights.android.databinding.FragmentContainerTransformBinding
 import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
 import com.rocketinsights.android.extensions.hide
-import com.rocketinsights.android.extensions.remove
+import com.rocketinsights.android.extensions.invisible
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.viewBinding
@@ -73,13 +73,13 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
         binding.run {
             textTransformButtonInfo.fadeOut()
             cardTransformInfo.show()
-            buttonTransformInfo.hide()
+            buttonTransformInfo.invisible()
         }
     }
 
     private fun collapseButton() {
         // remove auxiliary scrim
-        binding.scrimInfoCard.remove()
+        binding.scrimInfoCard.hide()
         // create and start collapse transition from card to button
         val transform = MaterialContainerTransform().apply {
             startView = binding.cardTransformInfo
@@ -90,7 +90,7 @@ class ContainerTransformFragment : Fragment(R.layout.fragment_container_transfor
         TransitionManager.beginDelayedTransition(binding.root, transform)
         binding.run {
             buttonTransformInfo.show()
-            cardTransformInfo.hide()
+            cardTransformInfo.invisible()
             textTransformButtonInfo.fadeIn()
         }
     }

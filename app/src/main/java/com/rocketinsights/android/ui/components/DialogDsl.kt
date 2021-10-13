@@ -1,11 +1,9 @@
 package com.rocketinsights.android.ui.components
 
-import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -98,9 +96,3 @@ private fun <T, U> Any.quartus(
         }
     }
 }
-
-fun Fragment.dialog(setup: DialogBuilder.() -> Unit) =
-    DialogBuilder(requireContext(), setup = setup).build().show()
-
-fun Activity.dialog(setup: DialogBuilder.() -> Unit) =
-    DialogBuilder(this, setup = setup).build().show()

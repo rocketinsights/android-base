@@ -23,9 +23,9 @@ import com.rocketinsights.android.extensions.getIOErrorMessage
 import com.rocketinsights.android.extensions.getUriForFile
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
+import com.rocketinsights.android.extensions.showDialog
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
-import com.rocketinsights.android.ui.components.dialog
 import com.rocketinsights.android.viewmodels.MainMessageState
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
@@ -127,7 +127,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun showDslDialog() {
-        dialog {
+        showDialog {
             titleRes = R.string.dialog_title
             contentRes = R.string.dialog_content
             cancelable = false

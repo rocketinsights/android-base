@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.rocketinsights.android.extensions.setEvent
 import com.rocketinsights.android.managers.CalendarEvent
 import com.rocketinsights.android.managers.CalendarManager
 import com.rocketinsights.android.viewmodels.event.Event
@@ -20,25 +21,25 @@ class CalendarViewModel(
     }
 
     private val _calendarState = MutableLiveData<Event<CalendarState>>()
-    val calendarState: LiveData<Event<CalendarState>> = _calendarState
+    val calendarState: LiveData<Event<CalendarState>> get() = _calendarState
 
     val events: LiveData<List<CalendarEvent>> = calendarManager.events().asLiveData()
 
     fun refreshEvents() {
-        _calendarState.value = Event(CalendarState.Loading)
+        _calendarState.setEvent(CalendarState.Loading)
         viewModelScope.launch {
             try {
                 calendarManager.refreshEvents()
-                _calendarState.value = Event(CalendarState.Success)
+                _calendarState.setEvent(CalendarState.Success)
             } catch (error: Throwable) {
-                _calendarState.value = Event(CalendarState.Error(error))
+                _calendarState.setEvent(CalendarState.Error(error))
                 Timber.e(error)
             }
         }
     }
 
     fun addEvent() {
-        _calendarState.value = Event(CalendarState.Loading)
+        _calendarState.setEvent(CalendarState.Loading)
         viewModelScope.launch {
             try {
                 calendarManager.addEvent(
@@ -52,9 +53,9 @@ class CalendarViewModel(
                     },
                     "Event Address"
                 )
-                _calendarState.value = Event(CalendarState.Success)
+                _calendarState.setEvent(CalendarState.Success)
             } catch (error: Throwable) {
-                _calendarState.value = Event(CalendarState.Error(error))
+                _calendarState.setEvent(CalendarState.Error(error))
                 Timber.e(error)
             }
         }
