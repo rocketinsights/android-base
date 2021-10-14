@@ -95,4 +95,13 @@
     <string name="subtract">Subtract</string>
     <string name="shuffle">Shuffle</string>
     <string name="chaos">\???</string>
+
+    <!--Player screen-->
+    <string name="players">Players</string>
+    <string name="player">Player</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="position">Position</string>
+    <string name="refresh">Refresh</string>
+    <string name="error_get_player">Error occurred while retrieving player data.</string>
 </resources>

@@ -100,6 +100,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }
+            R.id.player_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             R.id.menu_login -> {
                 authManager.launchSignInFlow()
                 true

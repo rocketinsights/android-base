@@ -125,6 +125,7 @@ private fun repositoryModule() = module {
             get<NetworkingManager>().sessionWatcher = this
         }
     }
+    single { PlayerRepository(get()) }
 }
 
 private fun authModule() = module {
@@ -151,6 +152,7 @@ private fun viewModelsModule() = module {
     viewModel { LocationViewModel(get(), get()) }
     viewModel { CalendarViewModel(get()) }
     viewModel { TheGreatestRecyclerViewViewModel() }
+    viewModel { PlayerViewModel(get()) }
 }
 
 private fun viewInteractorsModule() = module {
