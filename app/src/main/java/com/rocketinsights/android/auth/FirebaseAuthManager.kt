@@ -29,7 +29,7 @@ class FirebaseAuthManager(
             authUI.createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setLogo(R.drawable.ic_rocketinsights_logo) // set logo
-                .setTheme(R.style.AppTheme) // set theme
+                .setTheme(R.style.Theme_AndroidBase_Main) // set theme
                 .setTosAndPrivacyPolicyUrls(
                     "https://example.com/terms.html",
                     "https://example.com/privacy.html"

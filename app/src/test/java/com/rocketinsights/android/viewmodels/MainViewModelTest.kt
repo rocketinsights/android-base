@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -23,7 +22,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOError
 
-@ExperimentalCoroutinesApi
 class MainViewModelTest {
     // bypasses the main thread check, and immediately runs any tasks on your test thread
     @get:Rule

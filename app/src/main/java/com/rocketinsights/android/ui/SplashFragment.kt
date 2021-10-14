@@ -12,14 +12,12 @@ import com.rocketinsights.android.extensions.hideNavBar
 import com.rocketinsights.android.extensions.showNavBar
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.UserViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 private const val FADE_OUT_DURATION = 1000L
 private const val SHOW_SCREEN_DURATION = 500L
 
-@FlowPreview
 /**
  * Splash fragment represents app's splash screen with logo and background.
  * After short delay it navigates to main flow, if the user is logged in, or to auth flow otherwise.

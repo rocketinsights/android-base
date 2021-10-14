@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import com.rocketinsights.android.models.Message
 import com.rocketinsights.android.repos.MessageRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
@@ -23,7 +22,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-@ExperimentalCoroutinesApi
 class MessagesViewModelTest {
     // bypasses the main thread check, and immediately runs any tasks on your test thread
     @get:Rule
