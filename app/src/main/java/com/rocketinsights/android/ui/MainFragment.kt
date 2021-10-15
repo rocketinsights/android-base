@@ -30,7 +30,6 @@ import com.rocketinsights.android.viewmodels.MainMessageState
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import com.rocketinsights.android.viewmodels.UserViewModel
-import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,7 +43,6 @@ private const val ERROR_CREATING_IMAGE = "Error while creating temporary image f
  * It has a main menu which allows navigation to all other examples.
  * There is an example of fade through (Material motion), slide and grow (shared element) transitions.
  */
-@FlowPreview
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val mainViewModel: MainViewModel by viewModel()
@@ -99,6 +97,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 item.onNavDestinationSelected(findNavController())
             }
             R.id.animations_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
+            R.id.player_fragment -> {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }

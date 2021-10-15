@@ -95,6 +95,7 @@ android {
     // Enables view binding.
     buildFeatures {
         viewBinding true
+        compose true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -107,7 +108,12 @@ android {
         freeCompilerArgs += [
                 "-Xopt-in=kotlin.RequiresOptIn",
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-Xopt-in=kotlinx.coroutines.FlowPreview"]
+                "-Xopt-in=kotlinx.coroutines.FlowPreview",
+                "-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi",
+                "-Xopt-in=org.koin.core.KoinExperimentalAPI"]
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
     }
     testOptions {
         unitTests.all {
@@ -164,6 +170,10 @@ ext {
     lottie_version = "4.2.0"
     core_version = "1.6.0"
     desugar_jdk_version = "1.1.5"
+    // Compose
+    activity_compose_version = "1.3.1"
+    constraintlayout_compose_version = "1.0.0-rc01"
+    viewmodel_compose_version = "1.0.0-alpha07"
 }
 
 jacoco {
@@ -264,6 +274,21 @@ dependencies {
     // Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
 
+    // Compose
+    implementation "androidx.compose.runtime:runtime:$compose_version"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.animation:animation:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodel_compose_version"
+    implementation "com.google.android.material:compose-theme-adapter:$compose_version"
+
     // Test
     // Unit testing framework
     androidTestImplementation "com.android.support.test:rules:$test_rule_version"
@@ -279,6 +304,9 @@ dependencies {
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
+    // Compose UI Tests
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

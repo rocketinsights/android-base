@@ -8,7 +8,6 @@ import com.rocketinsights.android.mappings.toMessages
 import com.rocketinsights.android.network.ApiService
 import com.rocketinsights.android.network.models.ApiMessage
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -24,7 +23,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-@ExperimentalCoroutinesApi
 class MessageRepositoryTest {
 
     private val testDispatcher = TestCoroutineDispatcher()

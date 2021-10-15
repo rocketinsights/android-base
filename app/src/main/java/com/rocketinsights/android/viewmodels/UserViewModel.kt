@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import com.rocketinsights.android.repos.AuthRepository
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 
 private const val DEBOUNCE_TIMEOUT = 500L
@@ -12,7 +11,6 @@ private const val DEBOUNCE_TIMEOUT = 500L
 /**
  * User VM exposes logged in status and user data to the view.
  */
-@FlowPreview
 class UserViewModel(
     authRepository: AuthRepository
 ) : ViewModel() {

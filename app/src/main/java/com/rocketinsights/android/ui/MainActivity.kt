@@ -9,11 +9,9 @@ import com.rocketinsights.android.databinding.ActivityMainBinding
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.UserViewModel
-import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@FlowPreview
 class MainActivity : ScopeActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
@@ -23,7 +21,7 @@ class MainActivity : ScopeActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.Theme_AndroidBase_Main)
         setContentView(binding.root)
         setNavController()
         observeUserLoginStatus()

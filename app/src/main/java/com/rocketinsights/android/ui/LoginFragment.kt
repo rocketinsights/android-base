@@ -11,12 +11,10 @@ import com.rocketinsights.android.auth.AuthManager
 import com.rocketinsights.android.databinding.FragmentLoginBinding
 import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.viewmodels.UserViewModel
-import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.parameter.parametersOf
 
-@FlowPreview
 /**
  * Login fragment is a starting point of auth flow.
  * It contains company logo, welcome message and login button.

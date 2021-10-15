@@ -31,6 +31,7 @@ import com.rocketinsights.android.prefs.LocalStore
 import com.rocketinsights.android.prefs.LocalStoreImpl
 import com.rocketinsights.android.repos.AuthRepository
 import com.rocketinsights.android.repos.MessageRepository
+import com.rocketinsights.android.repos.PlayerRepository
 import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.CalendarViewModel
@@ -40,6 +41,7 @@ import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
+import com.rocketinsights.android.viewmodels.PlayerViewModel
 import com.rocketinsights.android.viewmodels.SessionViewModel
 import com.rocketinsights.android.viewmodels.TheGreatestRecyclerViewViewModel
 import com.rocketinsights.android.viewmodels.UserViewModel
@@ -49,18 +51,14 @@ import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
 import com.rocketinsights.android.work.messages.MessagesUpdateSchedulerImpl
 import com.rocketinsights.android.work.messages.MessagesUpdateWorkRequestFactory
 import com.rocketinsights.android.work.messages.MessagesUpdateWorker
-import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.workmanager.dsl.worker
 import org.koin.androidx.workmanager.koin.workManagerFactory
-import org.koin.core.KoinExperimentalAPI
 import org.koin.core.context.startKoin
 import org.koin.core.scope.get
 import org.koin.dsl.module
 
-@KoinExperimentalAPI
-@FlowPreview
 fun Application.initKoin() {
     startKoin {
         androidContext(this@initKoin)
@@ -127,6 +125,7 @@ private fun repositoryModule() = module {
             get<NetworkingManager>().sessionWatcher = this
         }
     }
+    single { PlayerRepository(get()) }
 }
 
 private fun authModule() = module {
@@ -153,6 +152,7 @@ private fun viewModelsModule() = module {
     viewModel { LocationViewModel(get(), get()) }
     viewModel { CalendarViewModel(get()) }
     viewModel { TheGreatestRecyclerViewViewModel() }
+    viewModel { PlayerViewModel(get()) }
 }
 
 private fun viewInteractorsModule() = module {

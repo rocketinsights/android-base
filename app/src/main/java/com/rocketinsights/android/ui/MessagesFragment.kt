@@ -18,6 +18,7 @@ import com.rocketinsights.android.ui.adapters.MessagesAdapter
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.MessagesState
 import com.rocketinsights.android.viewmodels.MessagesViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -34,7 +35,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MessagesFragment : Fragment(R.layout.fragment_messages) {
     private val binding by viewBinding(FragmentMessagesBinding::bind)
     private val viewModel by viewModel<MessagesViewModel>()
-    private val connectivityViewModel by viewModel<ConnectivityViewModel>()
+    private val connectivityViewModel by sharedViewModel<ConnectivityViewModel>()
     private lateinit var messagesAdapter: MessagesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
