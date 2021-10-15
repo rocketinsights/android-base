@@ -7,24 +7,23 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.rocketinsights.android.R
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.managers.InternetManager
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.ui.compose.PlayerScreen
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
 import com.rocketinsights.android.viewmodels.PlayerViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlayerFragment : Fragment() {
+class PlayerFragment : BaseFragment() {
 
     private val playerViewModel by viewModel<PlayerViewModel>()
     private val connectivityViewModel by sharedViewModel<ConnectivityViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
     }
 
@@ -40,8 +39,7 @@ class PlayerFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         observeConnectivityStatus()
     }
 

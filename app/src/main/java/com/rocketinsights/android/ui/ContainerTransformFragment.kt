@@ -3,7 +3,6 @@ package com.rocketinsights.android.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
@@ -16,6 +15,7 @@ import com.rocketinsights.android.extensions.invisible
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.common.BaseFragment
 
 /**
  * Container transform fragment shows an example of container transform transition between two `View`s.
@@ -25,17 +25,15 @@ import com.rocketinsights.android.extensions.viewBinding
  *
  * There is also a container transform transition from previous fragment to this one.
  */
-class ContainerTransformFragment : Fragment(R.layout.fragment_container_transform) {
+class ContainerTransformFragment : BaseFragment(R.layout.fragment_container_transform) {
 
     private val binding by viewBinding(FragmentContainerTransformBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setScreenTransitions()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(binding.toolbar)
         setupControls()
     }
