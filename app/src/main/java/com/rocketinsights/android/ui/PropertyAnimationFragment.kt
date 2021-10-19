@@ -11,7 +11,6 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
@@ -22,6 +21,7 @@ import com.rocketinsights.android.extensions.fadeIn
 import com.rocketinsights.android.extensions.fadeOut
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.common.BaseFragment
 
 private const val FADE_IN_DURATION = 500L
 private const val FADE_OUT_DURATION = 500L
@@ -50,17 +50,15 @@ private const val TRANSLATION = 150F
  * `Lottie` is recommended to use for complex animations which are difficult to implement programmatically,
  * have to be scalable at runtime and look the same on multiple platforms (e.g. icon animations, rich graphical animations).
  */
-class PropertyAnimationFragment : Fragment(R.layout.fragment_property_animation) {
+class PropertyAnimationFragment : BaseFragment(R.layout.fragment_property_animation) {
 
     private val binding by viewBinding(FragmentPropertyAnimationBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setScreenTransitions()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(binding.toolbar)
         setupControls()
     }

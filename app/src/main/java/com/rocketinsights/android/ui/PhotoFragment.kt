@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentPhotoBinding
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.viewmodels.PhotoViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -18,23 +18,20 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
  * Photo fragment shows the photo taken by the camera app.
  * It's purpose is to show the result of TakePicture action started on the previous fragment.
  */
-class PhotoFragment : Fragment(R.layout.fragment_photo) {
+class PhotoFragment : BaseFragment(R.layout.fragment_photo) {
 
     private val binding by viewBinding(FragmentPhotoBinding::bind)
     private val photoViewModel: PhotoViewModel by sharedViewModel()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun doOnAttach(context: Context) {
         setupOnBackPressed()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setScreenTransitions()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         updateUI()
     }
 
