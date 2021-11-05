@@ -124,6 +124,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 showDslDialog()
                 true
             }
+            R.id.contacts_fragment -> {
+                setFadeThroughTransition()
+                item.onNavDestinationSelected(findNavController())
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -27,6 +27,9 @@
             android:id="@+id/player_fragment"
             android:title="@string/players" />
         <item
+            android:id="@+id/contacts_fragment"
+            android:title="@string/contacts" />
+        <item
             android:id="@+id/menu_login"
             android:title="@string/login" />
         <item
