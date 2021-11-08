@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.maps.android.ui.IconGenerator
 import com.rocketinsights.android.R
@@ -16,6 +15,7 @@ import com.rocketinsights.android.extensions.addMarker
 import com.rocketinsights.android.extensions.changeCameraPosition
 import com.rocketinsights.android.extensions.getAddress
 import com.rocketinsights.android.extensions.showToast
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.viewmodels.LocationResult
 import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
@@ -23,7 +23,7 @@ import org.koin.android.ext.android.get
 import org.koin.androidx.scope.scopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapsFragment : Fragment(R.layout.fragment_maps) {
+class MapsFragment : BaseFragment(R.layout.fragment_maps) {
     private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val locationViewModel: LocationViewModel by viewModel()
     private lateinit var parentScrollProvider: ParentScrollProvider
@@ -33,8 +33,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             // We don't need to do anything
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         parentScrollProvider = requireNotNull(scopeActivity).get()
     }
@@ -43,20 +42,17 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         menu.setGroupVisible(R.id.menu_items_group, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         initUI()
         setupObservers()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun doOnResume() {
         locationViewModel.retrieveCurrentLocation()
     }
 
-    override fun onDestroyView() {
+    override fun doOnDestroyView() {
         parentScrollProvider.enableTouchOnParentScrollContainer(false)
-        super.onDestroyView()
     }
 
     private fun getMapsFragment() =

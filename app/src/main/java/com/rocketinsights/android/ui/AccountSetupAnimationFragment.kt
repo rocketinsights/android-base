@@ -1,10 +1,10 @@
 package com.rocketinsights.android.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.rocketinsights.android.R
+import com.rocketinsights.android.ui.common.BaseFragment
 
 /**
  * A simple example of Lottie animation.
@@ -12,10 +12,9 @@ import com.rocketinsights.android.R
  * user's account is being set up on the backend.
  * It's also a destination of a container transformation (card view to fragment).
  */
-class AccountSetupAnimationFragment : Fragment(R.layout.fragment_account_setup_animation) {
+class AccountSetupAnimationFragment : BaseFragment(R.layout.fragment_account_setup_animation) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setScreenTransitions()
     }
 

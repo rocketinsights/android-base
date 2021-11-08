@@ -2,7 +2,6 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialElevationScale
@@ -10,22 +9,21 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentAnimationsBinding
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.common.BaseFragment
 
 /**
  * Animations fragment contains cards which can be used to launch different animations.
  * This screen also runs ConstraintSet animation on cards and subtitle by using MotionLayout.
  */
-class AnimationsFragment : Fragment(R.layout.fragment_animations) {
+class AnimationsFragment : BaseFragment(R.layout.fragment_animations) {
 
     private val binding by viewBinding(FragmentAnimationsBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setScreenTransitions()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupControls()
     }
 

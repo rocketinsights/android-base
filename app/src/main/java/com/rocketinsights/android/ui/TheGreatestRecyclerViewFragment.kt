@@ -2,7 +2,6 @@ package com.rocketinsights.android.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.rocketinsights.android.R
@@ -32,18 +31,18 @@ import com.rocketinsights.android.ui.animators.SlideInDownAnimator
 import com.rocketinsights.android.ui.animators.SlideInLeftAnimator
 import com.rocketinsights.android.ui.animators.SlideInRightAnimator
 import com.rocketinsights.android.ui.animators.SlideInUpAnimator
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.ui.components.SwipeToDeleteCallback
 import com.rocketinsights.android.viewmodels.TheGreatestRecyclerViewViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TheGreatestRecyclerViewFragment : Fragment(R.layout.fragment_the_greatest_recyclerview) {
+class TheGreatestRecyclerViewFragment : BaseFragment(R.layout.fragment_the_greatest_recyclerview) {
     private val binding by viewBinding(FragmentTheGreatestRecyclerviewBinding::bind)
     private val viewModel by viewModel<TheGreatestRecyclerViewViewModel>()
     private val theGreatestRecyclerViewAdapter get() =
         binding.theGreatestRecyclerView.adapter as TheGreatestRecyclerViewAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(binding.toolbar)
         setUpBindings()
         setupObservers()

@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -26,6 +25,7 @@ import com.rocketinsights.android.extensions.show
 import com.rocketinsights.android.extensions.showDialog
 import com.rocketinsights.android.extensions.showToast
 import com.rocketinsights.android.extensions.viewBinding
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.viewmodels.MainMessageState
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.PhotoViewModel
@@ -43,7 +43,7 @@ private const val ERROR_CREATING_IMAGE = "Error while creating temporary image f
  * It has a main menu which allows navigation to all other examples.
  * There is an example of fade through (Material motion), slide and grow (shared element) transitions.
  */
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private val mainViewModel: MainViewModel by viewModel()
     private val userViewModel: UserViewModel by sharedViewModel()
@@ -56,15 +56,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var photoMenuItem: MenuItem
     private lateinit var getCameraImage: ActivityResultLauncher<Uri>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun doOnCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         setScreenTransitions()
         registerTakePictureAction()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(binding.toolbar)
         setupControls()
         setupObservers()
