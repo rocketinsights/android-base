@@ -41,7 +41,6 @@ class ContactsViewModel : ViewModel() {
         return SELECTION_START +
             "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} NOTNULL" + AND +
             "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} != ''" + AND +
-            "${ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER} = true" + AND +
             "${ContactsContract.CommonDataKinds.Phone.MIMETYPE} = '${ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE}'" + AND +
             "${ContactsContract.CommonDataKinds.Phone.RAW_CONTACT_ID} = ${ContactsContract.CommonDataKinds.Phone.NAME_RAW_CONTACT_ID}" +
             SELECTION_END
