@@ -16,7 +16,7 @@ class ContactsViewModel : ViewModel() {
     private val _contactsLiveData: MutableLiveData<List<Contact>> by lazy {
         MutableLiveData<List<Contact>>()
     }
-    val contactsLiveData: LiveData<List<Contact>> = _contactsLiveData
+    val contactsLiveData: LiveData<List<Contact>> get() = _contactsLiveData
 
     fun getContentUri(): Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
 

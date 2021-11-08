@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="?android:attr/colorBackground"
     android:fitsSystemWindows="true"
-    tools:context=".ui.MessagesFragment">
+    tools:context=".ui.ContactsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -34,16 +34,11 @@
             android:id="@+id/recycler_view_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin" />
+            android:clipToPadding="false" />
 
-        <androidx.core.widget.ContentLoadingProgressBar
+        <include
             android:id="@+id/progress_bar_contacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            layout="@layout/layout_progress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

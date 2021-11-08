@@ -18,8 +18,8 @@ abstract class BaseBottomSheetFragment<B : ViewBinding> : BottomSheetDialogFragm
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     protected abstract fun getViewBinding(): B
