@@ -18,6 +18,17 @@ class ContactsViewModel : ViewModel() {
     }
     val contactsLiveData: LiveData<List<Contact>> get() = _contactsLiveData
 
+    companion object {
+        private const val CONTACTS_QUERY_ID = 0
+        private const val COLUMN_CONTACT_ID = 0
+        private const val COLUMN_CONTACT_NAME = 1
+        private const val COLUMN_PHONE_NUMBER = 2
+        private const val SORT_ORDER_BY_DISPLAY_NAME = "${ContactsContract.Contacts.DISPLAY_NAME} ASC"
+        private const val SELECTION_START = "(("
+        private const val SELECTION_END = "))"
+        private const val AND = ") AND ("
+    }
+
     fun getContentUri(): Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
 
     fun getProjection(): Array<out String> = arrayOf(
@@ -60,15 +71,4 @@ class ContactsViewModel : ViewModel() {
     }
 
     fun getContactsQueryId(): Int = CONTACTS_QUERY_ID
-
-    companion object {
-        private const val CONTACTS_QUERY_ID = 0
-        private const val COLUMN_CONTACT_ID = 0
-        private const val COLUMN_CONTACT_NAME = 1
-        private const val COLUMN_PHONE_NUMBER = 2
-        private const val SORT_ORDER_BY_DISPLAY_NAME = "${ContactsContract.Contacts.DISPLAY_NAME} ASC"
-        private const val SELECTION_START = "(("
-        private const val SELECTION_END = "))"
-        private const val AND = ") AND ("
-    }
 }

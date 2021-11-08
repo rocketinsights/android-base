@@ -9,6 +9,15 @@ import com.rocketinsights.android.ui.common.BaseBottomSheetFragment
 
 class ContactDetailBottomSheetFragment : BaseBottomSheetFragment<BottomSheetFragmentContactDetailBinding>() {
 
+    companion object {
+        fun newInstance(contact: Contact): ContactDetailBottomSheetFragment = ContactDetailBottomSheetFragment().apply {
+            arguments = bundleOf(Pair(CONTACT_DETAIL_ARGUMENT, contact))
+        }
+
+        const val CONTACT_DETAIL_BOTTOM_SHEET_FRAGMENT_TAG = "contact_detail_bottom_sheet_fragment_tag"
+        private const val CONTACT_DETAIL_ARGUMENT = "contact_detail_argument"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getContactArgument()?.let { contact -> showContactDetail(contact) }
@@ -22,14 +31,5 @@ class ContactDetailBottomSheetFragment : BaseBottomSheetFragment<BottomSheetFrag
     private fun showContactDetail(contact: Contact) = with(contact) {
         binding.textContactDetailName.text = name
         binding.textContactDetailPhone.text = phoneNumber
-    }
-
-    companion object {
-        fun newInstance(contact: Contact): ContactDetailBottomSheetFragment = ContactDetailBottomSheetFragment().apply {
-            arguments = bundleOf(Pair(CONTACT_DETAIL_ARGUMENT, contact))
-        }
-
-        const val CONTACT_DETAIL_BOTTOM_SHEET_FRAGMENT_TAG = "contact_detail_bottom_sheet_fragment_tag"
-        private const val CONTACT_DETAIL_ARGUMENT = "contact_detail_argument"
     }
 }
