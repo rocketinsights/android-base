@@ -36,7 +36,6 @@ import com.rocketinsights.android.ui.MainActivity
 import com.rocketinsights.android.ui.ParentScrollProvider
 import com.rocketinsights.android.viewmodels.CalendarViewModel
 import com.rocketinsights.android.viewmodels.ConnectivityViewModel
-import com.rocketinsights.android.viewmodels.ContactsViewModel
 import com.rocketinsights.android.viewmodels.LocationViewModel
 import com.rocketinsights.android.viewmodels.MainViewModel
 import com.rocketinsights.android.viewmodels.MessagesViewModel
@@ -154,7 +153,6 @@ private fun viewModelsModule() = module {
     viewModel { CalendarViewModel(get()) }
     viewModel { TheGreatestRecyclerViewViewModel() }
     viewModel { PlayerViewModel(get()) }
-    viewModel { ContactsViewModel() }
 }
 
 private fun viewInteractorsModule() = module {

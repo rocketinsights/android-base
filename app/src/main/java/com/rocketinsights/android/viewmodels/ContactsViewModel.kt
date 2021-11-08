@@ -5,17 +5,16 @@ import android.net.Uri
 import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.loader.content.Loader
 import com.rocketinsights.android.models.Contact
 import kotlinx.coroutines.launch
 
-class ContactsViewModel : ViewModel() {
+class ContactsViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private val _contactsLiveData: MutableLiveData<List<Contact>> by lazy {
-        MutableLiveData<List<Contact>>()
-    }
+    private val _contactsLiveData: MutableLiveData<List<Contact>> = savedStateHandle.getLiveData(KEY_CONTACTS)
     val contactsLiveData: LiveData<List<Contact>> get() = _contactsLiveData
 
     companion object {
@@ -27,6 +26,7 @@ class ContactsViewModel : ViewModel() {
         private const val SELECTION_START = "(("
         private const val SELECTION_END = "))"
         private const val AND = ") AND ("
+        private const val KEY_CONTACTS = "contacts"
     }
 
     fun getContentUri(): Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
@@ -62,7 +62,7 @@ class ContactsViewModel : ViewModel() {
         }
         data.close()
 
-        _contactsLiveData.value = contacts
+        saveContactsState(contacts)
     }
 
     fun onLoaderReset() {
@@ -70,4 +70,9 @@ class ContactsViewModel : ViewModel() {
     }
 
     fun getContactsQueryId(): Int = CONTACTS_QUERY_ID
+
+    private fun saveContactsState(contacts: List<Contact>) {
+        if (contacts.isNotEmpty())
+            savedStateHandle[KEY_CONTACTS] = contacts
+    }
 }

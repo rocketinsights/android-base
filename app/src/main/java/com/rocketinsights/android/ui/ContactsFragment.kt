@@ -4,6 +4,7 @@ import android.Manifest
 import android.database.Cursor
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -28,7 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ContactsFragment : BaseFragment(R.layout.fragment_contacts), LoaderManager.LoaderCallbacks<Cursor> {
 
     private val binding by viewBinding(FragmentContactsBinding::bind)
-    private val viewModel by viewModel<ContactsViewModel>()
+    private val viewModel by viewModels<ContactsViewModel>()
     private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val contactsAdapter = ContactsAdapter(::onContactClicked)
 
