@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import com.rocketinsights.android.databinding.BottomSheetFragmentContactDetailBinding
 import com.rocketinsights.android.models.Contact
-import com.rocketinsights.android.ui.base.BaseBottomSheetFragment
+import com.rocketinsights.android.ui.common.BaseBottomSheetFragment
 
 class ContactDetailBottomSheetFragment : BaseBottomSheetFragment<BottomSheetFragmentContactDetailBinding>() {
 

@@ -4,7 +4,6 @@ import android.Manifest
 import android.database.Cursor
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rocketinsights.android.R
 import com.rocketinsights.android.databinding.FragmentContactsBinding
+import com.rocketinsights.android.extensions.hide
 import com.rocketinsights.android.extensions.observeEvent
 import com.rocketinsights.android.extensions.setupActionBar
 import com.rocketinsights.android.extensions.showToast
@@ -19,20 +19,20 @@ import com.rocketinsights.android.extensions.viewBinding
 import com.rocketinsights.android.models.Contact
 import com.rocketinsights.android.ui.ContactDetailBottomSheetFragment.Companion.CONTACT_DETAIL_BOTTOM_SHEET_FRAGMENT_TAG
 import com.rocketinsights.android.ui.adapters.ContactsAdapter
+import com.rocketinsights.android.ui.common.BaseFragment
 import com.rocketinsights.android.viewmodels.ContactsViewModel
 import com.rocketinsights.android.viewmodels.PermissionsResult
 import com.rocketinsights.android.viewmodels.PermissionsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ContactsFragment : Fragment(R.layout.fragment_contacts), LoaderManager.LoaderCallbacks<Cursor> {
+class ContactsFragment : BaseFragment(R.layout.fragment_contacts), LoaderManager.LoaderCallbacks<Cursor> {
 
     private val binding by viewBinding(FragmentContactsBinding::bind)
     private val viewModel by viewModel<ContactsViewModel>()
     private val permissionsViewModel: PermissionsViewModel by viewModel()
     private val contactsAdapter = ContactsAdapter(::onContactClicked)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(binding.toolbar)
         requestContactsPermission()
         initContactList()
@@ -72,6 +72,7 @@ class ContactsFragment : Fragment(R.layout.fragment_contacts), LoaderManager.Loa
 
     private fun initObservers() {
         viewModel.contactsLiveData.observe(viewLifecycleOwner) { contacts ->
+            binding.progressBarContacts.hide()
             contactsAdapter.submitList(contacts)
         }
 

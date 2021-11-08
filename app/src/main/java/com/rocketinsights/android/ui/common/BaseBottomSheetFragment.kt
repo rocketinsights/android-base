@@ -1,4 +1,4 @@
-package com.rocketinsights.android.ui.base
+package com.rocketinsights.android.ui.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
