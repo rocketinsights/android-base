@@ -7,10 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 
-@KoinExperimentalAPI
 class RocketApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
