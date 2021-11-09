@@ -52,6 +52,9 @@
         <action
             android:id="@+id/show_player_fragment"
             app:destination="@id/player_fragment" />
+        <action
+            android:id="@+id/show_contacts_fragment"
+            app:destination="@id/contacts_fragment" />
     </fragment>
     <fragment
         android:id="@+id/account_setup_animation_fragment"
@@ -112,4 +115,9 @@
         android:id="@+id/player_fragment"
         android:name="com.rocketinsights.android.ui.PlayerFragment"
         android:label="@string/player" />
+    <fragment
+        android:id="@+id/contacts_fragment"
+        android:name="com.rocketinsights.android.ui.ContactsFragment"
+        android:label="@string/contacts_screen_title"
+        tools:layout="@layout/fragment_contacts" />
 </navigation>

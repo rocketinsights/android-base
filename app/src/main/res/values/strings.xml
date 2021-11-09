@@ -19,6 +19,7 @@
     <string name="property_animation_screen_title">Property Animation</string>
     <string name="container_transform_screen_title">Container Transform</string>
     <string name="the_greatest_recyclerview_screen_title">The Greatest RecyclerView</string>
+    <string name="contacts_screen_title">Contacts</string>
 
     <!--Permissions-->
     <string name="permissions_request">Request Permissions</string>
@@ -104,4 +105,8 @@
     <string name="position">Position</string>
     <string name="refresh">Refresh</string>
     <string name="error_get_player">Error occurred while retrieving player data.</string>
+
+    <!-- Contacts -->
+    <string name="contacts">Contacts</string>
+    <string name="contacts_permission_not_granted">Read contacts permission not granted</string>
 </resources>
