@@ -28,7 +28,7 @@ class MyAppNotificationsManager(
             context,
             System.currentTimeMillis().toInt(),
             notificationIntent,
-            0
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
