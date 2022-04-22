@@ -30,6 +30,9 @@
             android:id="@+id/contacts_fragment"
             android:title="@string/contacts" />
         <item
+            android:id="@+id/hilt_fragment"
+            android:title="@string/hilt" />
+        <item
             android:id="@+id/menu_login"
             android:title="@string/login" />
         <item
