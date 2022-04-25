@@ -1,7 +1,7 @@
 package com.rocketinsights.android.di.hilt
 
 import com.google.gson.GsonBuilder
-import com.rocketinsights.android.network.RecipeService
+import com.rocketinsights.android.network.hiltexample.RecipeService
 import com.rocketinsights.android.models.recipe_hilt.RecipeDtoMapper
 import dagger.Module
 import dagger.Provides
