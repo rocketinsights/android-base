@@ -1,8 +1,7 @@
 package com.rocketinsights.android.network.models.recipe_hilt
 
 class RecipeDtoMapper {
-
-     fun mapToDomainModel(model: RecipeDto): Recipe {
+    fun mapToDomainModel(model: RecipeDto): Recipe {
         return Recipe(
             id = model.pk,
             title = model.title,
@@ -16,7 +15,7 @@ class RecipeDtoMapper {
         )
     }
 
-    fun mapFromDomainModel(domainModel: Recipe): RecipeDto {
+    private fun mapFromDomainModel(domainModel: Recipe): RecipeDto {
         return RecipeDto(
             pk = domainModel.id,
             title = domainModel.title,
@@ -30,11 +29,8 @@ class RecipeDtoMapper {
         )
     }
 
-    fun toDomainList(initial: List<RecipeDto>): List<Recipe> {
-        return initial.map { mapToDomainModel(it) }
-    }
+    fun toDomainList(initial: List<RecipeDto>): List<Recipe> = initial.map { mapToDomainModel(it) }
 
-    fun fromDomainList(initial: List<Recipe>): List<RecipeDto>{
-        return initial.map { mapFromDomainModel(it) }
-    }
+    fun fromDomainList(initial: List<Recipe>): List<RecipeDto> =
+        initial.map { mapFromDomainModel(it) }
 }

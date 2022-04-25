@@ -1,6 +1,6 @@
 package com.rocketinsights.android.network.models.recipe_hilt
 
-data class Recipe (
+data class Recipe(
     val id: Int,
     val title: String,
     val publisher: String,
