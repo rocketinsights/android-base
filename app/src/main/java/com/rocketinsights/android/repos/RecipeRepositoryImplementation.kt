@@ -11,7 +11,4 @@ class RecipeRepositoryImplementation(
 
     override suspend fun search(token: String, page: Int, query: String): List<Recipe> =
         mapper.toDomainList(recipeService.searchRecipe(token = token, page = page, query = query).results)
-
-    override suspend fun get(token: String, id: Int): Recipe =
-        mapper.mapToDomainModel(recipeService.getRecipe(token = token, id))
 }
