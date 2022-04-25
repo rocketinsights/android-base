@@ -20,7 +20,6 @@
     <string name="container_transform_screen_title">Container Transform</string>
     <string name="the_greatest_recyclerview_screen_title">The Greatest RecyclerView</string>
     <string name="contacts_screen_title">Contacts</string>
-    <string name="hilt_screen_title">This is Hilt</string>
 
     <!--Permissions-->
     <string name="permissions_request">Request Permissions</string>
