@@ -14,7 +14,6 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Context): RocketApplication {
-        return app as RocketApplication
-    }
+    fun provideApplication(@ApplicationContext app: Context): RocketApplication =
+        app as RocketApplication
 }

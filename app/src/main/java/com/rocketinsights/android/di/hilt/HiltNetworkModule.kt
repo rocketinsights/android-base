@@ -18,9 +18,7 @@ object HiltNetworkModule {
 
     @Singleton
     @Provides
-    fun providesRecipeMapper(): RecipeDtoMapper {
-        return RecipeDtoMapper()
-    }
+    fun providesRecipeMapper(): RecipeDtoMapper = RecipeDtoMapper()
 
     @Singleton
     @Provides
@@ -35,7 +33,5 @@ object HiltNetworkModule {
     @Singleton
     @Provides
     @Named("auth_token")
-    fun provideAuthToken(): String {
-        return "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
-    }
+    fun provideAuthToken(): String = "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
 }

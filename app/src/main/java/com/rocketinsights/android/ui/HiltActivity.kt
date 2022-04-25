@@ -23,8 +23,9 @@ class HiltActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // TODO: Show data with JetpackCompose in next PR
         viewModel.liveRecipe.observe(this) { recipe ->
-            recipe[0].title
+            // do nothing for now
         }
     }
 }
