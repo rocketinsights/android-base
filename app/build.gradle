@@ -326,7 +326,3 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
 }
-
-kapt {
-    correctErrorTypes true
-}
