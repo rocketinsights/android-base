@@ -17,7 +17,7 @@ class HiltListViewModel
 constructor(
     private val repository: RecipeRepository,
     @Named("auth_token") private val token: String
-): ViewModel() {
+) : ViewModel() {
 
     private val recipes: MutableLiveData<List<Recipe>> = MutableLiveData()
     val liveRecipe: LiveData<List<Recipe>> = recipes
