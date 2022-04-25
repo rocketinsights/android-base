@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rocketinsights.android.network.models.recipe_hilt.Recipe
+import com.rocketinsights.android.models.recipe_hilt.Recipe
 import com.rocketinsights.android.repos.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

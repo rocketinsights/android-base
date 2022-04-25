@@ -1,8 +1,8 @@
 package com.rocketinsights.android.repos
 
 import com.rocketinsights.android.network.RecipeService
-import com.rocketinsights.android.network.models.recipe_hilt.Recipe
-import com.rocketinsights.android.network.models.recipe_hilt.RecipeDtoMapper
+import com.rocketinsights.android.models.recipe_hilt.Recipe
+import com.rocketinsights.android.models.recipe_hilt.RecipeDtoMapper
 
 class RecipeRepositoryImplementation(
     private val recipeService: RecipeService,

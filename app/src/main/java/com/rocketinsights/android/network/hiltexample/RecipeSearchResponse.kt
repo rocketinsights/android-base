@@ -1,6 +1,6 @@
 package com.rocketinsights.android.network.hiltexample
 
-import com.rocketinsights.android.network.models.recipe_hilt.RecipeDto
+import com.rocketinsights.android.models.recipe_hilt.RecipeDto
 
 data class RecipeSearchResponse(
     var count: Int,

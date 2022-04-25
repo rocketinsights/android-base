@@ -1,7 +1,7 @@
 package com.rocketinsights.android.network
 
 import com.rocketinsights.android.network.hiltexample.RecipeSearchResponse
-import com.rocketinsights.android.network.models.recipe_hilt.RecipeDto
+import com.rocketinsights.android.models.recipe_hilt.RecipeDto
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
