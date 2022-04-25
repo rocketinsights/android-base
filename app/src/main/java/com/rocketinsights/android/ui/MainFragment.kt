@@ -127,7 +127,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
             }
-            R.id.hilt_fragment -> {
+            R.id.hilt_activity -> {
                 setFadeThroughTransition()
                 Intent(this.context, HiltActivity::class.java).also { startActivity(it) }
                 true
