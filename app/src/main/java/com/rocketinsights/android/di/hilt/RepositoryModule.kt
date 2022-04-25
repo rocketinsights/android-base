@@ -1,7 +1,7 @@
 package com.rocketinsights.android.di.hilt
 
-import com.rocketinsights.android.network.hiltexample.RecipeService
 import com.rocketinsights.android.models.recipe_hilt.RecipeDtoMapper
+import com.rocketinsights.android.network.hiltexample.RecipeService
 import com.rocketinsights.android.repos.RecipeRepository
 import com.rocketinsights.android.repos.RecipeRepositoryImplementation
 import dagger.Module
