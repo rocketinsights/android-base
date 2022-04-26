@@ -42,19 +42,16 @@ object HiltNetworkModule {
         return okHttpClient
     }
 
-    private fun buildInterceptor(): Interceptor {
-        var interceptor = Interceptor { chain ->
-            var request = chain.request()
+    private fun buildInterceptor() = Interceptor { chain ->
+        var request = chain.request()
 
-            request = request.newBuilder()
-                .addHeader(
-                    "Authorization",
-                    "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
-                )
-                .build()
+        request = request.newBuilder()
+            .addHeader(
+                "Authorization",
+                "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
+            )
+            .build()
 
-            chain.proceed(request = request)
-        }
-        return interceptor
+        chain.proceed(request = request)
     }
 }
