@@ -9,14 +9,12 @@ import com.rocketinsights.android.repos.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class HiltListViewModel
 @Inject
 constructor(
-    private val repository: RecipeRepository,
-    @Named("auth_token") private val token: String
+    private val repository: RecipeRepository
 ) : ViewModel() {
 
     private val recipes: MutableLiveData<List<Recipe>> = MutableLiveData()
@@ -25,7 +23,6 @@ constructor(
     init {
         viewModelScope.launch {
             val result = repository.search(
-                token = token,
                 page = 1,
                 query = "beef carrot potato onion"
             )

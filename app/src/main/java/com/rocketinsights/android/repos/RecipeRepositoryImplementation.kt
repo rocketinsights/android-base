@@ -9,6 +9,6 @@ class RecipeRepositoryImplementation(
     private val mapper: RecipeDtoMapper,
 ) : RecipeRepository {
 
-    override suspend fun search(token: String, page: Int, query: String): List<Recipe> =
-        mapper.toDomainList(recipeService.searchRecipe(token = token, page = page, query = query).results)
+    override suspend fun search(page: Int, query: String): List<Recipe> =
+        mapper.toDomainList(recipeService.searchRecipe(page = page, query = query).results)
 }
