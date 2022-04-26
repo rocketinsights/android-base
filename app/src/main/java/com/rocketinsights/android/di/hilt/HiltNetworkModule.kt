@@ -13,7 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object HiltNetworkModule {
@@ -34,7 +33,6 @@ object HiltNetworkModule {
             .build()
             .create(RecipeService::class.java)
     }
-
 
     private fun buildClientHttp(): OkHttpClient? {
         okHttpClient = OkHttpClient.Builder()
@@ -60,4 +58,3 @@ object HiltNetworkModule {
         return interceptor
     }
 }
-
