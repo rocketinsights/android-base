@@ -40,7 +40,6 @@ class HiltActivity : AppCompatActivity() {
             val recipes = viewModel.recipes.value
             val searchQuery = viewModel.searchQuery.value
             val loading = viewModel.loading.value
-            
             val focusManager = LocalFocusManager.current
 
             Column() {
@@ -72,7 +71,6 @@ class HiltActivity : AppCompatActivity() {
                         }
                     )
                 )
-                
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
