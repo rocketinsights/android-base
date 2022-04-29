@@ -1,4 +1,4 @@
-package com.rocketinsights.android.di
+package com.rocketinsights.android.di.koin
 
 import android.app.Application
 import android.app.NotificationManager

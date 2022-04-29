@@ -14,6 +14,9 @@ apply from: 'jacoco.gradle'
 apply from: 'lint.gradle'
 apply from: 'build-scripts.gradle'
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 repositories {
     mavenCentral()
     maven { url 'https://maven.google.com' }
@@ -171,12 +174,15 @@ ext {
     lottie_version = "4.2.0"
     core_version = "1.6.0"
     desugar_jdk_version = "1.1.5"
+    hilt_version = "2.38.1"
+    glide_version = "4.13.0"
+    compose_ui_tool = "1.1.1"
+
     // Compose
-    activity_compose_version = "1.3.1"
+    activity_compose_version = '1.4.0'
     constraintlayout_compose_version = "1.0.0-rc01"
     viewmodel_compose_version = "1.0.0-alpha07"
 }
-
 jacoco {
     toolVersion = "0.8.7"
 }
@@ -207,6 +213,8 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Http Logging Interceptor
     implementation "com.squareup.okhttp3:okhttp:$ok_http_version"
@@ -291,6 +299,17 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodel_compose_version"
     implementation "com.google.android.material:compose-theme-adapter:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_tool"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_tool"
+
+
+    // Hilt: Official Google Dependency Injection Library
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Glide: Image loading framework
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     // Test
     // Unit testing framework

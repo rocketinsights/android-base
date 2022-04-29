@@ -1,14 +1,17 @@
 package com.rocketinsights.android
 
 import android.app.Application
-import com.rocketinsights.android.di.initKoin
+import androidx.viewbinding.BuildConfig
+import com.rocketinsights.android.di.koin.initKoin
 import com.rocketinsights.android.work.messages.MessagesUpdateScheduler
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
+@HiltAndroidApp
 class RocketApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)

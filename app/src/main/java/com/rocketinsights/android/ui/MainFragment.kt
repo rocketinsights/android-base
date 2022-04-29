@@ -1,5 +1,6 @@
 package com.rocketinsights.android.ui
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -125,6 +126,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             R.id.contacts_fragment -> {
                 setFadeThroughTransition()
                 item.onNavDestinationSelected(findNavController())
+            }
+            R.id.hilt_activity -> {
+                setFadeThroughTransition()
+                Intent(this.context, HiltActivity::class.java).also { startActivity(it) }
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

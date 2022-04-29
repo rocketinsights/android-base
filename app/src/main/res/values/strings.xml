@@ -109,4 +109,7 @@
     <!-- Contacts -->
     <string name="contacts">Contacts</string>
     <string name="contacts_permission_not_granted">Read contacts permission not granted</string>
+
+    <!-- Hilt -->
+    <string name="hilt">Hilt example</string>
 </resources>
