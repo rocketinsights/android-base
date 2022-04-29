@@ -1,7 +1,7 @@
 package com.rocketinsights.android.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocketinsights.android.models.recipe_hilt.Recipe
@@ -17,19 +17,36 @@ constructor(
     private val repository: RecipeRepository
 ) : ViewModel() {
 
-    private val recipes: MutableLiveData<List<Recipe>> = MutableLiveData()
-    val liveRecipe: LiveData<List<Recipe>> = recipes
+    val recipes: MutableState<List<Recipe>> = mutableStateOf(emptyList())
+    val searchQuery = mutableStateOf("")
+    val loading = mutableStateOf(false)
 
     init {
+        newSearch(searchQuery.value)
+    }
+
+    fun newSearch(searchQuery: String) {
         viewModelScope.launch {
+            loading.value = true
+            clearSearch()
+
             val result = repository.search(
                 page = 1,
-                query = "beef carrot potato onion"
+                query = searchQuery
             )
 
             result?.apply {
                 recipes.value = this
+                loading.value = false
             }
         }
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        this.searchQuery.value = query
+    }
+
+    private fun clearSearch() {
+        recipes.value = listOf()
     }
 }
