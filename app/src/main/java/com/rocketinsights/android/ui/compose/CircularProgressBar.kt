@@ -15,7 +15,7 @@ fun CircularProgressBar(
     isDisplayed: Boolean
 ) {
     if (isDisplayed) {
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp),

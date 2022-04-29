@@ -60,7 +60,8 @@ class HiltActivity : AppCompatActivity() {
                         imeAction = ImeAction.Search
                     ),
                     leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Search,
+                        Icon(
+                            imageVector = Icons.Filled.Search,
                             contentDescription = "icon"
                         )
                     },

@@ -18,20 +18,18 @@ fun loadPicture(
     url: String,
     @DrawableRes defaultImage: Int
 ): MutableState<Bitmap?> {
-    val bitmapState: MutableState<Bitmap?> =  mutableStateOf(null)
+    val bitmapState: MutableState<Bitmap?> = mutableStateOf(null)
 
     Glide.with(LocalContext.current)
         .asBitmap()
         .placeholder(defaultImage)
         .load(url)
-        .into(object : CustomTarget<Bitmap>(){
+        .into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 bitmapState.value = resource
             }
 
-            override fun onLoadCleared(placeholder: Drawable?) {
-
-            }
+            override fun onLoadCleared(placeholder: Drawable?) {}
         })
 
     return bitmapState
